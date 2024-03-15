@@ -37,7 +37,7 @@ public class Main {
 
                     bot.closeSQLConnection();
 
-                    logger.severe("Bot shutdown");
+                    logger.info("Bot shutdown");
                     return;
                 }
             }

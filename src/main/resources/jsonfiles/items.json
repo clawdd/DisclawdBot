@@ -2,10 +2,10 @@
   "items": [
     {
       "id": "0",
-      "name": "",
-      "description": "",
-      "drop_chance": "",
-      "xp_multiplier": ""
+      "name": "test name",
+      "description": "test description",
+      "drop_chance": "0.0",
+      "xp_multiplier": "0.0"
     }
   ]
 }

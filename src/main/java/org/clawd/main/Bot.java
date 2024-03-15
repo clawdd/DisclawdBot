@@ -69,7 +69,7 @@ public class Bot {
      */
     public void establishSQLConnection() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(Tokens.SQL_CLASS_NAME);
             connection = DriverManager.getConnection("jdbc:mysql://" + BotTokens.JDBC_URL, BotTokens.SQL_USERNAME, "");
 
             if (connection != null && !connection.isClosed())

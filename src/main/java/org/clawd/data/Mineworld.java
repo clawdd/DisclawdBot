@@ -1,25 +1,25 @@
 package org.clawd.data;
 
-import org.clawd.data.items.Item;
+import org.clawd.data.items.UtilItem;
 import org.clawd.data.mobs.Mob;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Mineworld {
 
-    private final ArrayList<Item> itemList;
-    private final ArrayList<Mob> mobList;
+    private final List<UtilItem> itemList;
+    private final List<Mob> mobList;
 
-    public Mineworld(ArrayList<Item> itemList, ArrayList<Mob> mobList) {
+    public Mineworld(List<UtilItem> itemList, List<Mob> mobList) {
         this.itemList = itemList;
         this.mobList = mobList;
     }
 
-    public ArrayList<Item> getItemList() {
+    public List<UtilItem> getItemList() {
         return itemList;
     }
 
-    public ArrayList<Mob> getMobList() {
+    public List<Mob> getMobList() {
         return mobList;
     }
 }

@@ -1,7 +1,7 @@
 package org.clawd.main;
 
 import net.dv8tion.jda.api.OnlineStatus;
-import org.clawd.tokens.Tokens;
+import org.clawd.tokens.Constants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class Main {
     public static Logger logger;
 
     public static void main(String[] args) {
-        logger = Logger.getLogger(Tokens.LOGGER_NAME);
+        logger = Logger.getLogger(Constants.LOGGER_NAME);
         Bot bot = Bot.getInstance();
         run(bot);
     }

@@ -1,5 +1,7 @@
 package org.clawd.data;
 
+import org.clawd.data.items.ItemType;
+
 public abstract class DataObject {
     private final int uniqueID;
     private final String name;
@@ -19,7 +21,7 @@ public abstract class DataObject {
         return name;
     }
 
-    public String getDesc() {
+    public String getDescription() {
         return desc;
     }
 }

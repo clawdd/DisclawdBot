@@ -2,10 +2,21 @@
   "items": [
     {
       "id": "0",
-      "name": "test name",
-      "description": "test description",
-      "drop_chance": "0.0",
-      "xp_multiplier": "0.0"
+      "name": "test utility item",
+      "description": "test utility description",
+      "item_type": "UTILITY",
+      "drop_chance": "0.1",
+      "xp_multiplier": "1.0",
+      "gold_multiplier": "1.0"
+    },
+    {
+      "id": "1",
+      "name": "test weapon item",
+      "description": "test utility description",
+      "item_type": "WEAPON",
+      "drop_chance": "0.1",
+      "xp_multiplier": "1.0",
+      "dmg_multiplier": "1.0"
     }
   ]
 }

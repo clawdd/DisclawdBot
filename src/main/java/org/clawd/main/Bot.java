@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.clawd.tokens.BotTokens;
-import org.clawd.tokens.Tokens;
+import org.clawd.tokens.Constants;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class Bot {
         try {
             String rootPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
 
-            String configPath = rootPath + Tokens.PROPERTIES_FILE_NAME;
+            String configPath = rootPath + Constants.PROPERTIES_FILE_NAME;
             botProps.load(new FileInputStream(configPath));
 
         } catch (NullPointerException | IOException ex) {
@@ -69,7 +69,7 @@ public class Bot {
      */
     public void establishSQLConnection() {
         try {
-            Class.forName(Tokens.SQL_CLASS_NAME);
+            Class.forName(Constants.SQL_CLASS_NAME);
             connection = DriverManager.getConnection("jdbc:mysql://" + BotTokens.JDBC_URL, BotTokens.SQL_USERNAME, "");
 
             if (connection != null && !connection.isClosed())

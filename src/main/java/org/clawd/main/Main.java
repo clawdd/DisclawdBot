@@ -1,22 +1,40 @@
 package org.clawd.main;
 
 import net.dv8tion.jda.api.OnlineStatus;
+import org.clawd.data.Mineworld;
+import org.clawd.data.items.Item;
+import org.clawd.parser.ItemParser;
+import org.clawd.parser.exceptions.FailedItemsParseException;
 import org.clawd.tokens.Constants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
 
     public static Logger logger;
+    public static Mineworld mineworld;
 
     public static void main(String[] args) {
         logger = Logger.getLogger(Constants.LOGGER_NAME);
-        Bot bot = Bot.getInstance();
-        run(bot);
+
+        try {
+            ItemParser itemParser = new ItemParser();
+            List<Item> itemList = itemParser.parseItems();
+
+            // 2nd argument is currently a placeholder
+            mineworld = new Mineworld(itemList, new ArrayList<>());
+
+            Bot bot = Bot.getInstance();
+            run(bot);
+        } catch (FailedItemsParseException ex) {
+            logger.severe(ex.getMessage());
+        }
     }
 
     /**

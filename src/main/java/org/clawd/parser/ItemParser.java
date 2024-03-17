@@ -42,6 +42,7 @@ public class ItemParser {
                     "- valid items = " + isItemListValid + "\n" +
                     "- is item list empty = " + isItemListEmpty);
 
+        Main.logger.info("Item parsing finished");
         return items;
     }
 
@@ -112,10 +113,11 @@ public class ItemParser {
     }
 
     /**
-     * Validates for some restrictions
+     * Validates all items for some restrictions make help of the
+     * isValidItem() method
      *
-     * @param items the list of Items that needs to be validated
-     * @return true or false, depending on validation
+     * @param items The list of Items that needs to be validated
+     * @return True or false, depending on validation
      */
     private boolean validateItems(List<Item> items) {
         if (items.isEmpty()) {
@@ -127,9 +129,17 @@ public class ItemParser {
                 return false;
             }
         }
+
+        Main.logger.info("Item validation finished");
         return true;
     }
 
+    /**
+     * Checks the validity of exactly one item
+     *
+     * @param item The item to be checked
+     * @return True of false, depending on the items validity
+     */
     private boolean isValidItem(Item item) {
         int uniqueID = item.getUniqueID();
         if (uniqueID < 0

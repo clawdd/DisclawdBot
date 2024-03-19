@@ -3,11 +3,11 @@ package org.clawd.data.mobs;
 import org.clawd.data.mobs.enums.MobSubType;
 import org.clawd.data.mobs.enums.MobType;
 
-public class HostileMob extends Mob {
+public class NormalMob extends Mob {
     private final double xpDrop;
     private final double goldDrop;
 
-    public HostileMob(
+    public NormalMob(
             int uniqueID,
             String name,
             String desc,

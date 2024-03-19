@@ -1,7 +1,6 @@
 import org.clawd.data.items.Item;
-import org.clawd.data.items.UtilItem;
 import org.clawd.parser.ItemParser;
-import org.clawd.parser.exceptions.FailedItemsParseException;
+import org.clawd.parser.exceptions.FailedDataParseException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class ParserTests {
 
             items = new ItemParser().parseItems();
 
-        } catch (FailedItemsParseException e) {
+        } catch (FailedDataParseException e) {
             e.printStackTrace();
         }
 

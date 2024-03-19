@@ -3,7 +3,7 @@ package org.clawd.data.mobs;
 import org.clawd.data.mobs.enums.MobSubType;
 import org.clawd.data.mobs.enums.MobType;
 
-public class BossMob extends HostileMob {
+public class BossMob extends NormalMob {
     private final boolean specialDrop;
     private final double health;
 
@@ -25,7 +25,7 @@ public class BossMob extends HostileMob {
         this.health = health;
     }
 
-    public boolean isSpecialDrop() {
+    public boolean getSpecialDrop() {
         return specialDrop;
     }
 

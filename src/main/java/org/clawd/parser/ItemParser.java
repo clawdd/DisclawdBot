@@ -5,7 +5,7 @@ import org.clawd.data.items.ItemType;
 import org.clawd.data.items.UtilItem;
 import org.clawd.data.items.WeaponItem;
 import org.clawd.main.Main;
-import org.clawd.parser.exceptions.FailedItemsParseException;
+import org.clawd.parser.exceptions.FailedDataParseException;
 import org.clawd.tokens.Constants;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,17 +19,17 @@ import java.util.List;
 
 public class ItemParser {
 
-    private final ObjectFactory objectFactory = new ObjectFactory();
+    private final Factory factory = new Factory();
     private final List<Integer> idList = new ArrayList<>();
 
     /**
      * Wrapper function to parse the Items out of a JSON file
      *
      * @return a list containing all items
-     * @throws FailedItemsParseException when parsing fails, either to invalid items or
+     * @throws FailedDataParseException when parsing fails, either to invalid items or
      *                                   empty item list
      */
-    public List<Item> parseItems() throws FailedItemsParseException {
+    public List<Item> parseItems() throws FailedDataParseException {
         List<Item> items = getItemsFromJSON();
 
         boolean isItemListValid = validateItems(items);
@@ -37,7 +37,7 @@ public class ItemParser {
         boolean isItemListEmpty = items.isEmpty();
 
         if (!isItemListValid || isItemListEmpty)
-            throw new FailedItemsParseException(
+            throw new FailedDataParseException(
                     "Could not parse items correctly:\n" +
                     "- valid items = " + isItemListValid + "\n" +
                     "- is item list empty = " + isItemListEmpty);
@@ -76,7 +76,7 @@ public class ItemParser {
 
                     double goldMultiplier = jsonItem.getDouble("gold_multiplier");
 
-                    Item item = objectFactory.createUtilityItem(
+                    Item item = factory.createUtilityItem(
                             itemID,
                             itemName,
                             itemDesc,
@@ -91,7 +91,7 @@ public class ItemParser {
                 } else {
                     double dmgMultiplier = jsonItem.getDouble("dmg_multiplier");
 
-                    Item item = objectFactory.createWeaponItem(
+                    Item item = factory.createWeaponItem(
                             itemID,
                             itemName,
                             itemDesc,
@@ -120,9 +120,8 @@ public class ItemParser {
      * @return True or false, depending on validation
      */
     private boolean validateItems(List<Item> items) {
-        if (items.isEmpty()) {
+        if (items.isEmpty())
             return false;
-        }
 
         for (Item item : items) {
             if (!isValidItem(item)) {
@@ -143,16 +142,19 @@ public class ItemParser {
     private boolean isValidItem(Item item) {
         int uniqueID = item.getUniqueID();
         if (uniqueID < 0
-                || item.getDropChance() < Constants.DROP_CHANCE_LOWER_B
-                || item.getDropChance() > Constants.DROP_CHANCE_UPPER_B
+                || item.getDropChance() < Constants.ITEM_DROP_CHANCE_LOWER_B
+                || item.getDropChance() > Constants.ITEM_DROP_CHANCE_UPPER_B
                 || item.getXpMultiplier() < Constants.XP_MULTIPLIER_LOWER_B
                 || checkIsIDUnique(uniqueID)) {
             return false;
         }
 
-        if (item instanceof UtilItem utilItem) {
+        if (item.getItemType().equals(ItemType.UTILITY)) {
+            UtilItem utilItem = (UtilItem) item;
             return utilItem.getGoldMultiplier() >= Constants.GOLD_MULTIPLIER_LOWER_B;
-        } else if (item instanceof WeaponItem weaponItem) {
+
+        } else if (item.getItemType().equals(ItemType.WEAPON)) {
+            WeaponItem weaponItem = (WeaponItem) item;
             return weaponItem.getDmgMultiplier() >= Constants.DMG_MULTIPLIER_LOWER_B;
         }
 

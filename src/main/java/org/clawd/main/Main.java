@@ -3,14 +3,15 @@ package org.clawd.main;
 import net.dv8tion.jda.api.OnlineStatus;
 import org.clawd.data.Mineworld;
 import org.clawd.data.items.Item;
+import org.clawd.data.mobs.Mob;
 import org.clawd.parser.ItemParser;
-import org.clawd.parser.exceptions.FailedItemsParseException;
+import org.clawd.parser.MobParser;
+import org.clawd.parser.exceptions.FailedDataParseException;
 import org.clawd.tokens.Constants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,12 +28,15 @@ public class Main {
             ItemParser itemParser = new ItemParser();
             List<Item> itemList = itemParser.parseItems();
 
+            MobParser mobParser = new MobParser();
+            List<Mob> mobList = mobParser.parseMobs();
+
             // 2nd argument is currently a placeholder
-            mineworld = new Mineworld(itemList, new ArrayList<>());
+            mineworld = new Mineworld(itemList, mobList);
 
             Bot bot = Bot.getInstance();
             run(bot);
-        } catch (FailedItemsParseException ex) {
+        } catch (FailedDataParseException ex) {
             logger.severe(ex.getMessage());
         }
     }
@@ -44,7 +48,7 @@ public class Main {
      * @param bot Bot instance
      */
     private static void run(Bot bot) {
-        String line = "";
+        String line;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         try {

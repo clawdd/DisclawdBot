@@ -3,8 +3,8 @@ package org.clawd.parser.exceptions;
 /**
  * Custom exception that can be thrown by the Item parser
  */
-public class FailedItemsParseException extends Exception{
-    public FailedItemsParseException(String errorMsg) {
+public class FailedDataParseException extends Exception{
+    public FailedDataParseException(String errorMsg) {
         super(errorMsg);
     }
 }

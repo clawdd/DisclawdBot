@@ -179,9 +179,8 @@ public class MobParser {
             return false;
 
         for (Mob mob: mobs) {
-            if (!isValidMob(mob)) {
+            if (!isValidMob(mob))
                 return false;
-            }
         }
 
         Main.logger.info("Mob validation finished");

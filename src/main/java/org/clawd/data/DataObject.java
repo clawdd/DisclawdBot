@@ -1,7 +1,5 @@
 package org.clawd.data;
 
-import org.clawd.data.items.ItemType;
-
 public abstract class DataObject {
     private final int uniqueID;
     private final String name;

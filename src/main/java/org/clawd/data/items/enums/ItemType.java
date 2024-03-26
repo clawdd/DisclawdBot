@@ -1,4 +1,4 @@
-package org.clawd.data.items;
+package org.clawd.data.items.enums;
 
 public enum ItemType {
     UTILITY,

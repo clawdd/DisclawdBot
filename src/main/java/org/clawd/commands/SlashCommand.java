@@ -2,7 +2,7 @@ package org.clawd.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
-public interface CommandObject {
+public interface SlashCommand {
 
     /**
      * Function get overridden by concrete slash command

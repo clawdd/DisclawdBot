@@ -32,4 +32,20 @@ public final class Constants {
     public static final double MOB_SPAWN_CHANCE_UPPER_B = 1;
     public static final double XP_DROP_AMOUNT_LOWER_B = 1;
     public static final double GOLD_DROP_AMOUNT_LOWER_B = 1;
+
+    /*
+     * Biom HP
+     */
+
+    public static final double BIOM_COAL_HP = 50.0;
+    public static final double BIOM_IRON_HP = 100.0;
+    public static final double BIOM_DIAMOND_HP = 150.0;
+
+    /*
+     * Ore image path's
+     */
+
+    public static final String BIOME_COAL_IMG_PATH = "src/main/resources/images/biome/coal.png";
+    public static final String BIOME_IRON_IMG_PATH = "src/main/resources/images/biome/iron.png";
+    public static final String BIOME_DIAMOND_IMG_PATH = "src/main/resources/images/biome/diamond.png";
 }

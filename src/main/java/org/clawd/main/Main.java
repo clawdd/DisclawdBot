@@ -53,7 +53,11 @@ public class Main {
 
         try {
             while ((line = reader.readLine()) != null) {
-                if (line.equalsIgnoreCase("--exit")) {
+                if (line.equalsIgnoreCase("--rec sql")) {
+
+                    bot.establishSQLConnection();
+
+                } else if (line.equalsIgnoreCase("--exit")) {
                     bot.getJda().getPresence().setStatus(OnlineStatus.OFFLINE);
                     bot.getJda().shutdown();
 

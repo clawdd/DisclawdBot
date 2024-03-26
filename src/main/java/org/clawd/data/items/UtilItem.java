@@ -1,6 +1,6 @@
 package org.clawd.data.items;
 
-import org.clawd.data.DataObject;
+import org.clawd.data.items.enums.ItemType;
 
 public class UtilItem extends Item {
     private final double goldMultiplier;

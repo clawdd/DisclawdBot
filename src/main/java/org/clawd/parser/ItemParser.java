@@ -1,7 +1,7 @@
 package org.clawd.parser;
 
 import org.clawd.data.items.Item;
-import org.clawd.data.items.ItemType;
+import org.clawd.data.items.enums.ItemType;
 import org.clawd.data.items.UtilItem;
 import org.clawd.data.items.WeaponItem;
 import org.clawd.main.Main;
@@ -124,9 +124,8 @@ public class ItemParser {
             return false;
 
         for (Item item : items) {
-            if (!isValidItem(item)) {
+            if (!isValidItem(item))
                 return false;
-            }
         }
 
         Main.logger.info("Item validation finished");

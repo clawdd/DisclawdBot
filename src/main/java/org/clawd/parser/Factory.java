@@ -2,7 +2,7 @@ package org.clawd.parser;
 
 import org.clawd.data.items.Item;
 import org.clawd.data.items.UtilItem;
-import org.clawd.data.items.ItemType;
+import org.clawd.data.items.enums.ItemType;
 import org.clawd.data.items.WeaponItem;
 import org.clawd.data.mobs.BossMob;
 import org.clawd.data.mobs.NormalMob;

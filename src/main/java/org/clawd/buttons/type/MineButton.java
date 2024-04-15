@@ -10,13 +10,13 @@ public class MineButton implements Button {
     public void executeButton(ButtonInteractionEvent event) {
         String userID = event.getUser().getId();
 
-        if (!Main.sqlHandler.isPlayerRegistered(userID)) {
-            Main.sqlHandler.registerPlayer(userID);
+        if (!Main.sqlHandler.isUserRegistered(userID)) {
+            Main.sqlHandler.registerUser(userID);
             SQLEmbeddedHandler handler = new SQLEmbeddedHandler();
             handler.replyToNewRegisteredUser(event);
         } else {
             // TODO
-            event.reply("Not implemented yet.").setEphemeral(true).queue();
+            Main.mineworld.updateBiome(event);
             Main.logger.info("Executed 'mine' button");
         }
     }

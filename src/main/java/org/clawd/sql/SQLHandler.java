@@ -18,7 +18,7 @@ public class SQLHandler {
      * @param userID The user ID
      * @return True or false, depending on if the user ID was found or not.
      */
-    public boolean isPlayerRegistered(String userID) {
+    public boolean isUserRegistered(String userID) {
         boolean registered = false;
         try {
             Connection connection = Bot.getInstance().getSQLConnection();
@@ -43,7 +43,7 @@ public class SQLHandler {
      *
      * @param userID The user ID
      */
-    public void registerPlayer (String userID) {
+    public void registerUser(String userID) {
         try {
             Connection connection = Bot.getInstance().getSQLConnection();
             String sqlQuery = "INSERT INTO playertable (" +
@@ -65,7 +65,7 @@ public class SQLHandler {
             preparedStatement.setInt(4, 0); // Default goldCount
             preparedStatement.setInt(5, 0); // Default mobKills
             preparedStatement.setInt(6, 0); // Default bossKills
-            preparedStatement.setInt(7, 0); // Default equipedItemID
+            preparedStatement.setInt(7, -1); // Default equipedItemID
             preparedStatement.setString(8, ""); // Default inventory state
 
             int rowsAffected = preparedStatement.executeUpdate();

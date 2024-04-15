@@ -37,9 +37,10 @@ public final class Constants {
      * Biom HP
      */
 
-    public static final double BIOM_COAL_HP = 50.0;
-    public static final double BIOM_IRON_HP = 100.0;
-    public static final double BIOM_DIAMOND_HP = 150.0;
+    // Adjusted for testing
+    public static final double BIOM_COAL_HP = 10.0;
+    public static final double BIOM_IRON_HP = 10.0;
+    public static final double BIOM_DIAMOND_HP = 10.0;
 
     /*
      * Ore image path's
@@ -60,4 +61,10 @@ public final class Constants {
      */
 
     public static final String MINE_BUTTON_ID = "mine";
+
+    /*
+     * Base stat constants
+     */
+
+    public static final double BASE_DAMAGE = 1.0;
 }

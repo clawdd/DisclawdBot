@@ -2,7 +2,9 @@ package org.clawd.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.clawd.commands.type.BiomeCommand;
 import org.clawd.main.Main;
+import org.clawd.tokens.Constants;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -13,6 +15,8 @@ public class CommandManager extends ListenerAdapter {
 
     public CommandManager() {
         this.commands = new HashMap<>();
+
+        this.commands.put(Constants.BIOME_COMMAND_ID, new BiomeCommand());
     }
 
     /**

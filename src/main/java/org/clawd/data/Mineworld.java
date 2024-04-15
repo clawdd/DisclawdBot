@@ -1,10 +1,16 @@
 package org.clawd.data;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.utils.FileUpload;
 import org.clawd.data.items.Item;
 import org.clawd.data.mobs.Mob;
 import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
 
+import java.awt.*;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,6 +57,33 @@ public class Mineworld {
         Main.logger.info("The starting biom is: " + returnBiom);
 
         return returnBiom;
+    }
+
+    /**
+     * This method replies to the '/biome' command, by building an embedded message
+     * with all necessary information and buttons
+     *
+     * @param event Event
+     */
+    public void replyWithBiomeEmbedded(SlashCommandInteractionEvent event) {
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        try {
+            File imgFile = new File(biomeToImgPath.get(currentBiome));
+
+            embedBuilder.setTitle(currentBiome.name());
+            embedBuilder.setColor(Color.BLACK);
+            embedBuilder.addField("Biome HP", currentBiomeHP + "/" + biomeToHP.get(currentBiome), false);
+            embedBuilder.setImage("attachment://ore.png");
+
+            event.replyEmbeds(embedBuilder.build())
+                    .addFiles(FileUpload.fromData(imgFile, "ore.png"))
+                    .addActionRow(
+                            Button.primary(Constants.MINE_BUTTON_ID, "Mine")
+                    ).queue();
+
+        } catch (NullPointerException ex) {
+            Main.logger.severe("Could not load image file: " + ex.getMessage());
+        }
     }
 
     private Double getCurrentBiomeHP() {

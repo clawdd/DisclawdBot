@@ -4,6 +4,8 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.clawd.buttons.ButtonManager;
+import org.clawd.commands.CommandManager;
 import org.clawd.tokens.BotTokens;
 import org.clawd.tokens.Constants;
 
@@ -30,6 +32,9 @@ public class Bot {
         jda = JDABuilder.create(BotTokens.BOT_TOKEN, GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)).build();
         jda.getPresence().setActivity(Activity.customStatus("The cake is a lie! " + botProperties.get("version")));
 
+        addListeners();
+        upsertCommands();
+
         Main.logger.info("Bot finished loading");
     }
 
@@ -50,7 +55,7 @@ public class Bot {
      *
      * @return Properties object
      */
-    public Properties loadProperties() {
+    private Properties loadProperties() {
         Properties botProps = new Properties();
         try {
             String rootPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
@@ -93,6 +98,21 @@ public class Bot {
         } catch (SQLException ex) {
             Main.logger.severe("Could not close SQL connection" + ex.getMessage());
         }
+    }
+
+    private void addListeners() {
+        jda.addEventListener(new CommandManager());
+        jda.addEventListener(new ButtonManager());
+
+        Main.logger.info("Added listeners");
+    }
+
+    private void upsertCommands() {
+        jda.upsertCommand(Constants.BIOME_COMMAND_ID, "What do I have to mine?")
+                .setGuildOnly(true)
+                .queue();
+
+        Main.logger.info("Added commands");
     }
 
     public Connection getSQLConnection() {

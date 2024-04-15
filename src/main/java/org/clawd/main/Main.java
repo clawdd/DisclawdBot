@@ -7,6 +7,7 @@ import org.clawd.data.mobs.Mob;
 import org.clawd.parser.ItemParser;
 import org.clawd.parser.MobParser;
 import org.clawd.parser.exceptions.FailedDataParseException;
+import org.clawd.sql.SQLHandler;
 import org.clawd.tokens.Constants;
 
 import java.io.BufferedReader;
@@ -19,10 +20,12 @@ import java.util.logging.Logger;
 public class Main {
 
     public static Logger logger;
+    public static SQLHandler sqlHandler;
     public static Mineworld mineworld;
 
     public static void main(String[] args) {
         logger = Logger.getLogger(Constants.LOGGER_NAME);
+        sqlHandler = new SQLHandler();
 
         try {
             ItemParser itemParser = new ItemParser();

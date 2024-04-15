@@ -48,4 +48,16 @@ public final class Constants {
     public static final String BIOME_COAL_IMG_PATH = "src/main/resources/images/biome/coal.png";
     public static final String BIOME_IRON_IMG_PATH = "src/main/resources/images/biome/iron.png";
     public static final String BIOME_DIAMOND_IMG_PATH = "src/main/resources/images/biome/diamond.png";
+
+    /*
+     * Command Id's
+     */
+
+    public static final String BIOME_COMMAND_ID = "biome";
+
+    /*
+     * Button Id's
+     */
+
+    public static final String MINE_BUTTON_ID = "mine";
 }

@@ -2,6 +2,7 @@ package org.clawd.sql;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 import java.awt.*;
@@ -26,6 +27,22 @@ public class SQLEmbeddedHandler {
                 "Hi, **" + userName + "** welcome to 'Disclawd'. You're first interaction " +
                 "registered you're user ID in the database ( with some other default values c: ). "+
                 "Continue with the /help command to learn more! :sloth:", false);
+
+        event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
+    }
+
+    public void replyToNewRegisteredUser(SlashCommandInteractionEvent event) {
+        String userName = event.getUser().getName();
+
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+
+        embedBuilder.setTitle("**New user registered!**");
+        embedBuilder.setColor(Color.GREEN);
+        embedBuilder.addField(
+                "",
+                "Hi, **" + userName + "** welcome to 'Disclawd'. You're first interaction " +
+                        "registered you're user ID in the database ( with some other default values c: ). "+
+                        "Continue with the /help command to learn more! :sloth:", false);
 
         event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
     }

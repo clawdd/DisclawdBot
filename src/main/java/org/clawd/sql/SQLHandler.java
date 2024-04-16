@@ -53,10 +53,8 @@ public class SQLHandler {
                     " goldCount," +
                     " mobKills," +
                     " bossKills," +
-                    " equipedItemID," +
-                    " inventory" +
-                    ") " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    " equipedItemID) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
             preparedStatement.setString(1, userID); // UserID
@@ -66,7 +64,6 @@ public class SQLHandler {
             preparedStatement.setInt(5, 0); // Default mobKills
             preparedStatement.setInt(6, 0); // Default bossKills
             preparedStatement.setInt(7, -1); // Default equipedItemID
-            preparedStatement.setString(8, ""); // Default inventory state
 
             int rowsAffected = preparedStatement.executeUpdate();
 

@@ -104,7 +104,7 @@ public class Mineworld {
 
             embedBuilder.setTitle(currentBiome.name());
             embedBuilder.setColor(Color.BLACK);
-            embedBuilder.addField("Biome HP", currentBiomeHP + "/" + biomeToHP.get(currentBiome), false);
+            embedBuilder.addField("Biome HP", this.currentBiomeHP + "/" + biomeToHP.get(this.currentBiome), false);
             embedBuilder.setImage("attachment://ore.png");
 
             event.replyEmbeds(embedBuilder.build())
@@ -148,7 +148,7 @@ public class Mineworld {
         damageBiome(userID);
 
         if (this.currentBiomeHP <= 0) {
-            this.currentBiome = this.generateBiome();
+            this.currentBiome = generateBiome();
             updateBiomeOnCompletion(event);
             return;
         }
@@ -164,7 +164,7 @@ public class Mineworld {
         EmbedBuilder embedBuilder = new EmbedBuilder();
 
         embedBuilder.setTitle(currentBiome.name());
-        embedBuilder.addField("Biome HP", currentBiomeHP + "/" + biomeToHP.get(currentBiome), false);
+        embedBuilder.addField("Biome HP", this.currentBiomeHP + "/" + biomeToHP.get(this.currentBiome), false);
         embedBuilder.setImage("attachment://ore.png");
 
         event.editMessageEmbeds(embedBuilder.build()).queue();
@@ -212,7 +212,7 @@ public class Mineworld {
     }
 
     private String getCurrentBiomeImgPath() {
-        return biomeToImgPath.get(currentBiome);
+        return biomeToImgPath.get(this.currentBiome);
     }
 
     public List<Item> getItemList() {

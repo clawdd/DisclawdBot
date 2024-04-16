@@ -55,6 +55,7 @@ public final class Constants {
      */
 
     public static final String BIOME_COMMAND_ID = "biome";
+    public static final String STATS_COMMAND_ID = "stats";
 
     /*
      * Button Id's
@@ -67,4 +68,10 @@ public final class Constants {
      */
 
     public static final double BASE_DAMAGE = 1.0;
+
+    /*
+     * Others
+     */
+
+    public static final int NO_ITEM_ID = -1;
 }

@@ -1,10 +1,13 @@
 package org.clawd.data;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.utils.FileUpload;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.WeaponItem;
 import org.clawd.data.items.enums.ItemType;
@@ -55,7 +58,7 @@ public class Mineworld {
     private Biome generateBiome() {
         List<Biome> biomeList = List.of(Biome.values());
         int size = biomeList.size();
-        int selector = (int) (Math.random() * (size - 1));
+        int selector = (int) (Math.random() * (size));
 
         Biome returnBiome = biomeList.get(selector);
         Main.logger.info("The current biome is: " + returnBiome);
@@ -104,7 +107,7 @@ public class Mineworld {
 
             embedBuilder.setTitle(currentBiome.name());
             embedBuilder.setColor(Color.BLACK);
-            embedBuilder.addField("Biome HP", this.currentBiomeHP + "/" + biomeToHP.get(this.currentBiome), false);
+            embedBuilder.addField("Biome HP", this.currentBiomeHP + "/" + biomeToHP.get(this.currentBiome), false);;
             embedBuilder.setImage("attachment://ore.png");
 
             event.replyEmbeds(embedBuilder.build())
@@ -161,14 +164,21 @@ public class Mineworld {
      * @param event Event
      */
     private void updateBiomeMsg(ButtonInteractionEvent event) {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
+        try {
+            File imgFile = new File(biomeToImgPath.get(currentBiome));
 
-        embedBuilder.setTitle(currentBiome.name());
-        embedBuilder.addField("Biome HP", this.currentBiomeHP + "/" + biomeToHP.get(this.currentBiome), false);
-        embedBuilder.setImage("attachment://ore.png");
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.setTitle(currentBiome.name());
+            embedBuilder.addField("Biome HP", this.currentBiomeHP + "/" + biomeToHP.get(this.currentBiome), false);
+            embedBuilder.setImage("attachment://ore.png");
 
-        event.editMessageEmbeds(embedBuilder.build()).queue();
-        Main.logger.info("Updated biome state.");
+            event.editMessageEmbeds(embedBuilder.build())
+                    .setFiles(FileUpload.fromData(imgFile, "ore.png"))
+                    .queue();
+            Main.logger.info("Updated biome state.");
+        } catch (NullPointerException ex) {
+            Main.logger.severe("Could not load image file: " + ex.getMessage());
+        }
     }
 
     /**

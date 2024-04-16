@@ -129,4 +129,27 @@ public class SQLStatsHandler {
         }
         return bossKills;
     }
+
+    public void incrementMineCount(String userID) {
+        int currentCount = this.getMinedCountFromUser(userID);
+        try {
+            Connection connection = Bot.getInstance().getSQLConnection();
+            String sqlQuery = "UPDATE playertable SET minedCount = ? WHERE userID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            int newCount = currentCount + 1;
+            preparedStatement.setInt(1, newCount);
+            preparedStatement.setString(2, userID);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                Main.logger.info("Updated mine count for user: " + userID + ". New mineCount: " + newCount);
+            } else {
+                Main.logger.warning("Failed to update mine count for user " + userID);
+            }
+        } catch (SQLException ex) {
+            Main.logger.severe("Some SQL error occurred: " + ex.getMessage());
+        }
+    }
 }

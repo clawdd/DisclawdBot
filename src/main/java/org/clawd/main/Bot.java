@@ -114,7 +114,6 @@ public class Bot {
         jda.upsertCommand(Constants.STATS_COMMAND_ID, "Show me what i achieved!")
                 .setGuildOnly(true)
                 .queue();
-
         Main.logger.info("Added commands");
     }
 

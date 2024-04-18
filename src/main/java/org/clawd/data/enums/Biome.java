@@ -1,4 +1,4 @@
-package org.clawd.data;
+package org.clawd.data.enums;
 
 public enum Biome {
     COAL,

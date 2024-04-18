@@ -1,13 +1,11 @@
 package org.clawd.data;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
-import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.utils.FileUpload;
-import net.dv8tion.jda.api.utils.data.DataObject;
+import org.clawd.data.enums.Biome;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.WeaponItem;
 import org.clawd.data.items.enums.ItemType;
@@ -231,5 +229,9 @@ public class Mineworld {
 
     public List<Mob> getMobList() {
         return this.mobList;
+    }
+
+    public Biome getCurrentBiome() {
+        return this.currentBiome;
     }
 }

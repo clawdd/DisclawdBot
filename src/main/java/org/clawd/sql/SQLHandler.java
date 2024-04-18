@@ -59,7 +59,7 @@ public class SQLHandler {
 
             preparedStatement.setString(1, userID); // UserID
             preparedStatement.setInt(2, 0); // Default minedCount
-            preparedStatement.setInt(3, 0); // Default xpCount
+            preparedStatement.setDouble(3, 0d); // Default xpCount
             preparedStatement.setInt(4, 0); // Default goldCount
             preparedStatement.setInt(5, 0); // Default mobKills
             preparedStatement.setInt(6, 0); // Default bossKills

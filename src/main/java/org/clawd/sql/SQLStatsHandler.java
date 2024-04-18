@@ -1,5 +1,6 @@
 package org.clawd.sql;
 
+import org.clawd.data.Generator;
 import org.clawd.main.Bot;
 import org.clawd.main.Main;
 
@@ -51,7 +52,10 @@ public class SQLStatsHandler {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                xpCount = resultSet.getDouble("xpCount");
+                double retrievedXP = resultSet.getDouble("xpCount");
+                // Call to transformDouble() to hopefully fix 'precision issue' where doubles have to
+                // many decimal places
+                xpCount = new Generator().transformDouble(retrievedXP);
                 Main.logger.info("Retrieved the total XP amount: " + xpCount + ". From user:"+ userID);
             }
 
@@ -61,8 +65,8 @@ public class SQLStatsHandler {
         return xpCount;
     }
 
-    public double getGoldCountFromUser(String userID) {
-        double goldCount = 0.0;
+    public int getGoldCountFromUser(String userID) {
+        int goldCount = 0;
         try {
             Connection connection = Bot.getInstance().getSQLConnection();
             String sqlQuery = "SELECT goldCount FROM playertable WHERE userID = ?";
@@ -72,7 +76,7 @@ public class SQLStatsHandler {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                goldCount = resultSet.getDouble("goldCount");
+                goldCount = resultSet.getInt("goldCount");
                 Main.logger.info("Retrieved the total gold amount: " + goldCount + ". From user:"+ userID);
             }
 
@@ -144,12 +148,40 @@ public class SQLStatsHandler {
             int rowsUpdated = preparedStatement.executeUpdate();
 
             if (rowsUpdated > 0) {
-                Main.logger.info("Updated mine count for user: " + userID + ". New mineCount: " + newCount);
+                Main.logger.info("Updated mine count for user: " + userID + ". New mine count: " + newCount);
             } else {
                 Main.logger.warning("Failed to update mine count for user " + userID);
             }
         } catch (SQLException ex) {
             Main.logger.severe("Some SQL error occurred: " + ex.getMessage());
+        }
+    }
+
+    public void incrementXPAmount(String userID, double xp) {
+        if (xp == 0)
+            return;
+
+        double currentXP = this.getXPCountFromUser(userID);
+        try {
+            Connection connection = Bot.getInstance().getSQLConnection();
+            String sqlQuery = "UPDATE playertable SET xpCount = ? WHERE userID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            // Again call to transformDouble() to fix 'precision' issue
+            double newCount = new Generator().transformDouble(currentXP + xp);
+
+            preparedStatement.setDouble(1, newCount);
+            preparedStatement.setString(2, userID);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                Main.logger.info("Updated XP count for user: " + userID + ". New XP count: " + newCount);
+            } else {
+                Main.logger.warning("Failed to update XP count for user " + userID);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

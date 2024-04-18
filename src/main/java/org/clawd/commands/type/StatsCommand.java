@@ -25,7 +25,7 @@ public class StatsCommand implements SlashCommand {
             int mobKills = sqlStatsHandler.getMobKillsFromUser(userID);
             int bossKills = sqlStatsHandler.getBossKillsFromUser(userID);
             double xpCount = sqlStatsHandler.getXPCountFromUser(userID);
-            double goldCount = sqlStatsHandler.getGoldCountFromUser(userID);
+            int goldCount = sqlStatsHandler.getGoldCountFromUser(userID);
 
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("Your stats");
@@ -33,9 +33,9 @@ public class StatsCommand implements SlashCommand {
 
             embedBuilder.addField("**Times Mined** :pick:", String.valueOf(minedCount), false);
             embedBuilder.addField("**Mob Kills** :skull:", String.valueOf(mobKills), false);
-            embedBuilder.addField("**Boss Kills** :skull_crossbones:", String.valueOf(bossKills), false);
-            embedBuilder.addField("**XP Amount** :sparkles:", String.valueOf(xpCount), false);
-            embedBuilder.addField("**Gold Amount** :coin:", String.valueOf(goldCount), false);
+            embedBuilder.addField("**Bosses slain** :skull_crossbones:", String.valueOf(bossKills), false);
+            embedBuilder.addField("**XP** :sparkles:", String.valueOf(xpCount), false);
+            embedBuilder.addField("**Gold coins** :coin:", String.valueOf(goldCount), false);
 
             event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
         }

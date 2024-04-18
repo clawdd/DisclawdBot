@@ -2,6 +2,7 @@ package org.clawd.main;
 
 import net.dv8tion.jda.api.OnlineStatus;
 import org.clawd.data.Mineworld;
+import org.clawd.data.enums.Biome;
 import org.clawd.data.items.Item;
 import org.clawd.data.mobs.Mob;
 import org.clawd.parser.ItemParser;

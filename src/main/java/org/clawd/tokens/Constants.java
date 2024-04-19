@@ -65,6 +65,7 @@ public final class Constants {
     public static final String MINE_BUTTON_ID = "mine";
     public static final String NEXT_BUTTON_ID = "next";
     public static final String BACK_BUTTON_ID = "back";
+    public static final String CLOSE_BUTTON_ID = "close";
 
     /*
      * Base stat constants

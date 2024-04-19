@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.clawd.buttons.type.MineButton;
 import org.clawd.buttons.type.ShopBackButton;
+import org.clawd.buttons.type.ShopCloseButton;
 import org.clawd.buttons.type.ShopNextButton;
 import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
@@ -21,6 +22,7 @@ public class ButtonManager extends ListenerAdapter {
         this.buttons.put(Constants.MINE_BUTTON_ID, new MineButton());
         this.buttons.put(Constants.NEXT_BUTTON_ID, new ShopNextButton());
         this.buttons.put(Constants.BACK_BUTTON_ID, new ShopBackButton());
+        this.buttons.put(Constants.CLOSE_BUTTON_ID, new ShopCloseButton());
     }
 
     /**

@@ -4,6 +4,9 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionHook;
+import net.dv8tion.jda.api.interactions.components.ActionRow;
+import net.dv8tion.jda.api.interactions.components.LayoutComponent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.UtilItem;
@@ -13,6 +16,7 @@ import org.clawd.tokens.Constants;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -89,7 +93,9 @@ public class Shop {
 
         event.replyEmbeds(embedBuilder.build())
                 .addActionRow(
-                        Button.success(Constants.NEXT_BUTTON_ID, Emoji.fromUnicode("U+1F449"))
+                        Button.secondary(Constants.BACK_BUTTON_ID, Emoji.fromUnicode("U+25C0")).asDisabled(),
+                        Button.secondary(Constants.CLOSE_BUTTON_ID, Emoji.fromUnicode("U+274C")).asDisabled(),
+                        Button.secondary(Constants.NEXT_BUTTON_ID, Emoji.fromUnicode("U+25B6"))
                 )
                 .setEphemeral(true)
                 .queue();
@@ -97,8 +103,6 @@ public class Shop {
     }
 
     public void replyToNextShopPage(ButtonInteractionEvent event, boolean back) {
-        event.getMessage().delete().queue();
-
         String footer = Objects.requireNonNull(event.getMessage().getEmbeds().getFirst().getFooter()).getText();
         String[] parts = footer.split("/");
         int currentPage = Integer.parseInt(parts[0].substring(6).strip());
@@ -113,35 +117,35 @@ public class Shop {
         currentPage = Math.max(1, Math.min(currentPage, this.shopPagesCount)) - 1;
 
         EmbedBuilder embedBuilder = pages.get(currentPage);
-        Button newBackButton = Button.success(Constants.BACK_BUTTON_ID, Emoji.fromUnicode("\uD83D\uDC48"));
-        Button newNextButton = Button.success(Constants.NEXT_BUTTON_ID, Emoji.fromUnicode("\uD83D\uDC49"));
+
+        Button nextButton = Button.secondary(Constants.NEXT_BUTTON_ID, Emoji.fromUnicode("U+25B6"));
+        Button closeButton = Button.secondary(Constants.CLOSE_BUTTON_ID, Emoji.fromUnicode("U+274C"));
+        Button backButton = Button.secondary(Constants.BACK_BUTTON_ID, Emoji.fromUnicode("U+25C0"));
 
         if (currentPage > 0 && currentPage < this.shopPagesCount - 1) {
 
-            event.replyEmbeds(embedBuilder.build())
-                    .addActionRow(
-                            newBackButton,
-                            newNextButton
-                    )
-                    .setEphemeral(true)
-                    .queue();
+            nextButton = nextButton.asEnabled();
+            closeButton = closeButton.asDisabled();
+            backButton = backButton.asEnabled();
 
-
+            InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
+            hook.editOriginalComponents(ActionRow.of(backButton,closeButton, nextButton)).queue();
         } else if (currentPage == 0) {
-            event.replyEmbeds(embedBuilder.build())
-                    .addActionRow(
-                            newNextButton
-                    )
-                    .setEphemeral(true)
-                    .queue();
 
+            nextButton = nextButton.asEnabled();
+            closeButton = closeButton.asDisabled();
+            backButton = backButton.asDisabled();
+
+            InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
+            hook.editOriginalComponents(ActionRow.of(backButton,closeButton, nextButton)).queue();
         } else if (currentPage == this.shopPagesCount - 1) {
-            event.replyEmbeds(embedBuilder.build())
-                    .addActionRow(
-                            newBackButton
-                    )
-                    .setEphemeral(true)
-                    .queue();
+
+            nextButton = nextButton.asDisabled();
+            closeButton = closeButton.asDisabled();
+            backButton = backButton.asEnabled();
+
+            InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
+            hook.editOriginalComponents(ActionRow.of(backButton,closeButton, nextButton)).queue();
         }
     }
 

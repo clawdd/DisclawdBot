@@ -32,10 +32,15 @@ public class Shop {
         this.itemList = itemList;
         this.weaponItemList = populateWeaponList();
         this.utilItemList = populateUtilList();
-        this.shopPagesCount = (int) Math.ceil((double) itemList.size() / 6);
+        this.shopPagesCount = (int) Math.ceil((double) itemList.size() / Constants.ITEMS_PER_SHOP_PAGE);
         this.pages = createPages();
     }
 
+    /**
+     * Creates a list of embedded builders which do represent the single shop pages
+     *
+     * @return A list of all "pages"
+     */
     private List<EmbedBuilder> createPages() {
         List<EmbedBuilder> embedBuilders = new ArrayList<>();
 
@@ -45,8 +50,8 @@ public class Shop {
             embedBuilder.setColor(Color.ORANGE);
             embedBuilder.setFooter("Page: " + (i + 1) + "/" + shopPagesCount);
 
-            int startIndex = i * 6;
-            int endIndex = Math.min(startIndex + 6, this.itemList.size());
+            int startIndex = i * Constants.ITEMS_PER_SHOP_PAGE;
+            int endIndex = Math.min(startIndex + Constants.ITEMS_PER_SHOP_PAGE, this.itemList.size());
 
             for (int j = startIndex; j < endIndex; j++) {
                 Item item = itemList.get(j);
@@ -102,6 +107,14 @@ public class Shop {
 
     }
 
+    /**
+     * Replies if either the next page or back page button was pressed by a user. Retrieves the current page from the
+     * page footer. Then calculates the next page and selects it. Generates correct buttons in each case and updates message
+     * with new embed and buttons.
+     *
+     * @param event The event
+     * @param back True if back button else false
+     */
     public void replyToNextShopPage(ButtonInteractionEvent event, boolean back) {
         String footer = Objects.requireNonNull(event.getMessage().getEmbeds().getFirst().getFooter()).getText();
         String[] parts = footer.split("/");

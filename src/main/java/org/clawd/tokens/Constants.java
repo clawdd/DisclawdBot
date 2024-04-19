@@ -78,4 +78,6 @@ public final class Constants {
      */
 
     public static final int NO_ITEM_ID = -1;
+
+    public static final int ITEMS_PER_SHOP_PAGE = 3;
 }

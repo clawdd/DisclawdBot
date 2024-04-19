@@ -18,15 +18,16 @@ public class MineButton implements Button {
             sqlEmbeddedHandler.replyToNewRegisteredUser(event);
         } else {
             // TODO
-
             Generator generator = new Generator();
             double generatedXP = generator.generateXP();
+            int generatedGold = generator.generateGold();
 
             Main.mineworld.updateBiome(event);
 
             SQLStatsHandler sqlStatsHandler = new SQLStatsHandler();
             sqlStatsHandler.incrementMineCount(userID);
-            sqlStatsHandler.incrementXPAmount(userID, generatedXP);
+            sqlStatsHandler.incrementXPCount(userID, generatedXP);
+            sqlStatsHandler.incrementGoldCount(userID, generatedGold);
 
             Main.logger.info("Executed 'mine' button");
         }

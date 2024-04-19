@@ -21,11 +21,21 @@ public class Generator {
         if (!xpBiomes.contains(biome))
             return 0d;
 
-        double generatedXP = (double) (Math.random() * 5) + 1;
+        double generatedXP = (Math.random() * 5) + 1;
         double transformedXP = transformDouble(generatedXP);
-        System.out.println(transformedXP);
         Main.logger.info("Generated XP: " + transformedXP);
         return transformedXP;
+    }
+
+    /**
+     * Used to generate gold
+     *
+     * @return Gold as int
+     */
+    public int generateGold() {
+        int generatedGold = (int) (Math.random() * 3) + 1;
+        Main.logger.info("Generated gold: " + generatedGold);
+        return generatedGold;
     }
 
     /**

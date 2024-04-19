@@ -21,6 +21,7 @@ import java.util.List;
 
 public class Mineworld {
 
+    public final Shop shop;
     private final List<Item> itemList;
     private final List<Mob> mobList;
     private final HashMap<Biome, Double> biomeToHP;
@@ -31,6 +32,8 @@ public class Mineworld {
     public Mineworld(List<Item> itemList, List<Mob> mobList) {
         this.itemList = itemList;
         this.mobList = mobList;
+
+        this.shop = new Shop(itemList);
 
         this.biomeToHP = new HashMap<>();
 

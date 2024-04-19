@@ -1,7 +1,7 @@
 {
   "mobs": [
     {
-      "id": "0",
+      "id": "1",
       "name": "test mob",
       "description": "test mob description",
       "mob_type": "NORMAL",
@@ -12,7 +12,7 @@
       "gold_drop_amount": "1.0"
     },
     {
-      "id": "1",
+      "id": "2",
       "name": "test boss mob",
       "description": "test boss mob description",
       "mob_type": "BOSS",
@@ -25,7 +25,7 @@
       "health_amount": "1000"
     },
     {
-      "id": "2",
+      "id": "3",
       "name": "test trader",
       "description": "test trader description",
       "mob_type": "TRADER",

@@ -157,7 +157,7 @@ public class SQLStatsHandler {
         }
     }
 
-    public void incrementXPAmount(String userID, double xp) {
+    public void incrementXPCount(String userID, double xp) {
         if (xp == 0)
             return;
 
@@ -167,7 +167,8 @@ public class SQLStatsHandler {
             String sqlQuery = "UPDATE playertable SET xpCount = ? WHERE userID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
-            // Again call to transformDouble() to fix 'precision' issue
+            // Again call to transformDouble() to fix 'precision' issue, before updating the XP count
+            // in the database
             double newCount = new Generator().transformDouble(currentXP + xp);
 
             preparedStatement.setDouble(1, newCount);
@@ -179,6 +180,30 @@ public class SQLStatsHandler {
                 Main.logger.info("Updated XP count for user: " + userID + ". New XP count: " + newCount);
             } else {
                 Main.logger.warning("Failed to update XP count for user " + userID);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void incrementGoldCount(String userID, int gold) {
+        int currentGold = this.getGoldCountFromUser(userID);
+        try {
+            Connection connection = Bot.getInstance().getSQLConnection();
+            String sqlQuery = "UPDATE playertable SET goldCount = ? WHERE userID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            int newCount = currentGold + gold;
+
+            preparedStatement.setInt(1, newCount);
+            preparedStatement.setString(2, userID);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                Main.logger.info("Updated gold count for user: " + userID + ". New gold count: " + newCount);
+            } else {
+                Main.logger.warning("Failed to update gold count for user " + userID);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

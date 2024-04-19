@@ -56,12 +56,15 @@ public final class Constants {
 
     public static final String BIOME_COMMAND_ID = "biome";
     public static final String STATS_COMMAND_ID = "stats";
+    public static final String SHOP_COMMAND_ID = "shop";
 
     /*
      * Button Id's
      */
 
     public static final String MINE_BUTTON_ID = "mine";
+    public static final String NEXT_BUTTON_ID = "next";
+    public static final String BACK_BUTTON_ID = "back";
 
     /*
      * Base stat constants

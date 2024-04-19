@@ -114,6 +114,9 @@ public class Bot {
         jda.upsertCommand(Constants.STATS_COMMAND_ID, "Show me what i achieved!")
                 .setGuildOnly(true)
                 .queue();
+        jda.upsertCommand(Constants.SHOP_COMMAND_ID, "I dont have the coins for this :c")
+                .setGuildOnly(true)
+                .queue();
         Main.logger.info("Added commands");
     }
 

@@ -8,15 +8,15 @@ public class UtilItem extends Item {
     public UtilItem(
             int uniqueID,
             String name,
-            int price,
             String desc,
+            String itemEmoji,
             int reqLvl,
             ItemType itemType,
             double dropChance,
             double xpMultiplier,
             double goldMultiplier
     ) {
-        super(uniqueID, name, price, desc, reqLvl, itemType, dropChance, xpMultiplier);
+        super(uniqueID, name, desc, itemEmoji, reqLvl, itemType, dropChance, xpMultiplier);
         this.goldMultiplier = goldMultiplier;
         calculatePrice();
     }

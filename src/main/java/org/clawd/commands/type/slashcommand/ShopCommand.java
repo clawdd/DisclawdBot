@@ -1,8 +1,6 @@
-package org.clawd.commands.type;
+package org.clawd.commands.type.slashcommand;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import org.clawd.commands.SlashCommand;
-import org.clawd.data.Mineworld;
 import org.clawd.main.Main;
 
 public class ShopCommand implements SlashCommand {

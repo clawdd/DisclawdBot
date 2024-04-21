@@ -5,6 +5,7 @@ import org.clawd.data.items.enums.ItemType;
 
 public abstract class Item extends DataObject {
 
+    private String emoji;
     protected int price;
     private final double dropChance;
     private final double xpMultiplier;
@@ -14,15 +15,16 @@ public abstract class Item extends DataObject {
     public Item(
             int uniqueID,
             String name,
-            int price,
             String desc,
+            String emoji,
             int reqLvl,
             ItemType itemType,
             double dropChance,
             double xpMultiplier
     ) {
         super(uniqueID, name, desc);
-        this.price = price;
+        this.emoji = emoji;
+        this.price = 0;
         this.dropChance = dropChance;
         this.xpMultiplier = xpMultiplier;
         this.reqLvl = reqLvl;
@@ -68,6 +70,10 @@ public abstract class Item extends DataObject {
 
     public ItemType getItemType() {
         return itemType;
+    }
+
+    public String getEmoji() {
+        return  emoji;
     }
 
     public int getReqLvl() {

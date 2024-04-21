@@ -3,6 +3,7 @@ package org.clawd.main;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.clawd.buttons.ButtonManager;
 import org.clawd.commands.CommandManager;
@@ -114,7 +115,11 @@ public class Bot {
         jda.upsertCommand(Constants.STATS_COMMAND_ID, "Show me what i achieved!")
                 .setGuildOnly(true)
                 .queue();
-        jda.upsertCommand(Constants.SHOP_COMMAND_ID, "I dont have the coins for this :c")
+        jda.upsertCommand(Constants.SHOP_COMMAND_ID, "List me everything you have")
+                .setGuildOnly(true)
+                .queue();
+        jda.upsertCommand(Constants.ITEM_COMMAND_ID, "This one looks interesting")
+                .addOption(OptionType.STRING, Constants.ITEM_COMMAND_OPTION_ID, "Yes exactly this one!", true, false)
                 .setGuildOnly(true)
                 .queue();
         Main.logger.info("Added commands");

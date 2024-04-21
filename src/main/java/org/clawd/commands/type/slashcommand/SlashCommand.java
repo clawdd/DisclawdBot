@@ -1,4 +1,4 @@
-package org.clawd.commands;
+package org.clawd.commands.type.slashcommand;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 

@@ -8,7 +8,7 @@ public class WeaponItem extends Item {
     public WeaponItem(
             int uniqueID,
             String name,
-            int price,
+            String emoji,
             String desc,
             int reqLvl,
             ItemType itemType,
@@ -16,7 +16,7 @@ public class WeaponItem extends Item {
             double xpMultiplier,
             double dmgMultiplier
     ) {
-        super(uniqueID, name, price, desc, reqLvl, itemType, dropChance, xpMultiplier);
+        super(uniqueID, name, desc, emoji, reqLvl, itemType, dropChance, xpMultiplier);
         this.dmgMultiplier = dmgMultiplier;
         this.price = calculatePrice(xpMultiplier, dmgMultiplier);
     }

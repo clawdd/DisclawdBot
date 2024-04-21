@@ -66,7 +66,7 @@ public class ItemParser {
 
                 int itemID = jsonItem.getInt("id");
                 String itemName = jsonItem.getString("name");
-                int itemPrice = jsonItem.getInt("price");
+                String itemEmoji = jsonItem.getString("emoji");
                 String itemDesc = jsonItem.getString("description");
                 int reqLvl = jsonItem.getInt("reqLvl");
                 ItemType itemType = ItemType.valueOf(jsonItem.getString("item_type"));
@@ -81,8 +81,8 @@ public class ItemParser {
                     Item item = factory.createUtilityItem(
                             itemID,
                             itemName,
-                            itemPrice,
                             itemDesc,
+                            itemEmoji,
                             reqLvl,
                             itemType,
                             dropChance,
@@ -98,8 +98,8 @@ public class ItemParser {
                     Item item = factory.createWeaponItem(
                             itemID,
                             itemName,
-                            itemPrice,
                             itemDesc,
+                            itemEmoji,
                             reqLvl,
                             itemType,
                             dropChance,

@@ -1,9 +1,12 @@
 package org.clawd.sql;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.clawd.data.Generator;
 import org.clawd.main.Bot;
 import org.clawd.main.Main;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -208,5 +211,28 @@ public class SQLStatsHandler {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    //TODO comment
+    public void replyToUserLevelUp(
+            double userCurrentXP,
+            double userUpdatedXP,
+            ButtonInteractionEvent event
+    ) {
+        Generator generator = new Generator();
+        int userCurrentLvl = generator.computeLevel(userCurrentXP);
+        int userUpdatedLvl = generator.computeLevel(userUpdatedXP);
+
+        if (userUpdatedLvl > userCurrentLvl) {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.setTitle(":mushroom: Level UP! :mushroom:");
+            embedBuilder.setColor(Color.GREEN);
+            embedBuilder.addField(
+                    "You reached level " + userUpdatedLvl,
+                    ":black_small_square: With **" + userUpdatedXP + "** XP",
+                    false
+            );
+            event.getHook().sendMessageEmbeds(embedBuilder.build()).setEphemeral(true).queue();
+        };
     }
 }

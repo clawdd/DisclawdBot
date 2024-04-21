@@ -2,9 +2,9 @@
   "items": [
     {
       "id": "1",
-      "name": ":gem: Magic Gemstone :gem:",
-      "price": "300",
-      "description": "A just a funky stone tbh :/",
+      "name": "Magic Gemstone",
+      "emoji": ":gem:",
+      "description": "Just a funky stone tbh :/",
       "reqLvl": "0",
       "item_type": "UTILITY",
       "drop_chance": "0",
@@ -13,8 +13,8 @@
     },
     {
       "id": "2",
-      "name": ":dagger: Bloodstained Dagger :dagger:",
-      "price": "300",
+      "name": "Bloodstained Dagger",
+      "emoji": ":dagger:",
       "description": "Wielded by a tarnished.",
       "reqLvl": "0",
       "item_type": "WEAPON",
@@ -24,8 +24,8 @@
     },
     {
       "id": "3",
-      "name": ":scales: Balanced Knife :scales:",
-      "price": "1000",
+      "name": "Balanced Knife",
+      "emoji": ":scales:",
       "description": "Perfectly balanced, as all things should be.",
       "reqLvl": "3",
       "item_type": "UTILITY",

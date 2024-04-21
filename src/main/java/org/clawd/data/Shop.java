@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
-import net.dv8tion.jda.api.interactions.components.LayoutComponent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.UtilItem;
@@ -15,7 +14,6 @@ import org.clawd.data.items.enums.ItemType;
 import org.clawd.tokens.Constants;
 
 import java.awt.*;
-import java.text.NumberFormat;
 import java.util.*;
 import java.util.List;
 
@@ -47,6 +45,7 @@ public class Shop {
         for (int i = 0; i < this.shopPagesCount; i++) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle(":label: Shop");
+            embedBuilder.setDescription(">>> Remember, use '/item' to inspect and buy!");
             embedBuilder.setColor(Color.ORANGE);
             embedBuilder.setFooter("Page: " + (i + 1) + "/" + shopPagesCount);
 
@@ -73,7 +72,7 @@ public class Shop {
                 }
 
                 embedBuilder.addField(
-                        itemName,
+                        item.getEmoji() + itemName + item.getEmoji(),
                                 ":black_small_square: XP boost: " + itemXPMult + "\n"
                                         + alternativeTxt + alternativePerk + "\n"
                                         + ":black_small_square: Price: " + itemPrice + " Coins" + "\n" //nf.format(itemPrice)

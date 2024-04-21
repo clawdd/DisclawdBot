@@ -57,6 +57,8 @@ public final class Constants {
     public static final String BIOME_COMMAND_ID = "biome";
     public static final String STATS_COMMAND_ID = "stats";
     public static final String SHOP_COMMAND_ID = "shop";
+    public static final String ITEM_COMMAND_ID = "item";
+    public static final String ITEM_COMMAND_OPTION_ID = "name";
 
     /*
      * Button Id's
@@ -66,6 +68,7 @@ public final class Constants {
     public static final String NEXT_BUTTON_ID = "next";
     public static final String BACK_BUTTON_ID = "back";
     public static final String CLOSE_BUTTON_ID = "close";
+    public static final String BUY_BUTTON_ID = "buy";
 
     /*
      * Base stat constants

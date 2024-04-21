@@ -42,7 +42,7 @@ public class Shop {
      */
     private List<EmbedBuilder> createPages() {
         List<EmbedBuilder> embedBuilders = new ArrayList<>();
-        NumberFormat nf = NumberFormat.getCompactNumberInstance(Locale.US, NumberFormat.Style.SHORT);
+        // NumberFormat nf = NumberFormat.getCompactNumberInstance(Locale.US, NumberFormat.Style.SHORT);
 
         for (int i = 0; i < this.shopPagesCount; i++) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -76,7 +76,7 @@ public class Shop {
                         itemName,
                                 ":black_small_square: XP boost: " + itemXPMult + "\n"
                                         + alternativeTxt + alternativePerk + "\n"
-                                        + ":black_small_square: Price: " + nf.format(itemPrice) + " Coins" + "\n"
+                                        + ":black_small_square: Price: " + itemPrice + " Coins" + "\n" //nf.format(itemPrice)
                                         + ":black_small_square: Required lvl. " + item.getReqLvl(),
                         true);
             }

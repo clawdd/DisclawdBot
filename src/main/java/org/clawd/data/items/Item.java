@@ -5,10 +5,10 @@ import org.clawd.data.items.enums.ItemType;
 
 public abstract class Item extends DataObject {
 
-    private final int price;
+    protected int price;
     private final double dropChance;
     private final double xpMultiplier;
-    private final int reqLvl;
+    protected final int reqLvl;
     private final ItemType itemType;
 
     public Item(
@@ -31,6 +31,31 @@ public abstract class Item extends DataObject {
 
     public int getPrice(){
         return price;
+    }
+
+    /**
+     *
+     *
+     * @param perkOne The first perk of an item
+     * @param perkTwo The second perk of an item
+     *
+     * @return The price following a formula:
+     *             - ((perkOne * 10) mod 10) * 300 + ((perkTwo * 10) mod 10) * 300 + (lvlReq/0.2)^2
+     */
+    protected int calculatePrice (double perkOne, double perkTwo) {
+        double xpMultDif = (perkOne * 10) % 10;
+        double goldMultDif = (perkTwo * 10) % 10;
+
+        int firstPerkGoldIncrease = (int) xpMultDif * 300;
+        int scdPerkGoldIncrease = (int) goldMultDif * 300;
+
+        int additionalIncrease = 0;
+        if (firstPerkGoldIncrease > 0 && scdPerkGoldIncrease > 0)
+            additionalIncrease = 200;
+
+        int formulaResult = (int) ((this.reqLvl / 0.2)  * (this.reqLvl / 0.2));
+
+        return firstPerkGoldIncrease + scdPerkGoldIncrease + additionalIncrease + formulaResult;
     }
 
     public double getDropChance() {

@@ -3,7 +3,7 @@
     {
       "id": "1",
       "name": ":gem: Magic Gemstone :gem:",
-      "price": "500",
+      "price": "300",
       "description": "A just a funky stone tbh :/",
       "reqLvl": "0",
       "item_type": "UTILITY",
@@ -14,7 +14,7 @@
     {
       "id": "2",
       "name": ":dagger: Bloodstained Dagger :dagger:",
-      "price": "500",
+      "price": "300",
       "description": "Wielded by a tarnished.",
       "reqLvl": "0",
       "item_type": "WEAPON",
@@ -27,7 +27,7 @@
       "name": ":scales: Balanced Knife :scales:",
       "price": "1000",
       "description": "Perfectly balanced, as all things should be.",
-      "reqLvl": "0",
+      "reqLvl": "3",
       "item_type": "UTILITY",
       "drop_chance": "0",
       "xp_multiplier": "1.1",

@@ -18,6 +18,7 @@ public class WeaponItem extends Item {
     ) {
         super(uniqueID, name, price, desc, reqLvl, itemType, dropChance, xpMultiplier);
         this.dmgMultiplier = dmgMultiplier;
+        this.price = calculatePrice(xpMultiplier, dmgMultiplier);
     }
 
     public double getDmgMultiplier() {

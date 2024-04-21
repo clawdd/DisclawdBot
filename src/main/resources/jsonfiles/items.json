@@ -2,147 +2,36 @@
   "items": [
     {
       "id": "1",
-      "name": "test utility item",
-      "description": "test utility description",
+      "name": ":gem: Magic Gemstone :gem:",
+      "price": "500",
+      "description": "A just a funky stone tbh :/",
+      "reqLvl": "0",
       "item_type": "UTILITY",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
+      "drop_chance": "0",
+      "xp_multiplier": "1.1",
       "gold_multiplier": "1.0"
     },
     {
       "id": "2",
-      "name": "test weapon item",
-      "description": "test utility description",
+      "name": ":dagger: Bloodstained Dagger :dagger:",
+      "price": "500",
+      "description": "Wielded by a tarnished.",
+      "reqLvl": "0",
       "item_type": "WEAPON",
-      "drop_chance": "0.1",
+      "drop_chance": "0",
       "xp_multiplier": "1.0",
-      "dmg_multiplier": "1.0"
+      "dmg_multiplier": "1.1"
     },
     {
       "id": "3",
-      "name": "test utility item",
-      "description": "test utility description",
+      "name": ":scales: Balanced Knife :scales:",
+      "price": "1000",
+      "description": "Perfectly balanced, as all things should be.",
+      "reqLvl": "0",
       "item_type": "UTILITY",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "gold_multiplier": "1.0"
-    },
-    {
-      "id": "4",
-      "name": "test weapon item",
-      "description": "test utility description",
-      "item_type": "WEAPON",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "dmg_multiplier": "1.0"
-    },
-    {
-      "id": "5",
-      "name": "test utility item",
-      "description": "test utility description",
-      "item_type": "UTILITY",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "gold_multiplier": "1.0"
-    },
-    {
-      "id": "6",
-      "name": "test weapon item",
-      "description": "test utility description",
-      "item_type": "WEAPON",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "dmg_multiplier": "1.0"
-    },
-    {
-      "id": "7",
-      "name": "test utility item",
-      "description": "test utility description",
-      "item_type": "UTILITY",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "gold_multiplier": "1.0"
-    },
-    {
-      "id": "8",
-      "name": "test weapon item",
-      "description": "test utility description",
-      "item_type": "WEAPON",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "dmg_multiplier": "1.0"
-    },
-    {
-      "id": "9",
-      "name": "test utility item",
-      "description": "test utility description",
-      "item_type": "UTILITY",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "gold_multiplier": "1.0"
-    },
-    {
-      "id": "10",
-      "name": "test weapon item",
-      "description": "test utility description",
-      "item_type": "WEAPON",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "dmg_multiplier": "1.0"
-    },
-    {
-      "id": "11",
-      "name": "test utility item",
-      "description": "test utility description",
-      "item_type": "UTILITY",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "gold_multiplier": "1.0"
-    },
-    {
-      "id": "12",
-      "name": "test weapon item",
-      "description": "test utility description",
-      "item_type": "WEAPON",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "dmg_multiplier": "1.0"
-    },
-    {
-      "id": "13",
-      "name": "test utility item",
-      "description": "test utility description",
-      "item_type": "UTILITY",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "gold_multiplier": "1.0"
-    },
-    {
-      "id": "14",
-      "name": "test weapon item",
-      "description": "test utility description",
-      "item_type": "WEAPON",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "dmg_multiplier": "1.0"
-    },
-    {
-      "id": "15",
-      "name": "test utility item",
-      "description": "test utility description",
-      "item_type": "UTILITY",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "gold_multiplier": "1.0"
-    },
-    {
-      "id": "16",
-      "name": "test weapon item",
-      "description": "test utility description",
-      "item_type": "WEAPON",
-      "drop_chance": "0.1",
-      "xp_multiplier": "1.0",
-      "dmg_multiplier": "1.0"
+      "drop_chance": "0",
+      "xp_multiplier": "1.1",
+      "gold_multiplier": "1.1"
     }
   ]
 }

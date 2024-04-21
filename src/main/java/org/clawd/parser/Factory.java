@@ -18,6 +18,7 @@ public class Factory {
      *
      * @param uniqueID Item ID
      * @param name Name
+     * @param price Price
      * @param desc Description
      * @param itemType Type
      * @param dropChance Drop chance
@@ -29,13 +30,15 @@ public class Factory {
     public Item createUtilityItem(
             int uniqueID,
             String name,
+            int price,
             String desc,
+            int reqLvl,
             ItemType itemType,
             double dropChance,
             double xpMultiplier,
             double goldMultiplier
     ) {
-        return new UtilItem(uniqueID, name, desc, itemType, dropChance, xpMultiplier, goldMultiplier);
+        return new UtilItem(uniqueID, name, price, desc, reqLvl, itemType, dropChance, xpMultiplier, goldMultiplier);
     }
 
     /**
@@ -43,6 +46,7 @@ public class Factory {
      *
      * @param uniqueID Unique ID
      * @param name Name
+     * @param price Price
      * @param desc Description
      * @param itemType Type
      * @param dropChance Drop chance
@@ -54,13 +58,15 @@ public class Factory {
     public Item createWeaponItem(
             int uniqueID,
             String name,
+            int price,
             String desc,
+            int reqLvl,
             ItemType itemType,
             double dropChance,
             double xpMultiplier,
             double dmgMultiplier
     ) {
-        return new WeaponItem(uniqueID, name, desc, itemType, dropChance, xpMultiplier, dmgMultiplier);
+        return new WeaponItem(uniqueID, name, price, desc, reqLvl, itemType, dropChance, xpMultiplier, dmgMultiplier);
     }
 
     /**

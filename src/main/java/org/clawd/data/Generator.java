@@ -47,4 +47,13 @@ public class Generator {
     public double transformDouble(double initialValue) {
         return ((int) (initialValue * 10)) / 10d;
     }
+
+    /**
+     * Compute level from XP 'XP = (level/0.07)^2'
+     *
+     * @param XP XP
+     */
+    public int computeLevel(double XP) {
+        return (int) transformDouble((0.07 * Math.sqrt(XP)));
+    }
 }

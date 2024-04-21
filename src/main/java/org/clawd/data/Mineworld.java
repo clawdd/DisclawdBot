@@ -1,6 +1,7 @@
 package org.clawd.data;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
@@ -87,7 +88,8 @@ public class Mineworld {
                     .addFiles(FileUpload.fromData(imgFile, "ore.png"))
                     .addActionRow(
                             Button.primary(Constants.MINE_BUTTON_ID, "Mine")
-                    ).queue();
+                    )
+                    .queue();
 
         } catch (NullPointerException ex) {
             Main.logger.severe("Could not load image file: " + ex.getMessage());

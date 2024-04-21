@@ -8,7 +8,6 @@ public class BiomeCommand implements SlashCommand {
     @Override
     public void executeCommand(SlashCommandInteractionEvent event) {
         Main.mineworld.replyWithBiomeEmbedded(event);
-
         Main.logger.info("Executed '/biome' command");
     }
 }

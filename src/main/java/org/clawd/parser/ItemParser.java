@@ -66,7 +66,9 @@ public class ItemParser {
 
                 int itemID = jsonItem.getInt("id");
                 String itemName = jsonItem.getString("name");
+                int itemPrice = jsonItem.getInt("price");
                 String itemDesc = jsonItem.getString("description");
+                int reqLvl = jsonItem.getInt("reqLvl");
                 ItemType itemType = ItemType.valueOf(jsonItem.getString("item_type"));
 
                 double dropChance = jsonItem.getDouble("drop_chance");
@@ -79,7 +81,9 @@ public class ItemParser {
                     Item item = factory.createUtilityItem(
                             itemID,
                             itemName,
+                            itemPrice,
                             itemDesc,
+                            reqLvl,
                             itemType,
                             dropChance,
                             xpMultiplier,
@@ -94,7 +98,9 @@ public class ItemParser {
                     Item item = factory.createWeaponItem(
                             itemID,
                             itemName,
+                            itemPrice,
                             itemDesc,
+                            reqLvl,
                             itemType,
                             dropChance,
                             xpMultiplier,
@@ -141,7 +147,6 @@ public class ItemParser {
     private boolean isValidItem(Item item) {
         int uniqueID = item.getUniqueID();
         if (uniqueID < 0
-                || item.getDropChance() < Constants.ITEM_DROP_CHANCE_LOWER_B
                 || item.getDropChance() > Constants.ITEM_DROP_CHANCE_UPPER_B
                 || item.getXpMultiplier() < Constants.XP_MULTIPLIER_LOWER_B
                 || checkIsIDUnique(uniqueID)) {

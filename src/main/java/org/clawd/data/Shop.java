@@ -15,10 +15,9 @@ import org.clawd.data.items.enums.ItemType;
 import org.clawd.tokens.Constants;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.text.NumberFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 
 //TODO comment the code
 public class Shop {
@@ -29,7 +28,7 @@ public class Shop {
     private final int shopPagesCount;
 
     public Shop(List<Item> itemList) {
-        this.itemList = itemList;
+        this.itemList = itemList.stream().filter(i -> i.getDropChance() == 0).toList();
         this.weaponItemList = populateWeaponList();
         this.utilItemList = populateUtilList();
         this.shopPagesCount = (int) Math.ceil((double) itemList.size() / Constants.ITEMS_PER_SHOP_PAGE);
@@ -43,10 +42,11 @@ public class Shop {
      */
     private List<EmbedBuilder> createPages() {
         List<EmbedBuilder> embedBuilders = new ArrayList<>();
+        NumberFormat nf = NumberFormat.getCompactNumberInstance(Locale.US, NumberFormat.Style.SHORT);
 
         for (int i = 0; i < this.shopPagesCount; i++) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle("Shop");
+            embedBuilder.setTitle(":label: Shop");
             embedBuilder.setColor(Color.ORANGE);
             embedBuilder.setFooter("Page: " + (i + 1) + "/" + shopPagesCount);
 
@@ -57,29 +57,27 @@ public class Shop {
                 Item item = itemList.get(j);
 
                 String itemName = item.getName();
-                String itemDesc = item.getDescription();
+                int itemPrice = item.getPrice();
                 double itemXPMult = item.getXpMultiplier();
-
-                String icon;
                 String alternativeTxt;
                 double alternativePerk;
 
                 if (item.getItemType() == ItemType.UTILITY) {
                     UtilItem utilItem = (UtilItem) item;
-                    icon = " :crystal_ball:";
-                    alternativeTxt = "Gold boost: ";
+                    alternativeTxt = ":black_small_square: Gold boost: ";
                     alternativePerk = utilItem.getGoldMultiplier();
                 } else {
                     WeaponItem weaponItem = (WeaponItem) item;
-                    icon = " :dagger:";
-                    alternativeTxt = "Damage boost: ";
+                    alternativeTxt = ":black_small_square: Damage boost: ";
                     alternativePerk = weaponItem.getDmgMultiplier();
                 }
 
                 embedBuilder.addField(
-                        itemName + icon + item.getUniqueID(),
-                        itemDesc + "\n" +
-                                "XP boost: " + itemXPMult + "\n" + alternativeTxt + alternativePerk,
+                        itemName,
+                                ":black_small_square: XP boost: " + itemXPMult + "\n"
+                                        + alternativeTxt + alternativePerk + "\n"
+                                        + ":black_small_square: Price: " + nf.format(itemPrice) + " Coins" + "\n"
+                                        + ":black_small_square: Required lvl. " + item.getReqLvl(),
                         true);
             }
             embedBuilders.add(embedBuilder);
@@ -96,15 +94,20 @@ public class Shop {
 
         EmbedBuilder embedBuilder = pages.getFirst();
 
+        Button nextButton = Button.secondary(Constants.NEXT_BUTTON_ID, Emoji.fromUnicode("U+25B6"));
+        Button closeButton = Button.secondary(Constants.CLOSE_BUTTON_ID, Emoji.fromUnicode("U+274C"));
+        Button backButton = Button.secondary(Constants.BACK_BUTTON_ID, Emoji.fromUnicode("U+25C0"));
+        if (this.shopPagesCount == 1)
+            nextButton = nextButton.asDisabled();
+
         event.replyEmbeds(embedBuilder.build())
                 .addActionRow(
-                        Button.secondary(Constants.BACK_BUTTON_ID, Emoji.fromUnicode("U+25C0")).asDisabled(),
-                        Button.secondary(Constants.CLOSE_BUTTON_ID, Emoji.fromUnicode("U+274C")).asDisabled(),
-                        Button.secondary(Constants.NEXT_BUTTON_ID, Emoji.fromUnicode("U+25B6"))
+                        backButton.asDisabled(),
+                        closeButton.asDisabled(),
+                        nextButton
                 )
                 .setEphemeral(true)
                 .queue();
-
     }
 
     /**
@@ -135,14 +138,21 @@ public class Shop {
         Button closeButton = Button.secondary(Constants.CLOSE_BUTTON_ID, Emoji.fromUnicode("U+274C"));
         Button backButton = Button.secondary(Constants.BACK_BUTTON_ID, Emoji.fromUnicode("U+25C0"));
 
-        if (currentPage > 0 && currentPage < this.shopPagesCount - 1) {
+        if (this.shopPagesCount == 1) {
+            nextButton = nextButton.asDisabled();
+            closeButton = closeButton.asDisabled();
+            backButton = backButton.asDisabled();
+
+            InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
+            hook.editOriginalComponents(ActionRow.of(backButton, closeButton, nextButton)).queue();
+        } else if (currentPage > 0 && currentPage < this.shopPagesCount - 1) {
 
             nextButton = nextButton.asEnabled();
             closeButton = closeButton.asDisabled();
             backButton = backButton.asEnabled();
 
             InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
-            hook.editOriginalComponents(ActionRow.of(backButton,closeButton, nextButton)).queue();
+            hook.editOriginalComponents(ActionRow.of(backButton, closeButton, nextButton)).queue();
         } else if (currentPage == 0) {
 
             nextButton = nextButton.asEnabled();
@@ -150,7 +160,7 @@ public class Shop {
             backButton = backButton.asDisabled();
 
             InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
-            hook.editOriginalComponents(ActionRow.of(backButton,closeButton, nextButton)).queue();
+            hook.editOriginalComponents(ActionRow.of(backButton, closeButton, nextButton)).queue();
         } else if (currentPage == this.shopPagesCount - 1) {
 
             nextButton = nextButton.asDisabled();
@@ -158,7 +168,7 @@ public class Shop {
             backButton = backButton.asEnabled();
 
             InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
-            hook.editOriginalComponents(ActionRow.of(backButton,closeButton, nextButton)).queue();
+            hook.editOriginalComponents(ActionRow.of(backButton, closeButton, nextButton)).queue();
         }
     }
 

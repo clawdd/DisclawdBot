@@ -3,6 +3,7 @@ package org.clawd.commands.type;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.clawd.commands.SlashCommand;
+import org.clawd.data.Generator;
 import org.clawd.main.Main;
 import org.clawd.sql.SQLEmbeddedHandler;
 import org.clawd.sql.SQLStatsHandler;
@@ -28,7 +29,7 @@ public class StatsCommand implements SlashCommand {
             int goldCount = sqlStatsHandler.getGoldCountFromUser(userID);
 
             EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle("Your stats");
+            embedBuilder.setTitle("Your stats - " + event.getUser().getName() + " - lvl. " + new Generator().computeLevel(xpCount));
             embedBuilder.setColor(Color.GREEN);
 
             embedBuilder.addField("**Times Mined** :pick:", String.valueOf(minedCount), false);

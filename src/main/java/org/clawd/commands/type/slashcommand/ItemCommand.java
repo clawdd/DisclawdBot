@@ -33,14 +33,13 @@ public class ItemCommand implements SlashCommand{
         }
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(":mag: Item Info");
         embedBuilder.setColor(Color.ORANGE);
 
         if (foundItem == null) {
             embedBuilder.setDescription("Item **" + searchTerm + "** was not found, maybe you mistyped something :/");
             event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
         } else {
-            embedBuilder.setColor(Color.ORANGE);
+            embedBuilder.setTitle(":mag: " + foundItem.getName() + " :mag:");
             String itemDesc = foundItem.getDescription();
             int itemPrice = foundItem.getPrice();
             double itemXPMult = foundItem.getXpMultiplier();
@@ -66,7 +65,7 @@ public class ItemCommand implements SlashCommand{
                     false);
             event.replyEmbeds(embedBuilder.build())
                     .addActionRow(
-                            Button.success(Constants.BUY_BUTTON_ID, "Buy").asDisabled() //TODO change to enabled
+                            Button.success(Constants.BUY_BUTTON_ID, "Buy")
                     )
                     .setEphemeral(true)
                     .queue();

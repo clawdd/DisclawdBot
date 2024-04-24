@@ -1,6 +1,5 @@
 package org.clawd.buttons.type;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.clawd.buttons.Button;
 import org.clawd.data.Generator;
@@ -30,7 +29,7 @@ public class MineButton implements Button {
             double userCurrentXP = sqlStatsHandler.getXPCountFromUser(userID);
             sqlStatsHandler.incrementMineCount(userID);
             sqlStatsHandler.incrementXPCount(userID, generatedXP);
-            sqlStatsHandler.incrementGoldCount(userID, generatedGold);
+            sqlStatsHandler.changeGoldCount(userID, generatedGold);
             double userUpdatedXP = sqlStatsHandler.getXPCountFromUser(userID);
 
             sqlStatsHandler.replyToUserLevelUp(userCurrentXP,userUpdatedXP, event);

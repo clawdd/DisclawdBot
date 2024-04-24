@@ -189,7 +189,7 @@ public class SQLStatsHandler {
         }
     }
 
-    public void incrementGoldCount(String userID, int gold) {
+    public void changeGoldCount(String userID, int gold) {
         int currentGold = this.getGoldCountFromUser(userID);
         try {
             Connection connection = Bot.getInstance().getSQLConnection();

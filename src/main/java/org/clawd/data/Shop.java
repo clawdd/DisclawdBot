@@ -11,6 +11,7 @@ import org.clawd.data.items.Item;
 import org.clawd.data.items.UtilItem;
 import org.clawd.data.items.WeaponItem;
 import org.clawd.data.items.enums.ItemType;
+import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
 
 import java.awt.*;
@@ -169,6 +170,22 @@ public class Shop {
             InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
             hook.editOriginalComponents(ActionRow.of(backButton, closeButton, nextButton)).queue();
         }
+    }
+
+    /**
+     * Gets the item by its name
+     *
+     * @param itemName The name
+     * @return The found item or null
+     */
+    public Item getItemByName(String itemName) {
+        Item result = null;
+        try {
+            result = this.itemList.stream().filter(i -> i.getName().equalsIgnoreCase(itemName)).toList().getFirst();
+        } catch (NoSuchElementException ex) {
+            Main.logger.severe("Item '" + itemName + "' cannot by found by name.");
+        }
+        return result;
     }
 
     // might be unnecessary

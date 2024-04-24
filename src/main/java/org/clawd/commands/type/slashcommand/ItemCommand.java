@@ -3,6 +3,7 @@ package org.clawd.commands.type.slashcommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.utils.FileUpload;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.UtilItem;
 import org.clawd.data.items.WeaponItem;
@@ -11,6 +12,7 @@ import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
 
 import java.awt.*;
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,6 +57,8 @@ public class ItemCommand implements SlashCommand{
                 alternativeTxt = ":black_small_square: Damage boost: ";
                 alternativePerk = weaponItem.getDmgMultiplier();
             }
+
+            File imgFile = new File(foundItem.getImgPath());
             embedBuilder.addField(
                     itemDesc,
                     ":black_small_square: XP boost: " + itemXPMult + "\n"
@@ -62,10 +66,14 @@ public class ItemCommand implements SlashCommand{
                             + ":black_small_square: Price: " + itemPrice + " Coins" + "\n"
                             + ":black_small_square: Required lvl. " + foundItem.getReqLvl()
                     ,
-                    false);
+                    false)
+                    .setThumbnail("attachment://item.png");
+
             event.replyEmbeds(embedBuilder.build())
+                    .addFiles(FileUpload.fromData(imgFile, "item.png"))
                     .addActionRow(
-                            Button.success(Constants.BUY_BUTTON_ID, "Buy")
+                            Button.success(Constants.BUY_BUTTON_ID, "Buy"),
+                            Button.success(Constants.EQUIP_BUTTON_ID, "Equip").asDisabled()
                     )
                     .setEphemeral(true)
                     .queue();

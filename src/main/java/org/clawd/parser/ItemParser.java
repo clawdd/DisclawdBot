@@ -68,6 +68,7 @@ public class ItemParser {
                 String itemName = jsonItem.getString("name");
                 String itemEmoji = jsonItem.getString("emoji");
                 String itemDesc = jsonItem.getString("description");
+                String imgPath = jsonItem.getString("imgPath");
                 int reqLvl = jsonItem.getInt("reqLvl");
                 ItemType itemType = ItemType.valueOf(jsonItem.getString("item_type"));
 
@@ -83,6 +84,7 @@ public class ItemParser {
                             itemName,
                             itemDesc,
                             itemEmoji,
+                            imgPath,
                             reqLvl,
                             itemType,
                             dropChance,
@@ -100,6 +102,7 @@ public class ItemParser {
                             itemName,
                             itemDesc,
                             itemEmoji,
+                            imgPath,
                             reqLvl,
                             itemType,
                             dropChance,

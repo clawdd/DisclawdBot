@@ -31,13 +31,14 @@ public class Factory {
             String name,
             String itemEmoji,
             String desc,
+            String imgPath,
             int reqLvl,
             ItemType itemType,
             double dropChance,
             double xpMultiplier,
             double goldMultiplier
     ) {
-        return new UtilItem(uniqueID, name, itemEmoji, desc, reqLvl, itemType, dropChance, xpMultiplier, goldMultiplier);
+        return new UtilItem(uniqueID, name, itemEmoji, desc, imgPath, reqLvl, itemType, dropChance, xpMultiplier, goldMultiplier);
     }
 
     /**
@@ -58,13 +59,14 @@ public class Factory {
             String name,
             String itemEmoji,
             String desc,
+            String imgPath,
             int reqLvl,
             ItemType itemType,
             double dropChance,
             double xpMultiplier,
             double dmgMultiplier
     ) {
-        return new WeaponItem(uniqueID, name, desc, itemEmoji, reqLvl, itemType, dropChance, xpMultiplier, dmgMultiplier);
+        return new WeaponItem(uniqueID, name, desc, itemEmoji, imgPath,  reqLvl, itemType, dropChance, xpMultiplier, dmgMultiplier);
     }
 
     /**

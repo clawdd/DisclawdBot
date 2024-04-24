@@ -109,6 +109,9 @@ public class Bot {
     }
 
     private void upsertCommands() {
+        jda.upsertCommand(Constants.HELP_COMMAND_ID, "How does this work here?")
+                .setGuildOnly(true)
+                .queue();
         jda.upsertCommand(Constants.BIOME_COMMAND_ID, "What do I have to mine?")
                 .setGuildOnly(true)
                 .queue();

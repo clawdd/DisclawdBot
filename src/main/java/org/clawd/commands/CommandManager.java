@@ -16,6 +16,7 @@ public class CommandManager extends ListenerAdapter {
     public CommandManager() {
         this.commands = new HashMap<>();
 
+        this.commands.put(Constants.HELP_COMMAND_ID, new HelpCommand());
         this.commands.put(Constants.BIOME_COMMAND_ID, new BiomeCommand());
         this.commands.put(Constants.STATS_COMMAND_ID, new StatsCommand());
         this.commands.put(Constants.SHOP_COMMAND_ID, new ShopCommand());

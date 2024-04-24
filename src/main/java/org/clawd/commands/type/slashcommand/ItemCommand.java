@@ -59,15 +59,15 @@ public class ItemCommand implements SlashCommand{
             }
 
             File imgFile = new File(foundItem.getImgPath());
-            embedBuilder.addField(
+            embedBuilder.setThumbnail("attachment://item.png")
+                    .addField(
                     itemDesc,
                     ":black_small_square: XP boost: " + itemXPMult + "\n"
                             + alternativeTxt + alternativePerk + "\n"
                             + ":black_small_square: Price: " + itemPrice + " Coins" + "\n"
                             + ":black_small_square: Required lvl. " + foundItem.getReqLvl()
                     ,
-                    false)
-                    .setThumbnail("attachment://item.png");
+                    false);
 
             event.replyEmbeds(embedBuilder.build())
                     .addFiles(FileUpload.fromData(imgFile, "item.png"))

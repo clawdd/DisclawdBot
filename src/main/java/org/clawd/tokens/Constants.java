@@ -59,6 +59,7 @@ public final class Constants {
     public static final String SHOP_COMMAND_ID = "shop";
     public static final String ITEM_COMMAND_ID = "item";
     public static final String ITEM_COMMAND_OPTION_ID = "name";
+    public static final String HELP_COMMAND_ID = "help";
 
     /*
      * Button Id's
@@ -82,6 +83,21 @@ public final class Constants {
      */
 
     public static final int NO_ITEM_ID = -1;
-
     public static final int ITEMS_PER_SHOP_PAGE = 3;
+    public static final String PATH_LOGO_IMG = "src/main/resources/images/disclawd_logo.png";
+
+    /*
+     * Help command description
+     */
+
+    public static final String HELP_COMMAND_DESC = ">>> Hi there again :sloth: Welcome to the **Helpcenter**! From here" +
+            " I will try to guide you trough the basics of **Disclawd**, this sounds great right? So let's begin!";
+    public static final String HELP_WHAT_IS = ">>> What is **Disclawd**? Simple put, it is a clicker game for Discord. Ore's" +
+            " from a pretty familiar game are to be mined! While doings this collect, **XP :sparkles:**, **GOLD :coin:** and Items. Also do not" +
+            " forget to fight the **monsters** that can spawn!";
+    public static final String HELP_ABOUT_ME = ">>> I'm a Mediainformatics student from germany. I like to develop applications that people" +
+            " can interact with and enjoy playing around. This bot is only one way to express a passion for games, art and coding!" +
+            " If there is any kind of feedback you would like to give, feel free to message me :mailbox:";
+    public static final String HELP_END_TEXT = ">>> But now enough of reading! On the next page you will find the most important commands" +
+            " and more to get started. Have fun! ~ max";
 }

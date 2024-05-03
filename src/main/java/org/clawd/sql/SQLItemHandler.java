@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SQLItemHandler {
-
+    //TODO maybe move to other class -> Inventory Handler
     /**
      * This method equips an item for a given user ID.
      *

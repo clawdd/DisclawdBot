@@ -203,6 +203,7 @@ public class Mineworld {
      * @param userID User ID
      */
     private void damageBiome(String userID) {
+        // Remember you already wrote this line
         int itemID = new SQLItemHandler().getEquippedItemFromUser(userID);
         double dmgMult = 1.0;
         Item item = getItemByID(itemID);
@@ -217,6 +218,21 @@ public class Mineworld {
         this.currentBiomeHP -= totalDamage;
         Main.logger.info("Damage done to biome: " + this.currentBiome + "." +
                 " Damage: " + totalDamage + ", " + previousHP + "->" + this.currentBiomeHP);
+    }
+
+    /**
+     * Searches the item by the item name in the item list
+     *
+     * @param name The item name
+     * @return Found item or null
+     */
+    public Item getItemByName(String name) {
+        Item foundItem = null;
+        for (Item item : itemList) {
+            if (item.getName().replace(" ", "").equalsIgnoreCase(name.replace(" ", "")))
+                foundItem = item;
+        }
+        return foundItem;
     }
 
     private Double getCurrentBiomeHP() {

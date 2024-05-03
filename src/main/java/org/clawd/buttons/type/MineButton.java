@@ -1,13 +1,14 @@
 package org.clawd.buttons.type;
 
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
-import org.clawd.buttons.Button;
+import org.clawd.buttons.CustomButton;
 import org.clawd.data.Generator;
 import org.clawd.main.Main;
 import org.clawd.sql.SQLEmbeddedHandler;
 import org.clawd.sql.SQLStatsHandler;
+import org.clawd.tokens.Constants;
 
-public class MineButton implements Button {
+public class MineButton implements CustomButton {
     @Override
     public void executeButton(ButtonInteractionEvent event) {
         String userID = event.getUser().getId();
@@ -34,7 +35,7 @@ public class MineButton implements Button {
 
             sqlStatsHandler.replyToUserLevelUp(userCurrentXP,userUpdatedXP, event);
 
-            Main.logger.info("Executed 'mine' button");
+            Main.logger.info("Executed '"+ Constants.MINE_BUTTON_ID  +"' button");
         }
     }
 }

@@ -3,18 +3,21 @@ package org.clawd.buttons.type;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
-import org.clawd.buttons.Button;
-import org.clawd.data.Generator;
+import net.dv8tion.jda.api.interactions.InteractionHook;
+import net.dv8tion.jda.api.interactions.components.ActionRow;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import org.clawd.buttons.CustomButton;
 import org.clawd.data.items.Item;
 import org.clawd.main.Main;
 import org.clawd.sql.SQLEmbeddedHandler;
 import org.clawd.sql.SQLInventoryHandler;
 import org.clawd.sql.SQLStatsHandler;
+import org.clawd.tokens.Constants;
 
 import java.awt.*;
 import java.util.List;
 
-public class BuyButton implements Button {
+public class BuyButton implements CustomButton {
     @Override
     public void executeButton(ButtonInteractionEvent event) {
         String userID = event.getUser().getId();
@@ -43,28 +46,30 @@ public class BuyButton implements Button {
             SQLInventoryHandler sqlInventoryHandler = new SQLInventoryHandler();
 
             int itemPrice = item.getPrice();
-            int itemLvl = item.getReqLvl();
             int itemID = item.getUniqueID();
-
-            int userGold = sqlStatsHandler.getGoldCountFromUser(userID);
-            int userLvl = new Generator().computeLevel(sqlStatsHandler.getXPCountFromUser(userID));
-
-            if (itemPrice > userGold || itemLvl > userLvl) {
-                embedBuilder.setDescription("You dont have enough gold in your pockets! Or your level is to low :/");
-                event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
-                return;
-            }
-
-            if (sqlInventoryHandler.isItemInUserInventory(userID, itemID)) {
-                embedBuilder.setDescription("You already have this Item :face_with_monocle:");
-                event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
-                return;
-            }
 
             sqlStatsHandler.changeGoldCount(userID, -itemPrice);
             sqlInventoryHandler.addItemToPlayer(userID, itemID);
             embedBuilder.setDescription("You successfully acquired " + item.getEmoji() + "**" + itemName + "**" + item.getEmoji() + " !");
-            event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
+
+            event.editComponents(
+                    ActionRow.of(
+                            Button.success(Constants.BUY_BUTTON_ID, "Buy").asDisabled(),
+                            Button.success(Constants.EQUIP_BUTTON_ID, "Equip").asEnabled()
+                    )
+            ).queue();
+            InteractionHook hook = event.getHook();
+            hook.sendMessageEmbeds(embedBuilder.build()).setEphemeral(true).queue();
+            Main.logger.info("Executed '"+ Constants.BUY_BUTTON_ID +"' button");
         }
+    }
+
+    private void updateItemMessage(InteractionHook event) {
+        event.editOriginalComponents(
+                ActionRow.of(
+                        Button.success(Constants.BUY_BUTTON_ID, "Buy").asDisabled(),
+                        Button.success(Constants.EQUIP_BUTTON_ID, "Equip").asEnabled()
+                )
+        ).queue();
     }
 }

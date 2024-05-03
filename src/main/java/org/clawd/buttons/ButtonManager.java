@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class ButtonManager extends ListenerAdapter {
 
-    private final HashMap<String, Button> buttons;
+    private final HashMap<String, CustomButton> buttons;
 
     public ButtonManager () {
         this.buttons = new HashMap<>();
@@ -21,6 +21,7 @@ public class ButtonManager extends ListenerAdapter {
         this.buttons.put(Constants.BACK_BUTTON_ID, new ShopBackButton());
         this.buttons.put(Constants.CLOSE_BUTTON_ID, new ShopCloseButton());
         this.buttons.put(Constants.BUY_BUTTON_ID, new BuyButton());
+        this.buttons.put(Constants.EQUIP_BUTTON_ID, new EquipButton());
     }
 
     /**
@@ -34,7 +35,7 @@ public class ButtonManager extends ListenerAdapter {
         String buttonID = event.getComponentId();
         Main.logger.info("Received button interaction: " + buttonID);
 
-        Button button = buttons.get(buttonID);
+        CustomButton button = buttons.get(buttonID);
         button.executeButton(event);
     }
 }

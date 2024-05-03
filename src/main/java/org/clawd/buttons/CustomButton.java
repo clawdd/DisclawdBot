@@ -2,7 +2,7 @@ package org.clawd.buttons;
 
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
-public interface Button {
+public interface CustomButton {
 
     /**
      * Function gets overridden by concrete button

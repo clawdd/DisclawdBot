@@ -99,6 +99,8 @@ public class ItemCommand implements SlashCommand{
                     )
                     .setEphemeral(true)
                     .queue();
+
+            Main.logger.info("Executed '"+ Constants.ITEM_COMMAND_ID +"' command");
         }
     }
 }

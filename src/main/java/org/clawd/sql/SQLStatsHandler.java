@@ -228,7 +228,7 @@ public class SQLStatsHandler {
             embedBuilder.setTitle(":mushroom: Level UP! :mushroom:");
             embedBuilder.setColor(Color.GREEN);
             embedBuilder.addField(
-                    "You reached level " + userUpdatedLvl,
+                    "You've reached level " + userUpdatedLvl,
                     ":black_small_square: With **" + userUpdatedXP + "** XP",
                     false
             );

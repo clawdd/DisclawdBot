@@ -6,6 +6,7 @@ import org.clawd.data.Generator;
 import org.clawd.main.Main;
 import org.clawd.sql.SQLEmbeddedHandler;
 import org.clawd.sql.SQLStatsHandler;
+import org.clawd.tokens.Constants;
 
 import java.awt.*;
 
@@ -38,6 +39,7 @@ public class StatsCommand implements SlashCommand {
             embedBuilder.addField("**Gold coins** :coin:", String.valueOf(goldCount), false);
 
             event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
+            Main.logger.info("Executed '"+ Constants.STATS_COMMAND_ID +"' command");
         }
     }
 }

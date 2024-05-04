@@ -20,6 +20,8 @@ import java.util.logging.Logger;
 
 public class Main {
 
+    public static Bot bot;
+
     public static Logger logger;
     public static SQLHandler sqlHandler;
     public static Mineworld mineworld;
@@ -38,7 +40,7 @@ public class Main {
             // 2nd argument is currently a placeholder
             mineworld = new Mineworld(itemList, mobList);
 
-            Bot bot = Bot.getInstance();
+            bot = Bot.getInstance();
             run(bot);
         } catch (FailedDataParseException ex) {
             logger.severe(ex.getMessage());

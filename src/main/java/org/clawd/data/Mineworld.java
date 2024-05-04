@@ -11,7 +11,7 @@ import org.clawd.data.items.WeaponItem;
 import org.clawd.data.items.enums.ItemType;
 import org.clawd.data.mobs.Mob;
 import org.clawd.main.Main;
-import org.clawd.sql.SQLItemHandler;
+import org.clawd.sql.SQLInventoryHandler;
 import org.clawd.tokens.Constants;
 
 import java.awt.*;
@@ -204,7 +204,7 @@ public class Mineworld {
      */
     private void damageBiome(String userID) {
         // Remember you already wrote this line
-        int itemID = new SQLItemHandler().getEquippedItemFromUser(userID);
+        int itemID = new SQLInventoryHandler().getEquippedItemFromUser(userID);
         double dmgMult = 1.0;
         Item item = getItemByID(itemID);
 
@@ -213,9 +213,12 @@ public class Mineworld {
             dmgMult = weaponItem.getDmgMultiplier();
         }
 
+        Generator generator = new Generator();
+        //TODO - something is wrong here probably the transformDouble() function, write a test
         double totalDamage = Constants.BASE_DAMAGE * dmgMult;
+        totalDamage = generator.transformDouble(totalDamage);
         double previousHP = this.currentBiomeHP;
-        this.currentBiomeHP -= totalDamage;
+        this.currentBiomeHP = generator.transformDouble(this.currentBiomeHP - totalDamage);
         Main.logger.info("Damage done to biome: " + this.currentBiome + "." +
                 " Damage: " + totalDamage + ", " + previousHP + "->" + this.currentBiomeHP);
     }

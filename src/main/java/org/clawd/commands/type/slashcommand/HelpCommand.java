@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.utils.FileUpload;
+import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
 
 import java.awt.*;
@@ -34,6 +35,6 @@ public class HelpCommand implements SlashCommand{
                 .setEphemeral(true)
                 .queue();
 
-
+        Main.logger.info("Executed '"+ Constants.HELP_COMMAND_ID +"' command");
     }
 }

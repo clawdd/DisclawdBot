@@ -118,6 +118,9 @@ public class Bot {
         jda.upsertCommand(Constants.STATS_COMMAND_ID, "Show me what i achieved!")
                 .setGuildOnly(true)
                 .queue();
+        jda.upsertCommand(Constants.INV_COMMAND_ID, "Show me my stuff!")
+                .setGuildOnly(true)
+                .queue();
         jda.upsertCommand(Constants.SHOP_COMMAND_ID, "List me everything you have")
                 .setGuildOnly(true)
                 .queue();

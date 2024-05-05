@@ -63,13 +63,4 @@ public class BuyButton implements CustomButton {
             Main.logger.info("Executed '"+ Constants.BUY_BUTTON_ID +"' button");
         }
     }
-
-    private void updateItemMessage(InteractionHook event) {
-        event.editOriginalComponents(
-                ActionRow.of(
-                        Button.success(Constants.BUY_BUTTON_ID, "Buy").asDisabled(),
-                        Button.success(Constants.EQUIP_BUTTON_ID, "Equip").asEnabled()
-                )
-        ).queue();
-    }
 }

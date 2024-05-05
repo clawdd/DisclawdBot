@@ -106,10 +106,11 @@ public class Mineworld {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         try {
             File imgFile = new File(biomeToImgPath.get(currentBiome));
+            Generator generator = new Generator();
 
             embedBuilder.setTitle(currentBiome.name());
             embedBuilder.setColor(Color.BLACK);
-            embedBuilder.addField("Biome HP", this.currentBiomeHP + "/" + biomeToHP.get(this.currentBiome), false);;
+            embedBuilder.addField("Biome HP",  generator.transformDouble(this.currentBiomeHP) + "/" + biomeToHP.get(this.currentBiome), false);;
             embedBuilder.setImage("attachment://ore.png");
 
             event.replyEmbeds(embedBuilder.build())
@@ -118,6 +119,30 @@ public class Mineworld {
                             Button.primary(Constants.MINE_BUTTON_ID, "Mine")
                     ).queue();
 
+        } catch (NullPointerException ex) {
+            Main.logger.severe("Could not load image file: " + ex.getMessage());
+        }
+    }
+
+    /**
+     * Updates the embedded message on a 'ButtonInteractionEvent'
+     *
+     * @param event Event
+     */
+    private void updateBiomeMsg(ButtonInteractionEvent event) {
+        try {
+            File imgFile = new File(biomeToImgPath.get(currentBiome));
+            Generator generator = new Generator();
+
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.setTitle(currentBiome.name());
+            embedBuilder.addField("Biome HP", generator.transformDouble(this.currentBiomeHP) + "/" + biomeToHP.get(this.currentBiome), false);
+            embedBuilder.setImage("attachment://ore.png");
+
+            event.editMessageEmbeds(embedBuilder.build())
+                    .setFiles(FileUpload.fromData(imgFile, "ore.png"))
+                    .queue();
+            Main.logger.info("Updated biome state.");
         } catch (NullPointerException ex) {
             Main.logger.severe("Could not load image file: " + ex.getMessage());
         }
@@ -161,29 +186,6 @@ public class Mineworld {
     }
 
     /**
-     * Updates the embedded message on a 'ButtonInteractionEvent'
-     *
-     * @param event Event
-     */
-    private void updateBiomeMsg(ButtonInteractionEvent event) {
-        try {
-            File imgFile = new File(biomeToImgPath.get(currentBiome));
-
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle(currentBiome.name());
-            embedBuilder.addField("Biome HP", this.currentBiomeHP + "/" + biomeToHP.get(this.currentBiome), false);
-            embedBuilder.setImage("attachment://ore.png");
-
-            event.editMessageEmbeds(embedBuilder.build())
-                    .setFiles(FileUpload.fromData(imgFile, "ore.png"))
-                    .queue();
-            Main.logger.info("Updated biome state.");
-        } catch (NullPointerException ex) {
-            Main.logger.severe("Could not load image file: " + ex.getMessage());
-        }
-    }
-
-    /**
      * Updates the biome state and embedded message on a 'ButtonInteractionEvent', if
      * the biome has been completed by reaching HP of <= 0
      *
@@ -212,13 +214,13 @@ public class Mineworld {
             WeaponItem weaponItem = (WeaponItem) item;
             dmgMult = weaponItem.getDmgMultiplier();
         }
-
         Generator generator = new Generator();
-        //TODO - something is wrong here probably the transformDouble() function, write a test
+        //seems to be fixed with rounding the HP value and not transforming it to the form X.X before
         double totalDamage = Constants.BASE_DAMAGE * dmgMult;
-        totalDamage = generator.transformDouble(totalDamage);
         double previousHP = this.currentBiomeHP;
-        this.currentBiomeHP = generator.transformDouble(this.currentBiomeHP - totalDamage);
+
+        this.currentBiomeHP -= totalDamage;
+        this.currentBiomeHP = generator.roundDouble(this.currentBiomeHP, 1);
         Main.logger.info("Damage done to biome: " + this.currentBiome + "." +
                 " Damage: " + totalDamage + ", " + previousHP + "->" + this.currentBiomeHP);
     }

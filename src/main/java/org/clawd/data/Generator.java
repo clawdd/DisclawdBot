@@ -3,6 +3,8 @@ package org.clawd.data;
 import org.clawd.data.enums.Biome;
 import org.clawd.main.Main;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,5 +57,19 @@ public class Generator {
      */
     public int computeLevel(double XP) {
         return (int) transformDouble((0.07 * Math.sqrt(XP)));
+    }
+
+    /**
+     * Rounds a double
+     *
+     * @param value The double value
+     * @param places How many places to round
+     *
+     * @return The rounded double
+     */
+    public double roundDouble(double value, int places) {
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }

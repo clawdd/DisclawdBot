@@ -9,8 +9,8 @@
       "reqLvl": "0",
       "item_type": "UTILITY",
       "drop_chance": "0",
-      "xp_multiplier": "1.1",
-      "gold_multiplier": "1.0"
+      "xp_multiplier": "1.0",
+      "gold_multiplier": "1.1"
     },
     {
       "id": "2",

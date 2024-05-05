@@ -41,7 +41,7 @@ public class Generator {
     }
 
     /**
-     * Transforms a double, by cutting of decimal places
+     * Transforms a double to form X.X, by cutting of decimal places
      *
      * @param initialValue An initial double
      * @return The double after the transformation

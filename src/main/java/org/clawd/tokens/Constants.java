@@ -56,6 +56,7 @@ public final class Constants {
 
     public static final String BIOME_COMMAND_ID = "biome";
     public static final String STATS_COMMAND_ID = "stats";
+    public static final String INV_COMMAND_ID = "inventory";
     public static final String SHOP_COMMAND_ID = "shop";
     public static final String ITEM_COMMAND_ID = "item";
     public static final String ITEM_COMMAND_OPTION_ID = "name";
@@ -83,7 +84,7 @@ public final class Constants {
      */
 
     public static final int NO_ITEM_ID = -1;
-    public static final int ITEMS_PER_SHOP_PAGE = 3;
+    public static final int ITEMS_PER_PAGE = 3;
     public static final String PATH_LOGO_IMG = "src/main/resources/images/disclawd_logo.png";
 
     /*

@@ -21,16 +21,12 @@ import java.util.List;
 //TODO comment the code
 public class Shop {
     private final List<Item> itemList;
-    private final List<WeaponItem> weaponItemList;
-    private final List<UtilItem> utilItemList;
     private final List<EmbedBuilder> pages;
     private final int shopPagesCount;
 
     public Shop(List<Item> itemList) {
         this.itemList = itemList.stream().filter(i -> i.getDropChance() == 0).toList();
-        this.weaponItemList = populateWeaponList();
-        this.utilItemList = populateUtilList();
-        this.shopPagesCount = (int) Math.ceil((double) itemList.size() / Constants.ITEMS_PER_SHOP_PAGE);
+        this.shopPagesCount = (int) Math.ceil((double) itemList.size() / Constants.ITEMS_PER_PAGE);
         this.pages = createPages();
     }
 
@@ -50,8 +46,8 @@ public class Shop {
             embedBuilder.setColor(Color.ORANGE);
             embedBuilder.setFooter("Page: " + (i + 1) + "/" + shopPagesCount);
 
-            int startIndex = i * Constants.ITEMS_PER_SHOP_PAGE;
-            int endIndex = Math.min(startIndex + Constants.ITEMS_PER_SHOP_PAGE, this.itemList.size());
+            int startIndex = i * Constants.ITEMS_PER_PAGE;
+            int endIndex = Math.min(startIndex + Constants.ITEMS_PER_PAGE, this.itemList.size());
 
             for (int j = startIndex; j < endIndex; j++) {
                 Item item = itemList.get(j);
@@ -186,24 +182,5 @@ public class Shop {
             Main.logger.severe("Item '" + itemName + "' cannot by found by name.");
         }
         return result;
-    }
-
-    // might be unnecessary
-    private List<WeaponItem> populateWeaponList() {
-        List<WeaponItem> weaponItems = new ArrayList<>();
-        for (Item item : this.itemList) {
-            if (item.getItemType() == ItemType.WEAPON)
-                weaponItems.add((WeaponItem) item);
-        }
-        return weaponItems;
-    }
-
-    private List<UtilItem> populateUtilList() {
-        List<UtilItem> utilItems = new ArrayList<>();
-        for (Item item : this.itemList) {
-            if (item.getItemType() == ItemType.UTILITY)
-                utilItems.add((UtilItem) item);
-        }
-        return utilItems;
     }
 }

@@ -1,5 +1,6 @@
 package org.clawd.sql;
 
+import org.clawd.data.items.Item;
 import org.clawd.main.Bot;
 import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
@@ -8,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SQLInventoryHandler {
 
@@ -130,5 +133,12 @@ public class SQLInventoryHandler {
             Main.logger.severe("Some SQL error occurred: " + ex.getMessage());
         }
         return itemID;
+    }
+
+    //TODO
+    public List<Item> getAllUserItems(String userID) {
+        List<Item> itemList = new ArrayList<>();
+
+        return itemList;
     }
 }

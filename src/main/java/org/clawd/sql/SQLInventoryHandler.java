@@ -111,7 +111,7 @@ public class SQLInventoryHandler {
      * @param userID The user ID
      * @return Either an item ID or -1
      */
-    public int getEquippedItemFromUser(String userID) {
+    public int getEquippedItemIDFromUser(String userID) {
         int itemID = -1;
         try {
             Connection connection = Bot.getInstance().getSQLConnection();

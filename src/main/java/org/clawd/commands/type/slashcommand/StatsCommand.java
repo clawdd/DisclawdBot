@@ -31,6 +31,7 @@ public class StatsCommand implements SlashCommand {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("Your stats - " + event.getUser().getName() + " - lvl. " + new Generator().computeLevel(xpCount));
             embedBuilder.setColor(Color.GREEN);
+            embedBuilder.setThumbnail(event.getUser().getAvatarUrl());
 
             embedBuilder.addField("**Times Mined** :pick:", String.valueOf(minedCount), false);
             embedBuilder.addField("**Mob Kills** :skull:", String.valueOf(mobKills), false);

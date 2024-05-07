@@ -18,7 +18,6 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-//TODO comment the code
 public class Shop {
     private final List<Item> itemList;
     private final List<EmbedBuilder> pages;
@@ -90,9 +89,9 @@ public class Shop {
 
         EmbedBuilder embedBuilder = pages.getFirst();
 
-        Button nextButton = Button.secondary(Constants.NEXT_BUTTON_ID, Emoji.fromUnicode("U+25B6"));
+        Button nextButton = Button.secondary(Constants.NEXT_SHOP_BUTTON_ID, Emoji.fromUnicode("U+25B6"));
         Button closeButton = Button.secondary(Constants.CLOSE_BUTTON_ID, Emoji.fromUnicode("U+274C"));
-        Button backButton = Button.secondary(Constants.BACK_BUTTON_ID, Emoji.fromUnicode("U+25C0"));
+        Button backButton = Button.secondary(Constants.BACK_SHOP_BUTTON_ID, Emoji.fromUnicode("U+25C0"));
         if (this.shopPagesCount == 1)
             nextButton = nextButton.asDisabled();
 
@@ -130,9 +129,9 @@ public class Shop {
 
         EmbedBuilder embedBuilder = pages.get(currentPage);
 
-        Button nextButton = Button.secondary(Constants.NEXT_BUTTON_ID, Emoji.fromUnicode("U+25B6"));
+        Button nextButton = Button.secondary(Constants.NEXT_SHOP_BUTTON_ID, Emoji.fromUnicode("U+25B6"));
         Button closeButton = Button.secondary(Constants.CLOSE_BUTTON_ID, Emoji.fromUnicode("U+274C"));
-        Button backButton = Button.secondary(Constants.BACK_BUTTON_ID, Emoji.fromUnicode("U+25C0"));
+        Button backButton = Button.secondary(Constants.BACK_SHOP_BUTTON_ID, Emoji.fromUnicode("U+25C0"));
 
         if (this.shopPagesCount == 1) {
             nextButton = nextButton.asDisabled();

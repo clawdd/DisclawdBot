@@ -22,6 +22,7 @@ import java.util.List;
 public class Mineworld {
 
     public final Shop shop;
+    public final Inventory inventory;
     private final List<Item> itemList;
     private final List<Mob> mobList;
     private final HashMap<Biome, Double> biomeToHP;
@@ -34,6 +35,7 @@ public class Mineworld {
         this.mobList = mobList;
 
         this.shop = new Shop(itemList);
+        this.inventory = new Inventory();
 
         this.biomeToHP = new HashMap<>();
 
@@ -206,7 +208,7 @@ public class Mineworld {
      */
     private void damageBiome(String userID) {
         // Remember you already wrote this line
-        int itemID = new SQLInventoryHandler().getEquippedItemFromUser(userID);
+        int itemID = new SQLInventoryHandler().getEquippedItemIDFromUser(userID);
         double dmgMult = 1.0;
         Item item = getItemByID(itemID);
 
@@ -216,7 +218,7 @@ public class Mineworld {
         }
         Generator generator = new Generator();
         //seems to be fixed with rounding the HP value and not transforming it to the form X.X before
-        double totalDamage = Constants.BASE_DAMAGE * dmgMult;
+        double totalDamage = Constants.BASE_DAMAGE_MULTIPLIER * dmgMult;
         double previousHP = this.currentBiomeHP;
 
         this.currentBiomeHP -= totalDamage;

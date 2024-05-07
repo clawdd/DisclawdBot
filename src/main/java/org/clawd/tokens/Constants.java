@@ -67,8 +67,10 @@ public final class Constants {
      */
 
     public static final String MINE_BUTTON_ID = "mine";
-    public static final String NEXT_BUTTON_ID = "next";
-    public static final String BACK_BUTTON_ID = "back";
+    public static final String NEXT_SHOP_BUTTON_ID = "next-shop";
+    public static final String BACK_SHOP_BUTTON_ID = "back-shop";
+    public static final String NEXT_INV_BUTTON_ID = "next-inv";
+    public static final String BACK_INV_BUTTON_ID = "back-inv";
     public static final String CLOSE_BUTTON_ID = "close";
     public static final String BUY_BUTTON_ID = "buy";
     public static final String EQUIP_BUTTON_ID = "Equip";
@@ -77,7 +79,9 @@ public final class Constants {
      * Base stat constants
      */
 
-    public static final double BASE_DAMAGE = 1.0;
+    public static final double BASE_DAMAGE_MULTIPLIER = 1.0;
+    public static final double BASE_XP_MULTIPLIER = 1.0;
+    public static final double BASE_GOLD_MULTIPLIER = 1.0;
 
     /*
      * Others

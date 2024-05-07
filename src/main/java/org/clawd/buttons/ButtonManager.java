@@ -17,8 +17,8 @@ public class ButtonManager extends ListenerAdapter {
         this.buttons = new HashMap<>();
 
         this.buttons.put(Constants.MINE_BUTTON_ID, new MineButton());
-        this.buttons.put(Constants.NEXT_BUTTON_ID, new ShopNextButton());
-        this.buttons.put(Constants.BACK_BUTTON_ID, new ShopBackButton());
+        this.buttons.put(Constants.NEXT_SHOP_BUTTON_ID, new ShopNextButton());
+        this.buttons.put(Constants.BACK_SHOP_BUTTON_ID, new ShopBackButton());
         this.buttons.put(Constants.CLOSE_BUTTON_ID, new ShopCloseButton());
         this.buttons.put(Constants.BUY_BUTTON_ID, new BuyButton());
         this.buttons.put(Constants.EQUIP_BUTTON_ID, new EquipButton());

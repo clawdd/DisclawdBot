@@ -16,7 +16,7 @@ public class InvCommand implements SlashCommand{
             SQLEmbeddedHandler handler = new SQLEmbeddedHandler();
             handler.replyToNewRegisteredUser(event);
         } else {
-            event.reply("Not implemented yet.").setEphemeral(true).queue();
+            Main.mineworld.inventory.replyWithInventoryCoreEmbedded(event);
         }
     }
 }

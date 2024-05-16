@@ -56,7 +56,6 @@ public final class Constants {
      */
 
     public static final String BIOME_COMMAND_ID = "biome";
-    public static final String STATS_COMMAND_ID = "stats";
     public static final String INV_COMMAND_ID = "inventory";
     public static final String SHOP_COMMAND_ID = "shop";
     public static final String ITEM_COMMAND_ID = "item";

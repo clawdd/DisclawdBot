@@ -115,9 +115,6 @@ public class Bot {
         jda.upsertCommand(Constants.BIOME_COMMAND_ID, "What do I have to mine?")
                 .setGuildOnly(true)
                 .queue();
-        jda.upsertCommand(Constants.STATS_COMMAND_ID, "Show me what i achieved!")
-                .setGuildOnly(true)
-                .queue();
         jda.upsertCommand(Constants.INV_COMMAND_ID, "Show me my stuff!")
                 .setGuildOnly(true)
                 .queue();

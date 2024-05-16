@@ -60,7 +60,7 @@ public class BuyButton implements CustomButton {
             ).queue();
             InteractionHook hook = event.getHook();
             hook.sendMessageEmbeds(embedBuilder.build()).setEphemeral(true).queue();
-            Main.logger.info("Executed '"+ Constants.BUY_BUTTON_ID +"' button");
+            Main.LOG.info("Executed '"+ Constants.BUY_BUTTON_ID +"' button");
         }
     }
 }

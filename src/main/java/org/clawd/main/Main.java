@@ -2,7 +2,6 @@ package org.clawd.main;
 
 import net.dv8tion.jda.api.OnlineStatus;
 import org.clawd.data.Mineworld;
-import org.clawd.data.enums.Biome;
 import org.clawd.data.items.Item;
 import org.clawd.data.mobs.Mob;
 import org.clawd.parser.ItemParser;
@@ -22,12 +21,12 @@ public class Main {
 
     public static Bot bot;
 
-    public static Logger logger;
+    public static Logger LOG;
     public static SQLHandler sqlHandler;
     public static Mineworld mineworld;
 
     public static void main(String[] args) {
-        logger = Logger.getLogger(Constants.LOGGER_NAME);
+        LOG = Logger.getLogger(Constants.LOGGER_NAME);
         sqlHandler = new SQLHandler();
 
         try {
@@ -43,7 +42,7 @@ public class Main {
             bot = Bot.getInstance();
             run(bot);
         } catch (FailedDataParseException ex) {
-            logger.severe(ex.getMessage());
+            LOG.severe(ex.getMessage());
         }
     }
 
@@ -69,12 +68,12 @@ public class Main {
 
                     bot.closeSQLConnection();
 
-                    logger.info("Bot shutdown");
+                    LOG.info("Bot shutdown");
                     return;
                 }
             }
         } catch (IOException ex) {
-            logger.log(Level.SEVERE, ex.getMessage());
+            LOG.log(Level.SEVERE, ex.getMessage());
         }
     }
 }

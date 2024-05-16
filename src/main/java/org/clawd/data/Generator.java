@@ -25,7 +25,7 @@ public class Generator {
 
         double generatedXP = (Math.random() * 5) + 1;
         double transformedXP = transformDouble(generatedXP);
-        Main.logger.info("Generated XP: " + transformedXP);
+        Main.LOG.info("Generated XP: " + transformedXP);
         return transformedXP;
     }
 
@@ -36,7 +36,7 @@ public class Generator {
      */
     public int generateGold() {
         int generatedGold = (int) (Math.random() * 3) + 1;
-        Main.logger.info("Generated gold: " + generatedGold);
+        Main.LOG.info("Generated gold: " + generatedGold);
         return generatedGold;
     }
 

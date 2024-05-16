@@ -2,14 +2,12 @@ package org.clawd.commands.type.slashcommand;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.utils.FileUpload;
 import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
 
 import java.awt.*;
 import java.io.File;
-import java.time.temporal.TemporalAccessor;
 
 public class HelpCommand implements SlashCommand{
     @Override
@@ -35,6 +33,6 @@ public class HelpCommand implements SlashCommand{
                 .setEphemeral(true)
                 .queue();
 
-        Main.logger.info("Executed '"+ Constants.HELP_COMMAND_ID +"' command");
+        Main.LOG.info("Executed '"+ Constants.HELP_COMMAND_ID +"' command");
     }
 }

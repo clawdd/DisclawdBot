@@ -42,7 +42,7 @@ public class ItemParser {
                     "- valid items = " + isItemListValid + "\n" +
                     "- is item list empty = " + isItemListEmpty);
 
-        Main.logger.info("Item parsing finished");
+        Main.LOG.info("Item parsing finished");
         return items;
     }
 
@@ -116,7 +116,7 @@ public class ItemParser {
             }
 
         } catch (JSONException | IOException ex) {
-            Main.logger.severe("Failed to parse JSON items file: " + ex.getMessage());
+            Main.LOG.severe("Failed to parse JSON items file: " + ex.getMessage());
         }
         return items;
     }
@@ -137,7 +137,7 @@ public class ItemParser {
                 return false;
         }
 
-        Main.logger.info("Item validation finished");
+        Main.LOG.info("Item validation finished");
         return true;
     }
 

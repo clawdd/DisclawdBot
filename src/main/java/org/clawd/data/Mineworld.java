@@ -64,7 +64,7 @@ public class Mineworld {
         int selector = (int) (Math.random() * (size));
 
         Biome returnBiome = biomeList.get(selector);
-        Main.logger.info("The current biome is: " + returnBiome);
+        Main.LOG.info("The current biome is: " + returnBiome);
 
         return returnBiome;
     }
@@ -93,7 +93,7 @@ public class Mineworld {
                     .queue();
 
         } catch (NullPointerException ex) {
-            Main.logger.severe("Could not load image file: " + ex.getMessage());
+            Main.LOG.severe("Could not load image file: " + ex.getMessage());
         }
     }
 
@@ -122,7 +122,7 @@ public class Mineworld {
                     ).queue();
 
         } catch (NullPointerException ex) {
-            Main.logger.severe("Could not load image file: " + ex.getMessage());
+            Main.LOG.severe("Could not load image file: " + ex.getMessage());
         }
     }
 
@@ -144,9 +144,9 @@ public class Mineworld {
             event.editMessageEmbeds(embedBuilder.build())
                     .setFiles(FileUpload.fromData(imgFile, "ore.png"))
                     .queue();
-            Main.logger.info("Updated biome state.");
+            Main.LOG.info("Updated biome state.");
         } catch (NullPointerException ex) {
-            Main.logger.severe("Could not load image file: " + ex.getMessage());
+            Main.LOG.severe("Could not load image file: " + ex.getMessage());
         }
     }
 
@@ -197,7 +197,7 @@ public class Mineworld {
         event.getMessage().delete().queue();
         this.currentBiomeHP = biomeToHP.get(this.currentBiome);
         replyWithBiomeEmbedded(event);
-        Main.logger.info("Updated biome because of completion.");
+        Main.LOG.info("Updated biome because of completion.");
     }
 
     /**
@@ -223,7 +223,7 @@ public class Mineworld {
 
         this.currentBiomeHP -= totalDamage;
         this.currentBiomeHP = generator.roundDouble(this.currentBiomeHP, 1);
-        Main.logger.info("Damage done to biome: " + this.currentBiome + "." +
+        Main.LOG.info("Damage done to biome: " + this.currentBiome + "." +
                 " Damage: " + totalDamage + ", " + previousHP + "->" + this.currentBiomeHP);
     }
 

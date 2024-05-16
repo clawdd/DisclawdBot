@@ -40,7 +40,7 @@ public class StatsCommand implements SlashCommand {
             embedBuilder.addField("**Gold coins** :coin:", String.valueOf(goldCount), false);
 
             event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
-            Main.logger.info("Executed '"+ Constants.STATS_COMMAND_ID +"' command");
+            Main.LOG.info("Executed '"+ Constants.STATS_COMMAND_ID +"' command");
         }
     }
 }

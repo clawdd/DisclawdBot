@@ -35,7 +35,7 @@ public class MineButton implements CustomButton {
 
             sqlStatsHandler.replyToUserLevelUp(userCurrentXP,userUpdatedXP, event);
 
-            Main.logger.info("Executed '"+ Constants.MINE_BUTTON_ID  +"' button");
+            Main.LOG.info("Executed '"+ Constants.MINE_BUTTON_ID  +"' button");
         }
     }
 }

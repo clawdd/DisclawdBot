@@ -28,6 +28,6 @@ public class EquipButton implements CustomButton {
         embedBuilder.setDescription("You're now wielding **" + item.getEmoji() + item.getName() + item.getEmoji() + "**!");
 
         event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
-        Main.logger.info("Executed '"+ Constants.EQUIP_BUTTON_ID  +"' button");
+        Main.LOG.info("Executed '"+ Constants.EQUIP_BUTTON_ID  +"' button");
     }
 }

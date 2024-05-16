@@ -3,6 +3,7 @@ package org.clawd.buttons;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.clawd.buttons.type.*;
+import org.clawd.buttons.type.nav.*;
 import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
 import org.jetbrains.annotations.NotNull;
@@ -19,9 +20,12 @@ public class ButtonManager extends ListenerAdapter {
         this.buttons.put(Constants.MINE_BUTTON_ID, new MineButton());
         this.buttons.put(Constants.NEXT_SHOP_BUTTON_ID, new ShopNextButton());
         this.buttons.put(Constants.BACK_SHOP_BUTTON_ID, new ShopBackButton());
-        this.buttons.put(Constants.CLOSE_BUTTON_ID, new ShopCloseButton());
+        this.buttons.put(Constants.HOME_SHOP_BUTTON_ID, new ShopHomeButton());
         this.buttons.put(Constants.BUY_BUTTON_ID, new BuyButton());
         this.buttons.put(Constants.EQUIP_BUTTON_ID, new EquipButton());
+        this.buttons.put(Constants.NEXT_INV_BUTTON_ID, new InvNextButton());
+        this.buttons.put(Constants.BACK_INV_BUTTON_ID, new InvBackButton());
+        this.buttons.put(Constants.HOME_INV_BUTTON_ID, new InvHomeButton());
     }
 
     /**
@@ -33,7 +37,7 @@ public class ButtonManager extends ListenerAdapter {
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
         String buttonID = event.getComponentId();
-        Main.logger.info("Received button interaction: " + buttonID);
+        Main.LOG.info("Received button interaction: " + buttonID);
 
         CustomButton button = buttons.get(buttonID);
         button.executeButton(event);

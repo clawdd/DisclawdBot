@@ -1,11 +1,12 @@
-package org.clawd.buttons.type;
+package org.clawd.buttons.type.nav;
 
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.clawd.buttons.CustomButton;
+import org.clawd.data.Inventory;
 import org.clawd.main.Main;
 import org.clawd.sql.SQLEmbeddedHandler;
 
-public class ShopNextButton implements CustomButton {
+public class InvHomeButton implements CustomButton {
     @Override
     public void executeButton(ButtonInteractionEvent event) {
         String userID = event.getUser().getId();
@@ -14,7 +15,8 @@ public class ShopNextButton implements CustomButton {
             SQLEmbeddedHandler sqlEmbeddedHandler = new SQLEmbeddedHandler();
             sqlEmbeddedHandler.replyToNewRegisteredUser(event);
         } else {
-            Main.mineworld.shop.replyToNextShopPage(event, false);
+            Inventory inventory = new Inventory();
+            inventory.updateToFirstEmbedded(event);
         }
     }
 }

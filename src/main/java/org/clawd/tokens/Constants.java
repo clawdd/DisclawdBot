@@ -1,5 +1,7 @@
 package org.clawd.tokens;
 
+import net.dv8tion.jda.api.entities.emoji.Emoji;
+
 public final class Constants {
     public static final String LOGGER_NAME = "DISCLAWD BOT";
     public static final String SQL_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
@@ -18,7 +20,6 @@ public final class Constants {
      * THRESHOLDS for item params
      */
 
-    public static final double ITEM_DROP_CHANCE_LOWER_B = 0;
     public static final double ITEM_DROP_CHANCE_UPPER_B = 1;
     public static final double XP_MULTIPLIER_LOWER_B = 1;
     public static final double GOLD_MULTIPLIER_LOWER_B = 0;
@@ -69,11 +70,21 @@ public final class Constants {
     public static final String MINE_BUTTON_ID = "mine";
     public static final String NEXT_SHOP_BUTTON_ID = "next-shop";
     public static final String BACK_SHOP_BUTTON_ID = "back-shop";
+    public static final String HOME_SHOP_BUTTON_ID = "home-shop";
     public static final String NEXT_INV_BUTTON_ID = "next-inv";
+    public static final String HOME_INV_BUTTON_ID = "home-inv";
     public static final String BACK_INV_BUTTON_ID = "back-inv";
-    public static final String CLOSE_BUTTON_ID = "close";
     public static final String BUY_BUTTON_ID = "buy";
     public static final String EQUIP_BUTTON_ID = "Equip";
+
+    /*
+     * Button emoji's
+     */
+
+    public static final Emoji NEXT_BUTTON_EMOJI = Emoji.fromUnicode("U+25B6");
+    public static final Emoji HOME_BUTTON_EMOJI = Emoji.fromUnicode("U+274C");
+    public static final Emoji BACK_BUTTON_EMOJI = Emoji.fromUnicode("U+25C0");
+
 
     /*
      * Base stat constants

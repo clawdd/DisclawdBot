@@ -25,7 +25,7 @@ public class SQLInventoryHandler {
 
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
-            Main.logger.severe("Some SQL error occurred: " + ex.getMessage());
+            Main.LOG.severe("Some SQL error occurred: " + ex.getMessage());
         }
     }
 
@@ -43,7 +43,7 @@ public class SQLInventoryHandler {
             itemInInventory = resultSet.next();
             resultSet.close();
         } catch (SQLException ex) {
-            Main.logger.severe("Some SQL error occurred: " + ex.getMessage());
+            Main.LOG.severe("Some SQL error occurred: " + ex.getMessage());
         }
         return itemInInventory;
     }
@@ -66,14 +66,14 @@ public class SQLInventoryHandler {
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
-                Main.logger.info("Equipped item " + itemID + " for user " + userID);
+                Main.LOG.info("Equipped item " + itemID + " for user " + userID);
             } else {
-                Main.logger.severe("Failed to equip item " + itemID + " for user " + userID);
+                Main.LOG.severe("Failed to equip item " + itemID + " for user " + userID);
             }
             preparedStatement.close();
 
         } catch (SQLException ex) {
-            Main.logger.severe("Some SQL error occurred: " + ex.getMessage());
+            Main.LOG.severe("Some SQL error occurred: " + ex.getMessage());
         }
     }
 
@@ -94,14 +94,14 @@ public class SQLInventoryHandler {
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
-                Main.logger.info("Unequipped item for user" + userID);
+                Main.LOG.info("Unequipped item for user" + userID);
             } else {
-                Main.logger.severe("Failed to unequip item for user" + userID);
+                Main.LOG.severe("Failed to unequip item for user" + userID);
             }
             preparedStatement.close();
 
         } catch (SQLException ex) {
-            Main.logger.severe("Some SQL error occurred: " + ex.getMessage());
+            Main.LOG.severe("Some SQL error occurred: " + ex.getMessage());
         }
     }
 
@@ -123,22 +123,44 @@ public class SQLInventoryHandler {
 
             if (resultSet.next()) {
                 itemID = resultSet.getInt("equipedItemID");
-                Main.logger.info("Retrieved item ID: " + itemID + ". From user: " + userID);
+                Main.LOG.info("Retrieved item ID: " + itemID + ". From user: " + userID);
             }
 
             resultSet.close();
             preparedStatement.close();
 
         } catch (SQLException ex) {
-            Main.logger.severe("Some SQL error occurred: " + ex.getMessage());
+            Main.LOG.severe("Some SQL error occurred: " + ex.getMessage());
         }
         return itemID;
     }
 
-    //TODO
+    /**
+     * This method returns a list of all items that the user has bought or found
+     *
+     * @param userID The user ID
+     * @return A list containing the items or an empty list
+     */
     public List<Item> getAllUserItems(String userID) {
         List<Item> itemList = new ArrayList<>();
 
+        try {
+            Connection connection = Bot.getInstance().getSQLConnection();
+            String sqlQuery = "SELECT * FROM inventory WHERE userID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+            preparedStatement.setString(1, userID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int itemID = resultSet.getInt("itemID");
+                Item item = Main.mineworld.getItemByID(itemID);
+                itemList.add(item);
+            }
+
+        } catch (SQLException ex) {
+            Main.LOG.severe("Some SQL error occurred: " + ex.getMessage());
+        }
         return itemList;
     }
 }

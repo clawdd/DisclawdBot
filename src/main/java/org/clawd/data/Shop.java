@@ -1,7 +1,6 @@
 package org.clawd.data;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
@@ -22,6 +21,10 @@ public class Shop {
     private final List<Item> itemList;
     private final List<EmbedBuilder> pages;
     private final int shopPagesCount;
+
+    private Button nextButton = Button.secondary(Constants.NEXT_SHOP_BUTTON_ID, Constants.NEXT_BUTTON_EMOJI);
+    private Button homeButton = Button.secondary(Constants.HOME_SHOP_BUTTON_ID, Constants.HOME_BUTTON_EMOJI);
+    private Button backButton = Button.secondary(Constants.BACK_SHOP_BUTTON_ID, Constants.BACK_BUTTON_EMOJI);
 
     public Shop(List<Item> itemList) {
         this.itemList = itemList.stream().filter(i -> i.getDropChance() == 0).toList();
@@ -71,7 +74,7 @@ public class Shop {
                         item.getEmoji() + itemName + item.getEmoji(),
                                 ":black_small_square: XP boost: " + itemXPMult + "\n"
                                         + alternativeTxt + alternativePerk + "\n"
-                                        + ":black_small_square: Price: " + itemPrice + " Coins" + "\n" //nf.format(itemPrice)
+                                        + ":black_small_square: Price: " + itemPrice + " Coins" + "\n"
                                         + ":black_small_square: Required lvl. " + item.getReqLvl(),
                         true);
             }
@@ -81,25 +84,22 @@ public class Shop {
     }
 
     /**
-     * Creates the core page for the shop
+     * Replies with the first page of the shop
      *
      * @param event The event
      */
-    public void replyWithShopCoreEmbedded(SlashCommandInteractionEvent event) {
+    public void replyWithShopFirstEmbedded(SlashCommandInteractionEvent event) {
 
         EmbedBuilder embedBuilder = pages.getFirst();
 
-        Button nextButton = Button.secondary(Constants.NEXT_SHOP_BUTTON_ID, Emoji.fromUnicode("U+25B6"));
-        Button closeButton = Button.secondary(Constants.CLOSE_BUTTON_ID, Emoji.fromUnicode("U+274C"));
-        Button backButton = Button.secondary(Constants.BACK_SHOP_BUTTON_ID, Emoji.fromUnicode("U+25C0"));
         if (this.shopPagesCount == 1)
-            nextButton = nextButton.asDisabled();
+            this.nextButton = this.nextButton.asDisabled();
 
         event.replyEmbeds(embedBuilder.build())
                 .addActionRow(
-                        backButton.asDisabled(),
-                        closeButton.asDisabled(),
-                        nextButton
+                        this.backButton.asDisabled(),
+                        this.homeButton.asDisabled(),
+                        this.nextButton
                 )
                 .setEphemeral(true)
                 .queue();
@@ -114,7 +114,7 @@ public class Shop {
      * @param back True if back button else false
      */
     public void replyToNextShopPage(ButtonInteractionEvent event, boolean back) {
-        String footer = Objects.requireNonNull(event.getMessage().getEmbeds().getFirst().getFooter()).getText();
+        String footer = Objects.requireNonNull(event.getMessage().getEmbeds().get(0).getFooter()).getText();
         String[] parts = footer.split("/");
         int currentPage = Integer.parseInt(parts[0].substring(6).strip());
 
@@ -124,47 +124,33 @@ public class Shop {
             currentPage++;
         }
 
-        event.getMessage().getContentStripped();
         currentPage = Math.max(1, Math.min(currentPage, this.shopPagesCount)) - 1;
 
         EmbedBuilder embedBuilder = pages.get(currentPage);
 
-        Button nextButton = Button.secondary(Constants.NEXT_SHOP_BUTTON_ID, Emoji.fromUnicode("U+25B6"));
-        Button closeButton = Button.secondary(Constants.CLOSE_BUTTON_ID, Emoji.fromUnicode("U+274C"));
-        Button backButton = Button.secondary(Constants.BACK_SHOP_BUTTON_ID, Emoji.fromUnicode("U+25C0"));
+        this.nextButton = this.nextButton.asEnabled();
+        this.homeButton = this.homeButton.asEnabled();
+        this.backButton = this.backButton.asEnabled();
 
-        if (this.shopPagesCount == 1) {
-            nextButton = nextButton.asDisabled();
-            closeButton = closeButton.asDisabled();
-            backButton = backButton.asDisabled();
-
-            InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
-            hook.editOriginalComponents(ActionRow.of(backButton, closeButton, nextButton)).queue();
-        } else if (currentPage > 0 && currentPage < this.shopPagesCount - 1) {
-
-            nextButton = nextButton.asEnabled();
-            closeButton = closeButton.asDisabled();
-            backButton = backButton.asEnabled();
-
-            InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
-            hook.editOriginalComponents(ActionRow.of(backButton, closeButton, nextButton)).queue();
-        } else if (currentPage == 0) {
-
-            nextButton = nextButton.asEnabled();
-            closeButton = closeButton.asDisabled();
-            backButton = backButton.asDisabled();
-
-            InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
-            hook.editOriginalComponents(ActionRow.of(backButton, closeButton, nextButton)).queue();
+        if (currentPage == 0) {
+            this.backButton = this.backButton.asDisabled();
         } else if (currentPage == this.shopPagesCount - 1) {
-
-            nextButton = nextButton.asDisabled();
-            closeButton = closeButton.asDisabled();
-            backButton = backButton.asEnabled();
-
-            InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
-            hook.editOriginalComponents(ActionRow.of(backButton, closeButton, nextButton)).queue();
+            this.nextButton = this.nextButton.asDisabled();
         }
+
+        InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
+        hook.editOriginalComponents(ActionRow.of(this.backButton, this.homeButton, this.nextButton)).queue();
+    }
+
+    public void updateToFirstEmbedded(ButtonInteractionEvent event) {
+        EmbedBuilder embedBuilder;
+        embedBuilder = pages.getFirst();
+        this.nextButton = this.nextButton.asEnabled();
+        this.homeButton = this.homeButton.asDisabled();
+        this.backButton = this.backButton.asDisabled();
+
+        InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
+        hook.editOriginalComponents(ActionRow.of(this.backButton, this.homeButton, this.nextButton)).queue();
     }
 
     /**
@@ -178,7 +164,7 @@ public class Shop {
         try {
             result = this.itemList.stream().filter(i -> i.getName().equalsIgnoreCase(itemName)).toList().getFirst();
         } catch (NoSuchElementException ex) {
-            Main.logger.severe("Item '" + itemName + "' cannot by found by name.");
+            Main.LOG.severe("Item '" + itemName + "' cannot by found by name.");
         }
         return result;
     }

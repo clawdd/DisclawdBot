@@ -36,7 +36,7 @@ public class Bot {
         addListeners();
         upsertCommands();
 
-        Main.logger.info("Bot finished loading");
+        Main.LOG.info("Bot finished loading");
     }
 
     /**
@@ -65,7 +65,7 @@ public class Bot {
             botProps.load(new FileInputStream(configPath));
 
         } catch (NullPointerException | IOException ex) {
-            Main.logger.severe("Error loading properties file: " + ex.getMessage());
+            Main.LOG.severe("Error loading properties file: " + ex.getMessage());
         }
         return botProps;
     }
@@ -79,10 +79,10 @@ public class Bot {
             connection = DriverManager.getConnection("jdbc:mysql://" + BotTokens.JDBC_URL, BotTokens.SQL_USERNAME, "");
 
             if (connection != null && !connection.isClosed())
-                Main.logger.info("Successfully connected to SQL Database");
+                Main.LOG.info("Successfully connected to SQL Database");
 
         } catch (ClassNotFoundException | SQLException ex) {
-            Main.logger.severe("Could not connect to SQL Database " + ex.getMessage());
+            Main.LOG.severe("Could not connect to SQL Database " + ex.getMessage());
         }
     }
 
@@ -94,10 +94,10 @@ public class Bot {
             if (connection != null && !connection.isClosed())
                 this.connection.close();
 
-            Main.logger.info("SQL connection closed successfully");
+            Main.LOG.info("SQL connection closed successfully");
 
         } catch (SQLException ex) {
-            Main.logger.severe("Could not close SQL connection" + ex.getMessage());
+            Main.LOG.severe("Could not close SQL connection" + ex.getMessage());
         }
     }
 
@@ -105,7 +105,7 @@ public class Bot {
         jda.addEventListener(new CommandManager());
         jda.addEventListener(new ButtonManager());
 
-        Main.logger.info("Added listeners");
+        Main.LOG.info("Added listeners");
     }
 
     private void upsertCommands() {
@@ -128,7 +128,7 @@ public class Bot {
                 .addOption(OptionType.STRING, Constants.ITEM_COMMAND_OPTION_ID, "Yes exactly this one!", true, false)
                 .setGuildOnly(true)
                 .queue();
-        Main.logger.info("Added commands");
+        Main.LOG.info("Added commands");
     }
 
     public Connection getSQLConnection() {

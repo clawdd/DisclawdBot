@@ -1,11 +1,11 @@
-package org.clawd.buttons.type;
+package org.clawd.buttons.type.nav;
 
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.clawd.buttons.CustomButton;
 import org.clawd.main.Main;
 import org.clawd.sql.SQLEmbeddedHandler;
 
-public class ShopCloseButton implements CustomButton {
+public class ShopNextButton implements CustomButton {
     @Override
     public void executeButton(ButtonInteractionEvent event) {
         String userID = event.getUser().getId();
@@ -14,7 +14,7 @@ public class ShopCloseButton implements CustomButton {
             SQLEmbeddedHandler sqlEmbeddedHandler = new SQLEmbeddedHandler();
             sqlEmbeddedHandler.replyToNewRegisteredUser(event);
         } else {
-            event.getMessage().delete().queue();
+            Main.mineworld.shop.replyToNextShopPage(event, false);
         }
     }
 }

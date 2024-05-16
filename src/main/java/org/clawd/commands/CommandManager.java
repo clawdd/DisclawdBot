@@ -33,7 +33,7 @@ public class CommandManager extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         String command = event.getName();
-        Main.logger.info("Received slash command: " + command);
+        Main.LOG.info("Received slash command: " + command);
 
         SlashCommand slashCommand = commands.get(command);
         slashCommand.executeCommand(event);

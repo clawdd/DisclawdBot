@@ -44,7 +44,7 @@ public class MobParser {
                             "- valid mobs = " + isMobListValid + "\n" +
                             "- is mob list empty = " + isMobListEmpty);
 
-        Main.logger.info("Mob parsing finished");
+        Main.LOG.info("Mob parsing finished");
         return mobs;
     }
 
@@ -90,7 +90,7 @@ public class MobParser {
             }
 
         } catch (JSONException | IOException ex) {
-            Main.logger.severe("Failed to parse JSON mobs file: " + ex.getMessage());
+            Main.LOG.severe("Failed to parse JSON mobs file: " + ex.getMessage());
         }
         return mobs;
     }
@@ -183,7 +183,7 @@ public class MobParser {
                 return false;
         }
 
-        Main.logger.info("Mob validation finished");
+        Main.LOG.info("Mob validation finished");
         return true;
     }
 

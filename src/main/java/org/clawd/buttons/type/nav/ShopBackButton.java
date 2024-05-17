@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.clawd.buttons.CustomButton;
 import org.clawd.main.Main;
 import org.clawd.sql.SQLEmbeddedHandler;
+import org.clawd.tokens.Constants;
 
 public class ShopBackButton implements CustomButton {
     @Override
@@ -15,6 +16,7 @@ public class ShopBackButton implements CustomButton {
             sqlEmbeddedHandler.replyToNewRegisteredUser(event);
         } else {
             Main.mineworld.shop.replyToNextShopPage(event, true);
+            Main.LOG.info("Executed '"+ Constants.BACK_SHOP_BUTTON_ID +"' button");
         }
     }
 }

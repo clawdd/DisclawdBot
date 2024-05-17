@@ -80,8 +80,9 @@ public final class Constants {
      * Button emoji's
      */
 
+    public static final Emoji MINE_BUTTON_EMOJI = Emoji.fromUnicode("U+26CF");
     public static final Emoji NEXT_BUTTON_EMOJI = Emoji.fromUnicode("U+25B6");
-    public static final Emoji HOME_BUTTON_EMOJI = Emoji.fromUnicode("U+274C");
+    public static final Emoji HOME_BUTTON_EMOJI = Emoji.fromUnicode("U+1F504");
     public static final Emoji BACK_BUTTON_EMOJI = Emoji.fromUnicode("U+25C0");
 
 

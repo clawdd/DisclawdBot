@@ -20,11 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-//TODO a big mess
+//TODO make the inventory class an object to be stored in an list that gets updated overtime
 public class Inventory {
     private final SQLInventoryHandler sqlInventoryHandler = new SQLInventoryHandler();
     private Button nextButton = Button.secondary(Constants.NEXT_INV_BUTTON_ID, Constants.NEXT_BUTTON_EMOJI);
-    private Button homeButton = Button.secondary(Constants.HOME_INV_BUTTON_ID, Constants.HOME_BUTTON_EMOJI);
+    private final Button homeButton = Button.secondary(Constants.HOME_INV_BUTTON_ID, Constants.HOME_BUTTON_EMOJI);
     private Button backButton = Button.secondary(Constants.BACK_INV_BUTTON_ID, Constants.BACK_BUTTON_EMOJI);
 
     private List<EmbedBuilder> createPages(ButtonInteractionEvent event) {
@@ -49,7 +49,6 @@ public class Inventory {
                 Item item = userItemList.get(j);
 
                 String itemName = item.getName();
-                int itemPrice = item.getPrice();
                 double itemXPMult = item.getXpMultiplier();
                 String alternativeTxt;
                 double alternativePerk;
@@ -83,7 +82,7 @@ public class Inventory {
         event.replyEmbeds(createFirstEmbedded(event, inventoryPagesCount).build())
                 .addActionRow(
                         this.backButton.asDisabled(),
-                        this.homeButton.asDisabled(),
+                        this.homeButton,
                         this.nextButton
                 )
                 .setEphemeral(true).queue();
@@ -247,7 +246,6 @@ public class Inventory {
         EmbedBuilder embedBuilder = pages.get(currentPage);
 
         this.backButton = this.backButton.asEnabled();
-        this.homeButton = this.homeButton.asEnabled();
         this.nextButton = this.nextButton.asEnabled();
 
         if (currentPage == 0) {
@@ -263,9 +261,15 @@ public class Inventory {
     public void updateToFirstEmbedded(ButtonInteractionEvent event) {
         EmbedBuilder embedBuilder;
         embedBuilder = createFirstEmbedded(event);
+
+        List<Item> userItemList = sqlInventoryHandler.getAllUserItems(event.getUser().getId());
+        int inventoryPagesCount = ((int) Math.ceil((double) userItemList.size() / Constants.ITEMS_PER_PAGE)) + 1;
+
         this.nextButton = this.nextButton.asEnabled();
-        this.homeButton = this.homeButton.asDisabled();
         this.backButton = this.backButton.asDisabled();
+
+        if (inventoryPagesCount == 1)
+            this.nextButton = this.nextButton.asDisabled();
 
         InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
         hook.editOriginalComponents(ActionRow.of(this.backButton, this.homeButton, this.nextButton)).queue();

@@ -5,6 +5,7 @@ import org.clawd.buttons.CustomButton;
 import org.clawd.data.Inventory;
 import org.clawd.main.Main;
 import org.clawd.sql.SQLEmbeddedHandler;
+import org.clawd.tokens.Constants;
 
 public class InvNextButton implements CustomButton {
     @Override
@@ -17,6 +18,7 @@ public class InvNextButton implements CustomButton {
         } else {
             Inventory inventory = new Inventory();
             inventory.replyToNextInvPage(event, false);
+            Main.LOG.info("Executed '"+ Constants.NEXT_INV_BUTTON_ID +"' button");
         }
     }
 }

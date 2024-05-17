@@ -3,10 +3,10 @@ package org.clawd.commands.type.slashcommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.clawd.main.Main;
 import org.clawd.sql.SQLEmbeddedHandler;
+import org.clawd.tokens.Constants;
 
 public class InvCommand implements SlashCommand{
 
-    //TODO
     @Override
     public void executeCommand(SlashCommandInteractionEvent event) {
         String userID = event.getUser().getId();
@@ -17,6 +17,7 @@ public class InvCommand implements SlashCommand{
             handler.replyToNewRegisteredUser(event);
         } else {
             Main.mineworld.inventory.replyWithInventoryFirstEmbedded(event);
+            Main.LOG.info("Executed '"+ Constants.INV_COMMAND_ID +"' button");
         }
     }
 }

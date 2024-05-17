@@ -88,7 +88,7 @@ public class Mineworld {
             event.replyEmbeds(embedBuilder.build())
                     .addFiles(FileUpload.fromData(imgFile, "ore.png"))
                     .addActionRow(
-                            Button.primary(Constants.MINE_BUTTON_ID, "Mine")
+                            Button.primary(Constants.MINE_BUTTON_ID, Constants.MINE_BUTTON_EMOJI)
                     )
                     .queue();
 
@@ -118,7 +118,7 @@ public class Mineworld {
             event.replyEmbeds(embedBuilder.build())
                     .addFiles(FileUpload.fromData(imgFile, "ore.png"))
                     .addActionRow(
-                            Button.primary(Constants.MINE_BUTTON_ID, "Mine")
+                            Button.primary(Constants.MINE_BUTTON_ID, Constants.MINE_BUTTON_EMOJI)
                     ).queue();
 
         } catch (NullPointerException ex) {
@@ -143,6 +143,7 @@ public class Mineworld {
 
             event.editMessageEmbeds(embedBuilder.build())
                     .setFiles(FileUpload.fromData(imgFile, "ore.png"))
+                    .setActionRow(Button.primary(Constants.MINE_BUTTON_ID, Constants.MINE_BUTTON_EMOJI))
                     .queue();
             Main.LOG.info("Updated biome state.");
         } catch (NullPointerException ex) {

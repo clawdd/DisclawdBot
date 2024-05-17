@@ -23,7 +23,7 @@ public class Shop {
     private final int shopPagesCount;
 
     private Button nextButton = Button.secondary(Constants.NEXT_SHOP_BUTTON_ID, Constants.NEXT_BUTTON_EMOJI);
-    private Button homeButton = Button.secondary(Constants.HOME_SHOP_BUTTON_ID, Constants.HOME_BUTTON_EMOJI);
+    private final Button homeButton = Button.secondary(Constants.HOME_SHOP_BUTTON_ID, Constants.HOME_BUTTON_EMOJI);
     private Button backButton = Button.secondary(Constants.BACK_SHOP_BUTTON_ID, Constants.BACK_BUTTON_EMOJI);
 
     public Shop(List<Item> itemList) {
@@ -98,7 +98,7 @@ public class Shop {
         event.replyEmbeds(embedBuilder.build())
                 .addActionRow(
                         this.backButton.asDisabled(),
-                        this.homeButton.asDisabled(),
+                        this.homeButton,
                         this.nextButton
                 )
                 .setEphemeral(true)
@@ -129,7 +129,6 @@ public class Shop {
         EmbedBuilder embedBuilder = pages.get(currentPage);
 
         this.nextButton = this.nextButton.asEnabled();
-        this.homeButton = this.homeButton.asEnabled();
         this.backButton = this.backButton.asEnabled();
 
         if (currentPage == 0) {
@@ -146,7 +145,6 @@ public class Shop {
         EmbedBuilder embedBuilder;
         embedBuilder = pages.getFirst();
         this.nextButton = this.nextButton.asEnabled();
-        this.homeButton = this.homeButton.asDisabled();
         this.backButton = this.backButton.asDisabled();
 
         InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();

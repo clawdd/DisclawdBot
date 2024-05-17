@@ -9,6 +9,5 @@ public class ShopCommand implements SlashCommand {
     public void executeCommand(SlashCommandInteractionEvent event) {
         Main.mineworld.shop.replyWithShopFirstEmbedded(event);
         Main.LOG.info("Executed '"+ Constants.SHOP_COMMAND_ID +"' command");
-
     }
 }

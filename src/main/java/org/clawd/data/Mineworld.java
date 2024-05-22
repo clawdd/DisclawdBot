@@ -16,19 +16,24 @@ import org.clawd.tokens.Constants;
 
 import java.awt.*;
 import java.io.File;
-import java.util.HashMap;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.List;
 
 public class Mineworld {
 
     public final Shop shop;
     public final Inventory inventory;
+    public final Generator generator = new Generator();
     private final List<Item> itemList;
     private final List<Mob> mobList;
     private final HashMap<Biome, Double> biomeToHP;
     private final HashMap<Biome, String> biomeToImgPath;
     private Biome currentBiome;
     private Double currentBiomeHP;
+    private Double currentBiomeFullHP;
+    private final Map<String, LocalDateTime> currentUserMap;
+    private int currentUserMultiplier;
 
     public Mineworld(List<Item> itemList, List<Mob> mobList) {
         this.itemList = itemList;
@@ -38,6 +43,7 @@ public class Mineworld {
         this.inventory = new Inventory();
 
         this.biomeToHP = new HashMap<>();
+        this.currentUserMap = new HashMap<>();
 
         biomeToHP.put(Biome.COAL, Constants.BIOM_COAL_HP);
         biomeToHP.put(Biome.IRON, Constants.BIOM_IRON_HP);
@@ -50,7 +56,10 @@ public class Mineworld {
         biomeToImgPath.put(Biome.DIAMOND, Constants.BIOME_DIAMOND_IMG_PATH);
 
         this.currentBiome = generateBiome();
-        this.currentBiomeHP = biomeToHP.get(currentBiome);
+        this.currentBiomeFullHP = biomeToHP.get(currentBiome);
+        this.currentBiomeHP = this.currentBiomeFullHP;
+
+        this.currentUserMultiplier = 1;
     }
 
     /**
@@ -82,7 +91,8 @@ public class Mineworld {
 
             embedBuilder.setTitle(currentBiome.name());
             embedBuilder.setColor(Color.BLACK);
-            embedBuilder.addField("Biome HP", currentBiomeHP + "/" + biomeToHP.get(currentBiome), false);
+            embedBuilder.setDescription("Active miners: " + this.currentUserMap.size() + " (Last " + Constants.MAX_MINE_NOT_INTERACTED_MINUTES + " minutes)");
+            embedBuilder.addField("Biome HP", currentBiomeHP + "/" + this.currentBiomeFullHP, false);
             embedBuilder.setImage("attachment://ore.png");
 
             event.replyEmbeds(embedBuilder.build())
@@ -112,7 +122,8 @@ public class Mineworld {
 
             embedBuilder.setTitle(currentBiome.name());
             embedBuilder.setColor(Color.BLACK);
-            embedBuilder.addField("Biome HP",  generator.transformDouble(this.currentBiomeHP) + "/" + biomeToHP.get(this.currentBiome), false);;
+            embedBuilder.setDescription("Active miners: " + this.currentUserMap.size() + " (Last " + Constants.MAX_MINE_NOT_INTERACTED_MINUTES + " minutes)");
+            embedBuilder.addField("Biome HP",  generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);;
             embedBuilder.setImage("attachment://ore.png");
 
             event.replyEmbeds(embedBuilder.build())
@@ -138,7 +149,9 @@ public class Mineworld {
 
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle(currentBiome.name());
-            embedBuilder.addField("Biome HP", generator.transformDouble(this.currentBiomeHP) + "/" + biomeToHP.get(this.currentBiome), false);
+            embedBuilder.setColor(Color.BLACK);
+            embedBuilder.setDescription("Active miners: " + this.currentUserMap.size() + " (Last " + Constants.MAX_MINE_NOT_INTERACTED_MINUTES + " minutes)");
+            embedBuilder.addField("Biome HP", generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);
             embedBuilder.setImage("attachment://ore.png");
 
             event.editMessageEmbeds(embedBuilder.build())
@@ -196,7 +209,9 @@ public class Mineworld {
      */
     private void updateBiomeOnCompletion(ButtonInteractionEvent event) {
         event.getMessage().delete().queue();
-        this.currentBiomeHP = biomeToHP.get(this.currentBiome);
+        this.currentBiomeFullHP = biomeToHP.get(this.currentBiome);
+        adjustCurrentBiomeHP();
+        this.currentBiomeHP = currentBiomeFullHP;
         replyWithBiomeEmbedded(event);
         Main.LOG.info("Updated biome because of completion.");
     }
@@ -217,13 +232,12 @@ public class Mineworld {
             WeaponItem weaponItem = (WeaponItem) item;
             dmgMult = weaponItem.getDmgMultiplier();
         }
-        Generator generator = new Generator();
         //seems to be fixed with rounding the HP value and not transforming it to the form X.X before
         double totalDamage = Constants.BASE_DAMAGE_MULTIPLIER * dmgMult;
         double previousHP = this.currentBiomeHP;
 
         this.currentBiomeHP -= totalDamage;
-        this.currentBiomeHP = generator.roundDouble(this.currentBiomeHP, 1);
+        this.currentBiomeHP = this.generator.roundDouble(this.currentBiomeHP, 1);
         Main.LOG.info("Damage done to biome: " + this.currentBiome + "." +
                 " Damage: " + totalDamage + ", " + previousHP + "->" + this.currentBiomeHP);
     }
@@ -243,20 +257,49 @@ public class Mineworld {
         return foundItem;
     }
 
-    private Double getCurrentBiomeHP() {
-        return this.currentBiomeHP;
+    /**
+     * Add a user if interacted with the 'mine' button to the currentUserMap with a timestamp
+     *
+     * @param userID User ID
+     */
+    public void updateCurrentUserMultiplication(String userID) {
+        int oldMapSize = this.currentUserMap.size();
+        this.currentUserMap.put(userID, LocalDateTime.now());
+        updateCurrentUserMap();
+        int newMapSize = this.currentUserMap.size();
+        if (oldMapSize != newMapSize)
+            adjustCurrentBiomeHP();
     }
 
-    private String getCurrentBiomeImgPath() {
-        return biomeToImgPath.get(this.currentBiome);
+    /**
+     * Updates the currentUserMap by removing users from the list that did not interact with the 'mine' button longer
+     * than some minutes ago
+     */
+    private void updateCurrentUserMap() {
+        Iterator<Map.Entry<String, LocalDateTime>> iterator = this.currentUserMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, LocalDateTime> entry = iterator.next();
+            LocalDateTime lastInteractionTime = entry.getValue();
+
+            if (lastInteractionTime.isBefore(LocalDateTime.now().minusMinutes(Constants.MAX_MINE_NOT_INTERACTED_MINUTES))) {
+                iterator.remove();
+            }
+        }
     }
 
-    public List<Item> getItemList() {
-        return this.itemList;
-    }
+    /**
+     * Adjusts the biome HP depending on how many unique users interacted with the mine button in the last minutes
+     */
+    private void adjustCurrentBiomeHP() {
+        int previousUserMultiplier = this.currentUserMultiplier;
+        this.currentUserMultiplier = currentUserMap.size();
 
-    public List<Mob> getMobList() {
-        return this.mobList;
+        this.currentBiomeFullHP = this.generator.roundDouble(biomeToHP.get(currentBiome) * currentUserMultiplier, 1);
+
+        if (this.currentUserMultiplier < previousUserMultiplier) {
+            double adjustment = (double) currentUserMultiplier / previousUserMultiplier;
+            this.currentBiomeHP = this.generator.roundDouble(this.currentBiomeHP * adjustment, 1);
+        }
     }
 
     public Biome getCurrentBiome() {

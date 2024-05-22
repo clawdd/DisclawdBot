@@ -24,7 +24,7 @@ public class HelpCommand implements SlashCommand{
         embedBuilder.addField("", Constants.HELP_END_TEXT, false);
 
         embedBuilder.setFooter("PS: The title is a link :D");
-        embedBuilder.setUrl("https://github.com/clawdd");
+        embedBuilder.setUrl("https://clawd.info/");
 
         File imgFile = new File(Constants.PATH_LOGO_IMG);
 

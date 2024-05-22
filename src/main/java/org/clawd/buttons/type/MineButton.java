@@ -23,6 +23,7 @@ public class MineButton implements CustomButton {
             double generatedXP = generator.generateXP();
             int generatedGold = generator.generateGold();
 
+            Main.mineworld.updateCurrentUserMultiplication(userID);
             Main.mineworld.updateBiome(event);
 
             SQLStatsHandler sqlStatsHandler = new SQLStatsHandler();

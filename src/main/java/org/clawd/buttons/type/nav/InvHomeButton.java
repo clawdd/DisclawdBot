@@ -2,7 +2,7 @@ package org.clawd.buttons.type.nav;
 
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.clawd.buttons.CustomButton;
-import org.clawd.data.Inventory;
+import org.clawd.data.inventory.Inventory;
 import org.clawd.main.Main;
 import org.clawd.sql.SQLEmbeddedHandler;
 import org.clawd.tokens.Constants;

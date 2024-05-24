@@ -63,7 +63,7 @@ public class SQLHandler {
             preparedStatement.setInt(4, 0); // Default goldCount
             preparedStatement.setInt(5, 0); // Default mobKills
             preparedStatement.setInt(6, 0); // Default bossKills
-            preparedStatement.setInt(7, -1); // Default equipedItemID
+            preparedStatement.setInt(7, -1); // Default equippedItemID
 
             int rowsAffected = preparedStatement.executeUpdate();
 

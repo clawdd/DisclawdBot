@@ -1,4 +1,4 @@
-package org.clawd.data;
+package org.clawd.data.inventory;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import org.clawd.data.Generator;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.UtilItem;
 import org.clawd.data.items.WeaponItem;
@@ -76,8 +77,8 @@ public class Inventory {
 
     public void replyWithInventoryFirstEmbedded(SlashCommandInteractionEvent event) {
         List<Item> userItemList = sqlInventoryHandler.getAllUserItems(event.getUser().getId());
-        int inventoryPagesCount = ((int) Math.ceil((double) userItemList.size() / Constants.ITEMS_PER_PAGE)) + 1;
-        if (inventoryPagesCount == 1)
+        int inventoryPagesCount = userItemList.size();
+        if (inventoryPagesCount < 1)
             this.nextButton = this.nextButton.asDisabled();
         event.replyEmbeds(createFirstEmbedded(event, inventoryPagesCount).build())
                 .addActionRow(

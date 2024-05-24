@@ -6,10 +6,12 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.utils.FileUpload;
 import org.clawd.data.enums.Biome;
+import org.clawd.data.inventory.Inventory;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.WeaponItem;
 import org.clawd.data.items.enums.ItemType;
 import org.clawd.data.mobs.Mob;
+import org.clawd.data.shop.Shop;
 import org.clawd.main.Main;
 import org.clawd.sql.SQLInventoryHandler;
 import org.clawd.tokens.Constants;
@@ -21,7 +23,7 @@ import java.util.*;
 import java.util.List;
 
 public class Mineworld {
-
+    // TODO - add timestamp to messages
     public final Shop shop;
     public final Inventory inventory;
     public final Generator generator = new Generator();

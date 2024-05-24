@@ -27,7 +27,7 @@ public class BuyButton implements CustomButton {
             List<MessageEmbed> embeds = event.getMessage().getEmbeds();
             String embeddedTitle = embeds.getFirst().getTitle();
             String itemName = embeddedTitle.replace(":mag:", "").strip();
-            Item item = Main.mineworld.shop.getItemByName(itemName);
+            Item item = Main.mineworld.getItemByName(itemName);
 
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle("Couldn't buy item");

@@ -11,7 +11,7 @@ import org.clawd.data.items.Item;
 import org.clawd.data.items.WeaponItem;
 import org.clawd.data.items.enums.ItemType;
 import org.clawd.data.mobs.Mob;
-import org.clawd.data.shop.Shop;
+import org.clawd.data.shop.ShopHandler;
 import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
 
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class Mineworld {
     // TODO - add timestamp to messages
-    public final Shop shop;
+    public final ShopHandler shopHandler;
     public final InventoryHandler inventoryHandler;
     private final List<Item> itemList;
     private final List<Mob> mobList;
@@ -39,7 +39,7 @@ public class Mineworld {
         this.itemList = itemList;
         this.mobList = mobList;
 
-        this.shop = new Shop(itemList);
+        this.shopHandler = new ShopHandler(itemList);
         this.inventoryHandler = new InventoryHandler();
         this.biomeToHP = new HashMap<>();
         this.currentUserMap = new HashMap<>();
@@ -121,7 +121,7 @@ public class Mineworld {
             embedBuilder.setTitle(currentBiome.name());
             embedBuilder.setColor(Color.BLACK);
             embedBuilder.setDescription("Active miners: " + this.currentUserMap.size() + " (Last " + Constants.MAX_MINE_NOT_INTERACTED_MINUTES + " minutes)");
-            embedBuilder.addField("Biome HP",  Main.generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);;
+            embedBuilder.addField("Biome HP",  Main.generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);
             embedBuilder.setImage("attachment://ore.png");
 
             event.replyEmbeds(embedBuilder.build())
@@ -159,24 +159,6 @@ public class Mineworld {
         } catch (NullPointerException ex) {
             Main.LOG.severe("Could not load image file: " + ex.getMessage());
         }
-    }
-
-    /**
-     * Gets an item from the itemList by an item ID
-     *
-     * @param itemID The item ID we search with
-     * @return The item matching the item ID, if not found null is returned
-     */
-    public Item getItemByID (int itemID) {
-        Item returnItem = null;
-        if (itemID < 0)
-            return returnItem;
-
-        for(Item item : itemList) {
-            if (item.getUniqueID() == itemID)
-                returnItem = item;
-        }
-        return returnItem;
     }
 
     /**
@@ -240,21 +222,6 @@ public class Mineworld {
     }
 
     /**
-     * Searches the item by the item name in the item list
-     *
-     * @param name The item name
-     * @return Found item or null
-     */
-    public Item getItemByName(String name) {
-        Item foundItem = null;
-        for (Item item : itemList) {
-            if (item.getName().replace(" ", "").equalsIgnoreCase(name.replace(" ", "")))
-                foundItem = item;
-        }
-        return foundItem;
-    }
-
-    /**
      * Add a user if interacted with the 'mine' button to the currentUserMap with a timestamp
      *
      * @param userID User ID
@@ -297,6 +264,36 @@ public class Mineworld {
             double adjustment = (double) currentUserMultiplier / previousUserMultiplier;
             this.currentBiomeHP = Main.generator.roundDouble(this.currentBiomeHP * adjustment, 1);
         }
+    }
+
+    /**
+     * Searches the item by the item name in the item list
+     *
+     * @param name The item name
+     * @return Found item or null
+     */
+    public Item getItemByName(String name) {
+        Item foundItem = null;
+        for (Item item : itemList) {
+            if (item.getName().replace(" ", "").equalsIgnoreCase(name.replace(" ", "")))
+                foundItem = item;
+        }
+        return foundItem;
+    }
+
+    /**
+     * Gets an item from the itemList by an item ID
+     *
+     * @param itemID The item ID we search with
+     * @return The item matching the item ID, if not found null is returned
+     */
+    public Item getItemByID (int itemID) {
+        Item returnItem = null;
+        for(Item item : itemList) {
+            if (item.getUniqueID() == itemID)
+                returnItem = item;
+        }
+        return returnItem;
     }
 
     public Biome getCurrentBiome() {

@@ -3,7 +3,6 @@ package org.clawd.buttons.type.nav;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.clawd.buttons.CustomButton;
 import org.clawd.main.Main;
-import org.clawd.sql.SQLEmbeddedHandler;
 import org.clawd.tokens.Constants;
 
 public class ShopNextButton implements CustomButton {
@@ -14,7 +13,7 @@ public class ShopNextButton implements CustomButton {
             Main.sqlHandler.registerUser(userID);
             Main.sqlHandler.sqlEmbeddedHandler.replyToNewRegisteredUser(event);
         } else {
-            Main.mineworld.shop.replyToNextShopPage(event, false);
+            Main.mineworld.shopHandler.replyToNextShopPage(event, false);
             Main.LOG.info("Executed '"+ Constants.NEXT_SHOP_BUTTON_ID +"' button");
         }
     }

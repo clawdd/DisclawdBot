@@ -1,4 +1,4 @@
-package org.clawd.data.inventory;
+package org.clawd.data.shop;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -6,36 +6,42 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import org.clawd.sql.SQLInventoryHandler;
+import org.clawd.data.items.Item;
 import org.clawd.tokens.Constants;
 
+import java.util.*;
+import java.util.List;
 
-import java.util.Objects;
+public class ShopHandler {
+    private final ShopCore shopCore;
+    private Button nextButton = Button.secondary(Constants.NEXT_SHOP_BUTTON_ID, Constants.NEXT_BUTTON_EMOJI);
+    private final Button homeButton = Button.secondary(Constants.HOME_SHOP_BUTTON_ID, Constants.HOME_BUTTON_EMOJI);
+    private Button backButton = Button.secondary(Constants.BACK_SHOP_BUTTON_ID, Constants.BACK_BUTTON_EMOJI);
 
-public class InventoryHandler {
-
-    public final InventoryCache inventoryCache = new InventoryCache();
-    private final SQLInventoryHandler sqlInventoryHandler = new SQLInventoryHandler();
-    private Button nextButton = Button.secondary(Constants.NEXT_INV_BUTTON_ID, Constants.NEXT_BUTTON_EMOJI);
-    private final Button homeButton = Button.secondary(Constants.HOME_INV_BUTTON_ID, Constants.HOME_BUTTON_EMOJI);
-    private Button backButton = Button.secondary(Constants.BACK_INV_BUTTON_ID, Constants.BACK_BUTTON_EMOJI);
+    public ShopHandler(List<Item> itemList) {
+        this.shopCore = new ShopCore(itemList);
+    }
 
     /**
-     * Replies with the first page of the inventory
+     * Replies with the first page of the shop
      *
      * @param event The SlashCommandInteractionEvent event
      */
-    public void replyWithInventoryFirstEmbedded(SlashCommandInteractionEvent event) {
-        Inventory inventory = this.inventoryCache.addInventory(event);
-        if (inventory.getInventoryPages().size() < 2)
+    public void replyWithShopFirstEmbedded(SlashCommandInteractionEvent event) {
+
+        EmbedBuilder embedBuilder = this.shopCore.getPages().getFirst();
+
+        if (this.shopCore.getShopPagesCount() == 1)
             this.nextButton = this.nextButton.asDisabled();
-        event.replyEmbeds(inventory.getInventoryPages().getFirst().build())
+
+        event.replyEmbeds(embedBuilder.build())
                 .addActionRow(
                         this.backButton.asDisabled(),
                         this.homeButton,
                         this.nextButton
                 )
-                .setEphemeral(true).queue();
+                .setEphemeral(true)
+                .queue();
     }
 
     /**
@@ -46,9 +52,8 @@ public class InventoryHandler {
      * @param event The ButtonInteractionEvent event
      * @param back  True if back button else false
      */
-    public void replyToNextInvPage(ButtonInteractionEvent event, boolean back) {
-        Inventory inventory = this.inventoryCache.addInventory(event);
-        String footer = Objects.requireNonNull(event.getMessage().getEmbeds().get(0).getFooter()).getText();
+    public void replyToNextShopPage(ButtonInteractionEvent event, boolean back) {
+        String footer = Objects.requireNonNull(event.getMessage().getEmbeds().getFirst().getFooter()).getText();
         String[] parts = footer.split("/");
         int currentPage = Integer.parseInt(parts[0].substring(6).strip());
 
@@ -58,15 +63,16 @@ public class InventoryHandler {
             currentPage++;
         }
 
-        currentPage = Math.max(1, Math.min(currentPage, inventory.getInventoryPages().size())) - 1;
+        currentPage = Math.max(1, Math.min(currentPage, this.shopCore.getShopPagesCount())) - 1;
 
-        EmbedBuilder embedBuilder = inventory.getInventoryPages().get(currentPage);
-        this.backButton = this.backButton.asEnabled();
+        EmbedBuilder embedBuilder = this.shopCore.getPages().get(currentPage);
+
         this.nextButton = this.nextButton.asEnabled();
+        this.backButton = this.backButton.asEnabled();
 
         if (currentPage == 0) {
             this.backButton = this.backButton.asDisabled();
-        } else if (currentPage == inventory.getInventoryPages().size() - 1) {
+        } else if (currentPage == this.shopCore.getShopPagesCount() - 1) {
             this.nextButton = this.nextButton.asDisabled();
         }
 
@@ -75,20 +81,17 @@ public class InventoryHandler {
     }
 
     /**
-     * This method makes the embedded message jump back to the first page and
-     * forces an update on the users inventory
+     * This method makes the embedded message jump back to the first page
      *
      * @param event The ButtonInteractionEvent event
      */
     public void updateToFirstEmbedded(ButtonInteractionEvent event) {
-        Inventory inventory = this.inventoryCache.forceInventoryUpdate(event);
+        EmbedBuilder embedBuilder;
+        embedBuilder = this.shopCore.getPages().getFirst();
         this.nextButton = this.nextButton.asEnabled();
         this.backButton = this.backButton.asDisabled();
 
-        if (inventory.getInventoryPages().size() < 2)
-            this.nextButton = this.nextButton.asDisabled();
-
-        InteractionHook hook = event.editMessageEmbeds(inventory.getInventoryPages().getFirst().build()).complete();
+        InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
         hook.editOriginalComponents(ActionRow.of(this.backButton, this.homeButton, this.nextButton)).queue();
     }
 }

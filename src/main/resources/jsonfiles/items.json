@@ -35,54 +35,6 @@
       "drop_chance": "0",
       "xp_multiplier": "1.1",
       "gold_multiplier": "1.1"
-    },
-    {
-      "id": "4",
-      "name": "Balanced Blade1",
-      "emoji": ":scales:",
-      "description": "Perfectly balanced, as all things should be.",
-      "imgPath": "src/main/resources/images/items/balanced_blade.png",
-      "reqLvl": "3",
-      "item_type": "UTILITY",
-      "drop_chance": "0",
-      "xp_multiplier": "1.1",
-      "gold_multiplier": "1.1"
-    },
-    {
-      "id": "5",
-      "name": "Balanced Blade2",
-      "emoji": ":scales:",
-      "description": "Perfectly balanced, as all things should be.",
-      "imgPath": "src/main/resources/images/items/balanced_blade.png",
-      "reqLvl": "3",
-      "item_type": "UTILITY",
-      "drop_chance": "0",
-      "xp_multiplier": "1.1",
-      "gold_multiplier": "1.1"
-    },
-    {
-      "id": "6",
-      "name": "Balanced Blade3",
-      "emoji": ":scales:",
-      "description": "Perfectly balanced, as all things should be.",
-      "imgPath": "src/main/resources/images/items/balanced_blade.png",
-      "reqLvl": "3",
-      "item_type": "UTILITY",
-      "drop_chance": "0",
-      "xp_multiplier": "1.1",
-      "gold_multiplier": "1.1"
-    },
-    {
-      "id": "7",
-      "name": "Balanced Blade4",
-      "emoji": ":scales:",
-      "description": "Perfectly balanced, as all things should be.",
-      "imgPath": "src/main/resources/images/items/balanced_blade.png",
-      "reqLvl": "3",
-      "item_type": "UTILITY",
-      "drop_chance": "0",
-      "xp_multiplier": "1.1",
-      "gold_multiplier": "1.1"
     }
   ]
 }

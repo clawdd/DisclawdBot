@@ -2,7 +2,6 @@ package org.clawd.sql;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
-import org.clawd.data.Generator;
 import org.clawd.main.Bot;
 import org.clawd.main.Main;
 
@@ -58,7 +57,7 @@ public class SQLStatsHandler {
                 double retrievedXP = resultSet.getDouble("xpCount");
                 // Call to transformDouble() to hopefully fix 'precision issue' where doubles have to
                 // many decimal places
-                xpCount = new Generator().transformDouble(retrievedXP);
+                xpCount = Main.generator.transformDouble(retrievedXP);
                 Main.LOG.info("Retrieved the total XP amount: " + xpCount + ". From user:"+ userID);
             }
 
@@ -172,7 +171,7 @@ public class SQLStatsHandler {
 
             // Again call to transformDouble() to fix 'precision' issue, before updating the XP count
             // in the database
-            double newCount = new Generator().transformDouble(currentXP + xp);
+            double newCount = Main.generator.transformDouble(currentXP + xp);
 
             preparedStatement.setDouble(1, newCount);
             preparedStatement.setString(2, userID);
@@ -219,9 +218,8 @@ public class SQLStatsHandler {
             double userUpdatedXP,
             ButtonInteractionEvent event
     ) {
-        Generator generator = new Generator();
-        int userCurrentLvl = generator.computeLevel(userCurrentXP);
-        int userUpdatedLvl = generator.computeLevel(userUpdatedXP);
+        int userCurrentLvl = Main.generator.computeLevel(userCurrentXP);
+        int userUpdatedLvl = Main.generator.computeLevel(userUpdatedXP);
 
         if (userUpdatedLvl > userCurrentLvl) {
             EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -233,6 +231,6 @@ public class SQLStatsHandler {
                     false
             );
             event.getHook().sendMessageEmbeds(embedBuilder.build()).setEphemeral(true).queue();
-        };
+        }
     }
 }

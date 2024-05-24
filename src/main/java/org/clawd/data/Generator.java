@@ -69,7 +69,7 @@ public class Generator {
      */
     public double roundDouble(double value, int places) {
         BigDecimal bd = BigDecimal.valueOf(value);
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
 }

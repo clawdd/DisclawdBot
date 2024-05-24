@@ -4,14 +4,11 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.utils.FileUpload;
-import org.clawd.data.Generator;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.UtilItem;
 import org.clawd.data.items.WeaponItem;
 import org.clawd.data.items.enums.ItemType;
 import org.clawd.main.Main;
-import org.clawd.sql.SQLInventoryHandler;
-import org.clawd.sql.SQLStatsHandler;
 import org.clawd.tokens.Constants;
 
 import java.awt.*;
@@ -46,14 +43,13 @@ public class ItemCommand implements SlashCommand{
             String alternativeTxt;
             double alternativePerk;
 
-            SQLStatsHandler sqlStatsHandler = new SQLStatsHandler();
-            SQLInventoryHandler sqlInventoryHandler = new SQLInventoryHandler();
-            int userLvl = new Generator().computeLevel(sqlStatsHandler.getXPCountFromUser(userID));
-            int userGold = sqlStatsHandler.getGoldCountFromUser(userID);
+
+            int userLvl = Main.generator.computeLevel(Main.sqlHandler.sqlStatsHandler.getXPCountFromUser(userID));
+            int userGold = Main.sqlHandler.sqlStatsHandler.getGoldCountFromUser(userID);
 
             Button buyButton = Button.success(Constants.BUY_BUTTON_ID, "Buy");
             Button equipButton = Button.success(Constants.EQUIP_BUTTON_ID, "Equip");
-            boolean isItemInInv = sqlInventoryHandler.isItemInUserInventory(userID, foundItem.getUniqueID());
+            boolean isItemInInv = Main.sqlHandler.sqlInventoryHandler.isItemInUserInventory(userID, foundItem.getUniqueID());
 
             if (isItemInInv) {
                 buyButton = buyButton.asDisabled();

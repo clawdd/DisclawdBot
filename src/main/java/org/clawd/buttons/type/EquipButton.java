@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.clawd.buttons.CustomButton;
 import org.clawd.data.items.Item;
 import org.clawd.main.Main;
-import org.clawd.sql.SQLInventoryHandler;
 import org.clawd.tokens.Constants;
 
 import java.awt.*;
@@ -21,7 +20,7 @@ public class EquipButton implements CustomButton {
         String searchTerm = title.replace(":mag:", "");
         Item item = Main.mineworld.getItemByName(searchTerm);
 
-        new SQLInventoryHandler().equipItem(userID, item.getUniqueID());
+        Main.sqlHandler.sqlInventoryHandler.equipItem(userID, item.getUniqueID());
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.ORANGE);

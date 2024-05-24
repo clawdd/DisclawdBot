@@ -102,6 +102,8 @@ public final class Constants {
     public static final int ITEMS_PER_PAGE = 3;
     public static final String PATH_LOGO_IMG = "src/main/resources/images/disclawd_logo.png";
     public static final int MAX_MINE_NOT_INTERACTED_MINUTES = 2;
+    public static final long CACHE_EXPIRY_MINUTES = 5;
+    public static final int CACHE_PERIOD_MINUTES = 2;
 
     /*
      * Help command description

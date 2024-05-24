@@ -12,8 +12,7 @@ public class ShopNextButton implements CustomButton {
         String userID = event.getUser().getId();
         if (!Main.sqlHandler.isUserRegistered(userID)) {
             Main.sqlHandler.registerUser(userID);
-            SQLEmbeddedHandler sqlEmbeddedHandler = new SQLEmbeddedHandler();
-            sqlEmbeddedHandler.replyToNewRegisteredUser(event);
+            Main.sqlHandler.sqlEmbeddedHandler.replyToNewRegisteredUser(event);
         } else {
             Main.mineworld.shop.replyToNextShopPage(event, false);
             Main.LOG.info("Executed '"+ Constants.NEXT_SHOP_BUTTON_ID +"' button");

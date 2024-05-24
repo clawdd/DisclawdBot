@@ -6,14 +6,13 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.utils.FileUpload;
 import org.clawd.data.enums.Biome;
-import org.clawd.data.inventory.Inventory;
+import org.clawd.data.inventory.InventoryHandler;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.WeaponItem;
 import org.clawd.data.items.enums.ItemType;
 import org.clawd.data.mobs.Mob;
 import org.clawd.data.shop.Shop;
 import org.clawd.main.Main;
-import org.clawd.sql.SQLInventoryHandler;
 import org.clawd.tokens.Constants;
 
 import java.awt.*;
@@ -25,8 +24,7 @@ import java.util.List;
 public class Mineworld {
     // TODO - add timestamp to messages
     public final Shop shop;
-    public final Inventory inventory;
-    public final Generator generator = new Generator();
+    public final InventoryHandler inventoryHandler;
     private final List<Item> itemList;
     private final List<Mob> mobList;
     private final HashMap<Biome, Double> biomeToHP;
@@ -42,8 +40,7 @@ public class Mineworld {
         this.mobList = mobList;
 
         this.shop = new Shop(itemList);
-        this.inventory = new Inventory();
-
+        this.inventoryHandler = new InventoryHandler();
         this.biomeToHP = new HashMap<>();
         this.currentUserMap = new HashMap<>();
 
@@ -120,12 +117,11 @@ public class Mineworld {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         try {
             File imgFile = new File(biomeToImgPath.get(currentBiome));
-            Generator generator = new Generator();
 
             embedBuilder.setTitle(currentBiome.name());
             embedBuilder.setColor(Color.BLACK);
             embedBuilder.setDescription("Active miners: " + this.currentUserMap.size() + " (Last " + Constants.MAX_MINE_NOT_INTERACTED_MINUTES + " minutes)");
-            embedBuilder.addField("Biome HP",  generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);;
+            embedBuilder.addField("Biome HP",  Main.generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);;
             embedBuilder.setImage("attachment://ore.png");
 
             event.replyEmbeds(embedBuilder.build())
@@ -147,13 +143,12 @@ public class Mineworld {
     private void updateBiomeMsg(ButtonInteractionEvent event) {
         try {
             File imgFile = new File(biomeToImgPath.get(currentBiome));
-            Generator generator = new Generator();
 
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle(currentBiome.name());
             embedBuilder.setColor(Color.BLACK);
             embedBuilder.setDescription("Active miners: " + this.currentUserMap.size() + " (Last " + Constants.MAX_MINE_NOT_INTERACTED_MINUTES + " minutes)");
-            embedBuilder.addField("Biome HP", generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);
+            embedBuilder.addField("Biome HP", Main.generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);
             embedBuilder.setImage("attachment://ore.png");
 
             event.editMessageEmbeds(embedBuilder.build())
@@ -226,7 +221,7 @@ public class Mineworld {
      */
     private void damageBiome(String userID) {
         // Remember you already wrote this line
-        int itemID = new SQLInventoryHandler().getEquippedItemIDFromUser(userID);
+        int itemID = Main.sqlHandler.sqlInventoryHandler.getEquippedItemIDFromUser(userID);
         double dmgMult = 1.0;
         Item item = getItemByID(itemID);
 
@@ -239,7 +234,7 @@ public class Mineworld {
         double previousHP = this.currentBiomeHP;
 
         this.currentBiomeHP -= totalDamage;
-        this.currentBiomeHP = this.generator.roundDouble(this.currentBiomeHP, 1);
+        this.currentBiomeHP = Main.generator.roundDouble(this.currentBiomeHP, 1);
         Main.LOG.info("Damage done to biome: " + this.currentBiome + "." +
                 " Damage: " + totalDamage + ", " + previousHP + "->" + this.currentBiomeHP);
     }
@@ -296,11 +291,11 @@ public class Mineworld {
         int previousUserMultiplier = this.currentUserMultiplier;
         this.currentUserMultiplier = currentUserMap.size();
 
-        this.currentBiomeFullHP = this.generator.roundDouble(biomeToHP.get(currentBiome) * currentUserMultiplier, 1);
+        this.currentBiomeFullHP = Main.generator.roundDouble(biomeToHP.get(currentBiome) * currentUserMultiplier, 1);
 
         if (this.currentUserMultiplier < previousUserMultiplier) {
             double adjustment = (double) currentUserMultiplier / previousUserMultiplier;
-            this.currentBiomeHP = this.generator.roundDouble(this.currentBiomeHP * adjustment, 1);
+            this.currentBiomeHP = Main.generator.roundDouble(this.currentBiomeHP * adjustment, 1);
         }
     }
 

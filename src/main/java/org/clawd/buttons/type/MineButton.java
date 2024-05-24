@@ -2,10 +2,7 @@ package org.clawd.buttons.type;
 
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.clawd.buttons.CustomButton;
-import org.clawd.data.Generator;
 import org.clawd.main.Main;
-import org.clawd.sql.SQLEmbeddedHandler;
-import org.clawd.sql.SQLStatsHandler;
 import org.clawd.tokens.Constants;
 
 public class MineButton implements CustomButton {
@@ -15,26 +12,23 @@ public class MineButton implements CustomButton {
 
         if (!Main.sqlHandler.isUserRegistered(userID)) {
             Main.sqlHandler.registerUser(userID);
-            SQLEmbeddedHandler sqlEmbeddedHandler = new SQLEmbeddedHandler();
-            sqlEmbeddedHandler.replyToNewRegisteredUser(event);
+            Main.sqlHandler.sqlEmbeddedHandler.replyToNewRegisteredUser(event);
         } else {
             // TODO
-            Generator generator = new Generator();
-            double generatedXP = generator.generateXP();
-            int generatedGold = generator.generateGold();
+            double generatedXP = Main.generator.generateXP();
+            int generatedGold = Main.generator.generateGold();
 
             Main.mineworld.updateCurrentUserMultiplication(userID);
             Main.mineworld.updateBiome(event);
 
-            SQLStatsHandler sqlStatsHandler = new SQLStatsHandler();
 
-            double userCurrentXP = sqlStatsHandler.getXPCountFromUser(userID);
-            sqlStatsHandler.incrementMineCount(userID);
-            sqlStatsHandler.incrementXPCount(userID, generatedXP);
-            sqlStatsHandler.changeGoldCount(userID, generatedGold);
-            double userUpdatedXP = sqlStatsHandler.getXPCountFromUser(userID);
+            double userCurrentXP = Main.sqlHandler.sqlStatsHandler.getXPCountFromUser(userID);
+            Main.sqlHandler.sqlStatsHandler.incrementMineCount(userID);
+            Main.sqlHandler.sqlStatsHandler.incrementXPCount(userID, generatedXP);
+            Main.sqlHandler.sqlStatsHandler.changeGoldCount(userID, generatedGold);
+            double userUpdatedXP = Main.sqlHandler.sqlStatsHandler.getXPCountFromUser(userID);
 
-            sqlStatsHandler.replyToUserLevelUp(userCurrentXP,userUpdatedXP, event);
+            Main.sqlHandler.sqlStatsHandler.replyToUserLevelUp(userCurrentXP,userUpdatedXP, event);
 
             Main.LOG.info("Executed '"+ Constants.MINE_BUTTON_ID  +"' button");
         }

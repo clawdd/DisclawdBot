@@ -9,9 +9,6 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.clawd.buttons.CustomButton;
 import org.clawd.data.items.Item;
 import org.clawd.main.Main;
-import org.clawd.sql.SQLEmbeddedHandler;
-import org.clawd.sql.SQLInventoryHandler;
-import org.clawd.sql.SQLStatsHandler;
 import org.clawd.tokens.Constants;
 
 import java.awt.*;
@@ -24,8 +21,7 @@ public class BuyButton implements CustomButton {
 
         if (!Main.sqlHandler.isUserRegistered(userID)) {
             Main.sqlHandler.registerUser(userID);
-            SQLEmbeddedHandler sqlEmbeddedHandler = new SQLEmbeddedHandler();
-            sqlEmbeddedHandler.replyToNewRegisteredUser(event);
+            Main.sqlHandler.sqlEmbeddedHandler.replyToNewRegisteredUser(event);
         } else {
 
             List<MessageEmbed> embeds = event.getMessage().getEmbeds();
@@ -42,14 +38,12 @@ public class BuyButton implements CustomButton {
                 event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
                 return;
             }
-            SQLStatsHandler sqlStatsHandler = new SQLStatsHandler();
-            SQLInventoryHandler sqlInventoryHandler = new SQLInventoryHandler();
 
             int itemPrice = item.getPrice();
             int itemID = item.getUniqueID();
 
-            sqlStatsHandler.changeGoldCount(userID, -itemPrice);
-            sqlInventoryHandler.addItemToPlayer(userID, itemID);
+            Main.sqlHandler.sqlStatsHandler.changeGoldCount(userID, -itemPrice);
+            Main.sqlHandler.sqlInventoryHandler.addItemToPlayer(userID, itemID);
             embedBuilder.setDescription("You successfully acquired " + item.getEmoji() + "**" + itemName + "**" + item.getEmoji() + " !");
 
             event.editComponents(

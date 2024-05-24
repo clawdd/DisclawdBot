@@ -1,6 +1,7 @@
 package org.clawd.main;
 
 import net.dv8tion.jda.api.OnlineStatus;
+import org.clawd.data.Generator;
 import org.clawd.data.Mineworld;
 import org.clawd.data.items.Item;
 import org.clawd.data.mobs.Mob;
@@ -14,16 +15,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
 
     public static Bot bot;
-
     public static Logger LOG;
     public static SQLHandler sqlHandler;
     public static Mineworld mineworld;
+    public static Generator generator;
 
     public static void main(String[] args) {
         LOG = Logger.getLogger(Constants.LOGGER_NAME);
@@ -36,14 +40,25 @@ public class Main {
             MobParser mobParser = new MobParser();
             List<Mob> mobList = mobParser.parseMobs();
 
-            // 2nd argument is currently a placeholder
             mineworld = new Mineworld(itemList, mobList);
+            generator = new Generator();
 
             bot = Bot.getInstance();
+            scheduleCacheCleanUp();
             run(bot);
         } catch (FailedDataParseException ex) {
             LOG.severe(ex.getMessage());
         }
+    }
+
+    /**
+     * This method schedules the timing for inventory cache clean up periodically specified by CACHE_PERIOD_MINUTES
+     */
+    private static void scheduleCacheCleanUp() {
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Main.mineworld.inventoryHandler.inventoryCache.cleanUpCache();
+        }, 0, Constants.CACHE_PERIOD_MINUTES, TimeUnit.MINUTES);
     }
 
     /**

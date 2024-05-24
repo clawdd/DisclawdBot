@@ -23,6 +23,9 @@ public class InventoryCache {
     public void cleanUpCache() {
         lock.lock();
         try {
+            if (inventories.isEmpty())
+                return;
+
             int previousSize = this.inventories.size();
             LocalDateTime now = LocalDateTime.now();
             inventories.removeIf(

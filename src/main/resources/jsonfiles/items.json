@@ -4,7 +4,7 @@
       "id": "1",
       "name": "Magic Stone",
       "emoji": ":gem:",
-      "description": "Just a funky stone tbh :/",
+      "description": "More than a shiny stone!",
       "imgPath": "src/main/resources/images/items/magic_stone.png",
       "reqLvl": "0",
       "item_type": "UTILITY",
@@ -14,10 +14,10 @@
     },
     {
       "id": "2",
-      "name": "Bloody Dagger",
-      "emoji": ":dagger:",
-      "description": "Wielded by a tarnished.",
-      "imgPath": "src/main/resources/images/items/bloody_dagger.png",
+      "name": "Not a stick",
+      "emoji": ":herb:",
+      "description": "Really, you sold me a stick?",
+      "imgPath": "src/main/resources/images/items/not_a_stick.png",
       "reqLvl": "0",
       "item_type": "WEAPON",
       "drop_chance": "0",
@@ -28,13 +28,25 @@
       "id": "3",
       "name": "Balanced Blade",
       "emoji": ":scales:",
-      "description": "Perfectly balanced, as all things should be.",
+      "description": "Perfectly balanced, as all things should be - Big purple guy",
       "imgPath": "src/main/resources/images/items/balanced_blade.png",
       "reqLvl": "3",
       "item_type": "UTILITY",
       "drop_chance": "0",
       "xp_multiplier": "1.1",
       "gold_multiplier": "1.1"
+    },
+    {
+      "id": "4",
+      "name": "Reduvia",
+      "emoji": ":drop_of_blood:",
+      "description": "From the lands between",
+      "imgPath": "src/main/resources/images/items/reduvia.png",
+      "reqLvl": "5",
+      "item_type": "WEAPON",
+      "drop_chance": "0",
+      "xp_multiplier": "1.2",
+      "dmg_multiplier": "1.1"
     }
   ]
 }

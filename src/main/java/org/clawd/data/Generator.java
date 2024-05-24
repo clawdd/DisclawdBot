@@ -23,7 +23,7 @@ public class Generator {
         if (!xpBiomes.contains(biome))
             return 0d;
 
-        double generatedXP = (Math.random() * 5) + 1;
+        double generatedXP = (Math.random() * 4) + 1;
         double transformedXP = transformDouble(generatedXP);
         Main.LOG.info("Generated XP: " + transformedXP);
         return transformedXP;

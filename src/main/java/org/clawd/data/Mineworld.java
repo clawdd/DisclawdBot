@@ -121,7 +121,7 @@ public class Mineworld {
             embedBuilder.setTitle(currentBiome.name());
             embedBuilder.setColor(Color.BLACK);
             embedBuilder.setDescription("Active miners: " + this.currentUserMap.size() + " (Last " + Constants.MAX_MINE_NOT_INTERACTED_MINUTES + " minutes)");
-            embedBuilder.addField("Biome HP",  Main.generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);
+            embedBuilder.addField("Biome HP", Main.generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);
             embedBuilder.setImage("attachment://ore.png");
 
             event.replyEmbeds(embedBuilder.build())
@@ -166,12 +166,11 @@ public class Mineworld {
      * and the embedded message, such that the current state is displayed
      * correctly
      *
-     * @param event Event
+     * @param event  Event
+     * @param equippedItem The equipped user item
      */
-    public void updateBiome(ButtonInteractionEvent event) {
-        String userID = event.getUser().getId();
-        damageBiome(userID);
-
+    public void updateBiome(ButtonInteractionEvent event, Item equippedItem) {
+        damageBiome(equippedItem);
         if (this.currentBiomeHP <= 0) {
             this.currentBiome = generateBiome();
             updateBiomeOnCompletion(event);
@@ -199,16 +198,13 @@ public class Mineworld {
      * Calculates the damage done to a biome by a user and applies it to
      * the current HP of the current biome
      *
-     * @param userID User ID
+     * @param equippedItem The equipped user item
      */
-    private void damageBiome(String userID) {
-        // Remember you already wrote this line
-        int itemID = Main.sqlHandler.sqlInventoryHandler.getEquippedItemIDFromUser(userID);
+    private void damageBiome(Item equippedItem) {
         double dmgMult = 1.0;
-        Item item = getItemByID(itemID);
 
-        if (item != null && item.getItemType().equals(ItemType.WEAPON)) {
-            WeaponItem weaponItem = (WeaponItem) item;
+        if (equippedItem != null && equippedItem.getItemType().equals(ItemType.WEAPON)) {
+            WeaponItem weaponItem = (WeaponItem) equippedItem;
             dmgMult = weaponItem.getDmgMultiplier();
         }
         //seems to be fixed with rounding the HP value and not transforming it to the form X.X before
@@ -287,9 +283,9 @@ public class Mineworld {
      * @param itemID The item ID we search with
      * @return The item matching the item ID, if not found null is returned
      */
-    public Item getItemByID (int itemID) {
+    public Item getItemByID(int itemID) {
         Item returnItem = null;
-        for(Item item : itemList) {
+        for (Item item : itemList) {
             if (item.getUniqueID() == itemID)
                 returnItem = item;
         }

@@ -14,9 +14,7 @@ import java.util.List;
 
 public class ShopHandler {
     private final ShopCore shopCore;
-    private Button nextButton = Button.secondary(Constants.NEXT_SHOP_BUTTON_ID, Constants.NEXT_BUTTON_EMOJI);
-    private final Button homeButton = Button.secondary(Constants.HOME_SHOP_BUTTON_ID, Constants.HOME_BUTTON_EMOJI);
-    private Button backButton = Button.secondary(Constants.BACK_SHOP_BUTTON_ID, Constants.BACK_BUTTON_EMOJI);
+
 
     public ShopHandler(List<Item> itemList) {
         this.shopCore = new ShopCore(itemList);
@@ -30,15 +28,17 @@ public class ShopHandler {
     public void replyWithShopFirstEmbedded(SlashCommandInteractionEvent event) {
 
         EmbedBuilder embedBuilder = this.shopCore.getPages().getFirst();
-
-        if (this.shopCore.getShopPagesCount() == 1)
-            this.nextButton = this.nextButton.asDisabled();
+        Button nextButton = Button.secondary(Constants.NEXT_SHOP_BUTTON_ID, Constants.NEXT_BUTTON_EMOJI);
+        Button homeButton = Button.secondary(Constants.HOME_SHOP_BUTTON_ID, Constants.HOME_BUTTON_EMOJI);
+        Button backButton = Button.secondary(Constants.BACK_SHOP_BUTTON_ID, Constants.BACK_BUTTON_EMOJI);
+        if (this.shopCore.getShopPagesCount() < 2)
+            nextButton = nextButton.asDisabled();
 
         event.replyEmbeds(embedBuilder.build())
                 .addActionRow(
-                        this.backButton.asDisabled(),
-                        this.homeButton,
-                        this.nextButton
+                        backButton.asDisabled(),
+                        homeButton,
+                        nextButton
                 )
                 .setEphemeral(true)
                 .queue();
@@ -56,6 +56,9 @@ public class ShopHandler {
         String footer = Objects.requireNonNull(event.getMessage().getEmbeds().getFirst().getFooter()).getText();
         String[] parts = footer.split("/");
         int currentPage = Integer.parseInt(parts[0].substring(6).strip());
+        Button nextButton = Button.secondary(Constants.NEXT_SHOP_BUTTON_ID, Constants.NEXT_BUTTON_EMOJI);
+        Button homeButton = Button.secondary(Constants.HOME_SHOP_BUTTON_ID, Constants.HOME_BUTTON_EMOJI);
+        Button backButton = Button.secondary(Constants.BACK_SHOP_BUTTON_ID, Constants.BACK_BUTTON_EMOJI);
 
         if (back) {
             currentPage--;
@@ -67,17 +70,17 @@ public class ShopHandler {
 
         EmbedBuilder embedBuilder = this.shopCore.getPages().get(currentPage);
 
-        this.nextButton = this.nextButton.asEnabled();
-        this.backButton = this.backButton.asEnabled();
+        nextButton = nextButton.asEnabled();
+        backButton = backButton.asEnabled();
 
         if (currentPage == 0) {
-            this.backButton = this.backButton.asDisabled();
-        } else if (currentPage == this.shopCore.getShopPagesCount() - 1) {
-            this.nextButton = this.nextButton.asDisabled();
+            backButton = backButton.asDisabled();
+        } else if (currentPage == shopCore.getShopPagesCount() - 1) {
+            nextButton = nextButton.asDisabled();
         }
 
         InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
-        hook.editOriginalComponents(ActionRow.of(this.backButton, this.homeButton, this.nextButton)).queue();
+        hook.editOriginalComponents(ActionRow.of(backButton, homeButton, nextButton)).queue();
     }
 
     /**
@@ -88,10 +91,13 @@ public class ShopHandler {
     public void updateToFirstEmbedded(ButtonInteractionEvent event) {
         EmbedBuilder embedBuilder;
         embedBuilder = this.shopCore.getPages().getFirst();
-        this.nextButton = this.nextButton.asEnabled();
-        this.backButton = this.backButton.asDisabled();
+        Button nextButton = Button.secondary(Constants.NEXT_SHOP_BUTTON_ID, Constants.NEXT_BUTTON_EMOJI);
+        Button homeButton = Button.secondary(Constants.HOME_SHOP_BUTTON_ID, Constants.HOME_BUTTON_EMOJI);
+        Button backButton = Button.secondary(Constants.BACK_SHOP_BUTTON_ID, Constants.BACK_BUTTON_EMOJI);
+        nextButton = nextButton.asEnabled();
+        backButton = backButton.asDisabled();
 
         InteractionHook hook = event.editMessageEmbeds(embedBuilder.build()).complete();
-        hook.editOriginalComponents(ActionRow.of(this.backButton, this.homeButton, this.nextButton)).queue();
+        hook.editOriginalComponents(ActionRow.of(backButton, homeButton, nextButton)).queue();
     }
 }

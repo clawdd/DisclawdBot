@@ -45,8 +45,8 @@ public class Main {
             BiomeParser biomeParser = new BiomeParser();
             List<Biome> biomeList = biomeParser.parseBiomes();
 
-            mineworld = new Mineworld(itemList, mobList);
-            generator = new Generator();
+            mineworld = new Mineworld(itemList, mobList, biomeList);
+            generator = new Generator(biomeList);
 
             bot = Bot.getInstance();
             scheduleCacheCleanUp();

@@ -23,8 +23,14 @@ public class MineButton implements CustomButton {
             double generatedXP = Main.generator.generateXP();
             int generatedGold = Main.generator.generateGold();
 
-            double itemXPMult = equippedItem.getXpMultiplier();
-            double itemGoldMult = getItemGoldMult(equippedItem);
+            double itemXPMult = Constants.BASE_XP_MULTIPLIER;
+            double itemGoldMult = Constants.BASE_GOLD_MULTIPLIER;
+
+            if (equippedItem != null) {
+                itemXPMult = equippedItem.getXpMultiplier();
+                itemGoldMult = getItemGoldMult(equippedItem);
+            }
+
             double combinedXP = Main.generator.roundDouble((generatedXP * itemXPMult), 2);
             int combinedGold = (int) Math.ceil(generatedGold * itemGoldMult);
 

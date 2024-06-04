@@ -2,13 +2,15 @@ import org.clawd.data.Generator;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public class GeneratorTests {
 
     private Generator generator;
 
     @Before
     public void setup() {
-        this.generator = new Generator();
+        this.generator = new Generator(new ArrayList<>());
     }
 
     @Test

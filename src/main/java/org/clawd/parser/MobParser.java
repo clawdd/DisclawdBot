@@ -44,7 +44,7 @@ public class MobParser {
                             "- valid mobs = " + isMobListValid + "\n" +
                             "- is mob list empty = " + isMobListEmpty);
 
-        Main.LOG.info("Mob parsing finished");
+        Main.LOG.info("Mob parsing finished, mob list size: " + mobs.size());
         return mobs;
     }
 
@@ -174,15 +174,10 @@ public class MobParser {
      * @return True or false, depending on validation
      */
     private boolean validateMobs(List<Mob> mobs) {
-
-        if (mobs.isEmpty())
-            return false;
-
         for (Mob mob: mobs) {
             if (!isValidMob(mob))
                 return false;
         }
-
         Main.LOG.info("Mob validation finished");
         return true;
     }

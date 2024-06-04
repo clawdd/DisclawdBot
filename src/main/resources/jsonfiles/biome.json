@@ -1,0 +1,37 @@
+{
+  "biomes": [
+    {
+      "type" : "COAL",
+      "hp" : "10.0",
+      "imgPath": "src/main/resources/images/biome/coal.png",
+      "xpEnabled": true,
+      "mobs": [
+        "ZOMBIE",
+        "SKELETON",
+        "CREEPER"
+      ]
+    },
+    {
+      "type" : "IRON",
+      "hp" : "10.0",
+      "imgPath": "src/main/resources/images/biome/iron.png",
+      "xpEnabled": false,
+      "mobs": [
+        "ZOMBIE",
+        "SKELETON",
+        "CREEPER"
+      ]
+    },
+    {
+      "type" : "DIAMOND",
+      "hp" : "10.0",
+      "imgPath": "src/main/resources/images/biome/diamond.png",
+      "xpEnabled": true,
+      "mobs": [
+        "ZOMBIE",
+        "SKELETON",
+        "CREEPER"
+      ]
+    }
+  ]
+}

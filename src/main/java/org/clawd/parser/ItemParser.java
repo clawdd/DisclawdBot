@@ -27,7 +27,7 @@ public class ItemParser {
      *
      * @return a list containing all items
      * @throws FailedDataParseException when parsing fails, either to invalid items or
-     *                                   empty item list
+     *                                  empty item list
      */
     public List<Item> parseItems() throws FailedDataParseException {
         List<Item> items = getItemsFromJSON();
@@ -39,10 +39,10 @@ public class ItemParser {
         if (!isItemListValid || isItemListEmpty)
             throw new FailedDataParseException(
                     "Could not parse items correctly:\n" +
-                    "- valid items = " + isItemListValid + "\n" +
-                    "- is item list empty = " + isItemListEmpty);
+                            "- valid items = " + isItemListValid + "\n" +
+                            "- is item list empty = " + isItemListEmpty);
 
-        Main.LOG.info("Item parsing finished");
+        Main.LOG.info("Item parsing finished, item list size: " + items.size());
         return items;
     }
 
@@ -129,14 +129,10 @@ public class ItemParser {
      * @return True or false, depending on validation
      */
     private boolean validateItems(List<Item> items) {
-        if (items.isEmpty())
-            return false;
-
         for (Item item : items) {
             if (!isValidItem(item))
                 return false;
         }
-
         Main.LOG.info("Item validation finished");
         return true;
     }

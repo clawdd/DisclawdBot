@@ -3,8 +3,10 @@ package org.clawd.main;
 import net.dv8tion.jda.api.OnlineStatus;
 import org.clawd.data.Generator;
 import org.clawd.data.Mineworld;
+import org.clawd.data.biomes.Biome;
 import org.clawd.data.items.Item;
 import org.clawd.data.mobs.Mob;
+import org.clawd.parser.BiomeParser;
 import org.clawd.parser.ItemParser;
 import org.clawd.parser.MobParser;
 import org.clawd.parser.exceptions.FailedDataParseException;
@@ -40,6 +42,9 @@ public class Main {
             MobParser mobParser = new MobParser();
             List<Mob> mobList = mobParser.parseMobs();
 
+            BiomeParser biomeParser = new BiomeParser();
+            List<Biome> biomeList = biomeParser.parseBiomes();
+
             mineworld = new Mineworld(itemList, mobList);
             generator = new Generator();
 
@@ -56,9 +61,7 @@ public class Main {
      */
     private static void scheduleCacheCleanUp() {
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
-        scheduledExecutorService.scheduleAtFixedRate(() -> {
-            Main.mineworld.inventoryHandler.inventoryCache.cleanUpCache();
-        }, 0, Constants.CACHE_PERIOD_MINUTES, TimeUnit.MINUTES);
+        scheduledExecutorService.scheduleAtFixedRate(() -> Main.mineworld.inventoryHandler.inventoryCache.cleanUpCache(), 0, Constants.CACHE_PERIOD_MINUTES, TimeUnit.MINUTES);
     }
 
     /**

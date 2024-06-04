@@ -2,6 +2,8 @@ package org.clawd.tokens;
 
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 
+import java.io.File;
+
 public final class Constants {
     public static final String LOGGER_NAME = "DISCLAWD BOT";
     public static final String SQL_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
@@ -15,6 +17,8 @@ public final class Constants {
     public static final String ITEMS_JSON_ITEMS = "items";
     public static final String MOBS_JSON_FILEPATH = "src/main/resources/jsonfiles/mobs.json";
     public static final String MOBS_JSON_MOBS = "mobs";
+    public static final String BIOMES_JSON_FILEPATH = "src/main/resources/jsonfiles/biome.json";
+    public static final String BIOMES_JSON_BIOMES = "biomes";
 
     /*
      * THRESHOLDS for item params

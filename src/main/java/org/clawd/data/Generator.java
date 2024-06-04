@@ -1,6 +1,6 @@
 package org.clawd.data;
 
-import org.clawd.data.enums.Biome;
+import org.clawd.data.enums.BiomeType;
 import org.clawd.main.Main;
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Generator {
 
-    private final List<Biome> xpBiomes = Arrays.asList(Biome.COAL, Biome.DIAMOND);
+    private final List<BiomeType> xpBiomeTypes = Arrays.asList(BiomeType.COAL, BiomeType.DIAMOND);
 
     /**
      * Used to generate XP
@@ -18,9 +18,9 @@ public class Generator {
      * @return XP as double
      */
     public double generateXP() {
-        Biome biome = Main.mineworld.getCurrentBiome();
+        BiomeType biomeType = Main.mineworld.getCurrentBiome();
 
-        if (!xpBiomes.contains(biome))
+        if (!xpBiomeTypes.contains(biomeType))
             return 0d;
 
         double generatedXP = (Math.random() * 4) + 1;

@@ -165,8 +165,8 @@ public class Inventory {
         return this.timestamp;
     }
 
-    public LocalDateTime setTimestamp(LocalDateTime timestamp) {
-        return this.timestamp = timestamp;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     public List<EmbedBuilder> getInventoryPages() {

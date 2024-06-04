@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.utils.FileUpload;
-import org.clawd.data.enums.Biome;
+import org.clawd.data.enums.BiomeType;
 import org.clawd.data.inventory.InventoryHandler;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.WeaponItem;
@@ -27,9 +27,9 @@ public class Mineworld {
     public final InventoryHandler inventoryHandler;
     private final List<Item> itemList;
     private final List<Mob> mobList;
-    private final HashMap<Biome, Double> biomeToHP;
-    private final HashMap<Biome, String> biomeToImgPath;
-    private Biome currentBiome;
+    private final HashMap<BiomeType, Double> biomeToHP;
+    private final HashMap<BiomeType, String> biomeToImgPath;
+    private BiomeType currentBiomeType;
     private Double currentBiomeHP;
     private Double currentBiomeFullHP;
     private final Map<String, LocalDateTime> currentUserMap;
@@ -44,18 +44,18 @@ public class Mineworld {
         this.biomeToHP = new HashMap<>();
         this.currentUserMap = new HashMap<>();
 
-        biomeToHP.put(Biome.COAL, Constants.BIOM_COAL_HP);
-        biomeToHP.put(Biome.IRON, Constants.BIOM_IRON_HP);
-        biomeToHP.put(Biome.DIAMOND, Constants.BIOM_DIAMOND_HP);
+        biomeToHP.put(BiomeType.COAL, Constants.BIOM_COAL_HP);
+        biomeToHP.put(BiomeType.IRON, Constants.BIOM_IRON_HP);
+        biomeToHP.put(BiomeType.DIAMOND, Constants.BIOM_DIAMOND_HP);
 
         this.biomeToImgPath = new HashMap<>();
 
-        biomeToImgPath.put(Biome.COAL, Constants.BIOME_COAL_IMG_PATH);
-        biomeToImgPath.put(Biome.IRON, Constants.BIOME_IRON_IMG_PATH);
-        biomeToImgPath.put(Biome.DIAMOND, Constants.BIOME_DIAMOND_IMG_PATH);
+        biomeToImgPath.put(BiomeType.COAL, Constants.BIOME_COAL_IMG_PATH);
+        biomeToImgPath.put(BiomeType.IRON, Constants.BIOME_IRON_IMG_PATH);
+        biomeToImgPath.put(BiomeType.DIAMOND, Constants.BIOME_DIAMOND_IMG_PATH);
 
-        this.currentBiome = generateBiome();
-        this.currentBiomeFullHP = biomeToHP.get(currentBiome);
+        this.currentBiomeType = generateBiome();
+        this.currentBiomeFullHP = biomeToHP.get(currentBiomeType);
         this.currentBiomeHP = this.currentBiomeFullHP;
 
         this.currentUserMultiplier = 1;
@@ -66,15 +66,15 @@ public class Mineworld {
      *
      * @return A biom
      */
-    private Biome generateBiome() {
-        List<Biome> biomeList = List.of(Biome.values());
-        int size = biomeList.size();
+    private BiomeType generateBiome() {
+        List<BiomeType> biomeTypeList = List.of(BiomeType.values());
+        int size = biomeTypeList.size();
         int selector = (int) (Math.random() * (size));
 
-        Biome returnBiome = biomeList.get(selector);
-        Main.LOG.info("The current biome is: " + returnBiome);
+        BiomeType returnBiomeType = biomeTypeList.get(selector);
+        Main.LOG.info("The current biome is: " + returnBiomeType);
 
-        return returnBiome;
+        return returnBiomeType;
     }
 
     /**
@@ -86,9 +86,9 @@ public class Mineworld {
     public void replyWithBiomeEmbedded(SlashCommandInteractionEvent event) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         try {
-            File imgFile = new File(biomeToImgPath.get(currentBiome));
+            File imgFile = new File(biomeToImgPath.get(currentBiomeType));
 
-            embedBuilder.setTitle(currentBiome.name());
+            embedBuilder.setTitle(currentBiomeType.name());
             embedBuilder.setColor(Color.BLACK);
             embedBuilder.setDescription("Active miners: " + this.currentUserMap.size() + " (Last " + Constants.MAX_MINE_NOT_INTERACTED_MINUTES + " minutes)");
             embedBuilder.addField("Biome HP", currentBiomeHP + "/" + this.currentBiomeFullHP, false);
@@ -116,9 +116,9 @@ public class Mineworld {
     public void replyWithBiomeEmbedded(ButtonInteractionEvent event) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         try {
-            File imgFile = new File(biomeToImgPath.get(currentBiome));
+            File imgFile = new File(biomeToImgPath.get(currentBiomeType));
 
-            embedBuilder.setTitle(currentBiome.name());
+            embedBuilder.setTitle(currentBiomeType.name());
             embedBuilder.setColor(Color.BLACK);
             embedBuilder.setDescription("Active miners: " + this.currentUserMap.size() + " (Last " + Constants.MAX_MINE_NOT_INTERACTED_MINUTES + " minutes)");
             embedBuilder.addField("Biome HP", Main.generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);
@@ -142,10 +142,10 @@ public class Mineworld {
      */
     private void updateBiomeMsg(ButtonInteractionEvent event) {
         try {
-            File imgFile = new File(biomeToImgPath.get(currentBiome));
+            File imgFile = new File(biomeToImgPath.get(currentBiomeType));
 
             EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle(currentBiome.name());
+            embedBuilder.setTitle(currentBiomeType.name());
             embedBuilder.setColor(Color.BLACK);
             embedBuilder.setDescription("Active miners: " + this.currentUserMap.size() + " (Last " + Constants.MAX_MINE_NOT_INTERACTED_MINUTES + " minutes)");
             embedBuilder.addField("Biome HP", Main.generator.transformDouble(this.currentBiomeHP) + "/" + this.currentBiomeFullHP, false);
@@ -172,7 +172,7 @@ public class Mineworld {
     public void updateBiome(ButtonInteractionEvent event, Item equippedItem) {
         damageBiome(equippedItem);
         if (this.currentBiomeHP <= 0) {
-            this.currentBiome = generateBiome();
+            this.currentBiomeType = generateBiome();
             updateBiomeOnCompletion(event);
             return;
         }
@@ -187,7 +187,7 @@ public class Mineworld {
      */
     private void updateBiomeOnCompletion(ButtonInteractionEvent event) {
         event.getMessage().delete().queue();
-        this.currentBiomeFullHP = biomeToHP.get(this.currentBiome);
+        this.currentBiomeFullHP = biomeToHP.get(this.currentBiomeType);
         adjustCurrentBiomeHP();
         this.currentBiomeHP = currentBiomeFullHP;
         replyWithBiomeEmbedded(event);
@@ -213,7 +213,7 @@ public class Mineworld {
 
         this.currentBiomeHP -= totalDamage;
         this.currentBiomeHP = Main.generator.roundDouble(this.currentBiomeHP, 1);
-        Main.LOG.info("Damage done to biome: " + this.currentBiome + "." +
+        Main.LOG.info("Damage done to biome: " + this.currentBiomeType + "." +
                 " Damage: " + totalDamage + ", " + previousHP + "->" + this.currentBiomeHP);
     }
 
@@ -254,7 +254,7 @@ public class Mineworld {
         int previousUserMultiplier = this.currentUserMultiplier;
         this.currentUserMultiplier = currentUserMap.size();
 
-        this.currentBiomeFullHP = Main.generator.roundDouble(biomeToHP.get(currentBiome) * currentUserMultiplier, 1);
+        this.currentBiomeFullHP = Main.generator.roundDouble(biomeToHP.get(currentBiomeType) * currentUserMultiplier, 1);
 
         if (this.currentUserMultiplier < previousUserMultiplier) {
             double adjustment = (double) currentUserMultiplier / previousUserMultiplier;
@@ -292,7 +292,7 @@ public class Mineworld {
         return returnItem;
     }
 
-    public Biome getCurrentBiome() {
-        return this.currentBiome;
+    public BiomeType getCurrentBiome() {
+        return this.currentBiomeType;
     }
 }

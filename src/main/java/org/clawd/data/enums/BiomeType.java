@@ -1,6 +1,6 @@
 package org.clawd.data.enums;
 
-public enum Biome {
+public enum BiomeType {
     COAL,
     IRON,
     DIAMOND

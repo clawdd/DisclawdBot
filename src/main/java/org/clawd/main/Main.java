@@ -6,6 +6,7 @@ import org.clawd.data.Mineworld;
 import org.clawd.data.biomes.Biome;
 import org.clawd.data.items.Item;
 import org.clawd.data.mobs.Mob;
+import org.clawd.data.shop.MobSpawner;
 import org.clawd.parser.BiomeParser;
 import org.clawd.parser.ItemParser;
 import org.clawd.parser.MobParser;
@@ -30,6 +31,7 @@ public class Main {
     public static SQLHandler sqlHandler;
     public static Mineworld mineworld;
     public static Generator generator;
+    public static MobSpawner mobSpawner;
 
     public static void main(String[] args) {
         LOG = Logger.getLogger(Constants.LOGGER_NAME);
@@ -47,6 +49,7 @@ public class Main {
 
             mineworld = new Mineworld(itemList, mobList, biomeList);
             generator = new Generator(biomeList);
+            mobSpawner = new MobSpawner();
 
             bot = Bot.getInstance();
             scheduleCacheCleanUp();

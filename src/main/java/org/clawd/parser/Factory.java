@@ -93,7 +93,7 @@ public class Factory {
             String imgPath,
             double spawnChance,
             double xpDrop,
-            double goldDrop
+            int goldDrop
     ) {
         return new NormalMob(uniqueID, name, desc, mobType, mobSubType, imgPath, spawnChance, xpDrop, goldDrop);
     }
@@ -124,7 +124,7 @@ public class Factory {
             String imgPath,
             double spawnChance,
             double xpDrop,
-            double goldDrop,
+            int goldDrop,
             boolean specialDrop,
             double health
     ) {

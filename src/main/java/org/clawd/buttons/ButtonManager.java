@@ -26,6 +26,7 @@ public class ButtonManager extends ListenerAdapter {
         this.buttons.put(Constants.NEXT_INV_BUTTON_ID, new InvNextButton());
         this.buttons.put(Constants.BACK_INV_BUTTON_ID, new InvBackButton());
         this.buttons.put(Constants.HOME_INV_BUTTON_ID, new InvHomeButton());
+        this.buttons.put(Constants.HIT_BUTTON_ID, new HitButton());
     }
 
     /**
@@ -39,7 +40,13 @@ public class ButtonManager extends ListenerAdapter {
         String buttonID = event.getComponentId();
         Main.LOG.info("Received button interaction: " + buttonID);
 
-        CustomButton button = buttons.get(buttonID);
-        button.executeButton(event);
+        String key = buttonID.contains(Constants.HIT_BUTTON_ID) ? Constants.HIT_BUTTON_ID : buttonID;
+        CustomButton button = buttons.get(key);
+
+        if (button != null) {
+            button.executeButton(event);
+        } else {
+            Main.LOG.severe("Button ID not found: " + buttonID);
+        }
     }
 }

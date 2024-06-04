@@ -16,7 +16,7 @@ public class BossMob extends NormalMob {
             String imgPath,
             double spawnChance,
             double xpDrop,
-            double goldDrop,
+            int goldDrop,
             boolean specialDrop,
             double health
     ) {

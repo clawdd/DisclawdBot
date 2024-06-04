@@ -81,34 +81,6 @@ public class SQLInventoryHandler {
     }
 
     /**
-     * Replaces the equipped item ID with -1, to represent no item in slot currently
-     *
-     * @param userID The user ID
-     */
-    public void unequipItem(String userID) {
-        try {
-            Connection connection = Bot.getInstance().getSQLConnection();
-            String sqlQuery = "UPDATE playertable SET equipedItemID = ? WHERE userID = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-
-            preparedStatement.setInt(1, Constants.NO_ITEM_ID);
-            preparedStatement.setString(2, userID);
-
-            int rowsAffected = preparedStatement.executeUpdate();
-
-            if (rowsAffected > 0) {
-                Main.LOG.info("Unequipped item for user" + userID);
-            } else {
-                Main.LOG.severe("Failed to unequip item for user" + userID);
-            }
-            preparedStatement.close();
-
-        } catch (SQLException ex) {
-            Main.LOG.severe("Some SQL error occurred: " + ex.getMessage());
-        }
-    }
-
-    /**
      * This method returns the equipped item ID, if no item is equipped this method returns -1
      *
      * @param userID The user ID

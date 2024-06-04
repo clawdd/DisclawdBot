@@ -5,7 +5,7 @@ import org.clawd.data.mobs.enums.MobType;
 
 public class NormalMob extends Mob {
     private final double xpDrop;
-    private final double goldDrop;
+    private final int goldDrop;
 
     public NormalMob(
             int uniqueID,
@@ -16,7 +16,7 @@ public class NormalMob extends Mob {
             String imgPath,
             double spawnChance,
             double xpDrop,
-            double goldDrop
+            int goldDrop
     ) {
         super(uniqueID, name, desc, mobType, mobSubType, imgPath, spawnChance);
         this.xpDrop = xpDrop;

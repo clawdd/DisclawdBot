@@ -35,7 +35,8 @@ public class InventoryHandler {
                         this.homeButton,
                         this.nextButton
                 )
-                .setEphemeral(true).queue();
+                .setEphemeral(true)
+                .queue();
     }
 
     /**

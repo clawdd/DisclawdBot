@@ -2,17 +2,72 @@
   "mobs": [
     {
       "id": "1",
-      "name": "test mob",
-      "description": "test mob description",
+      "name": "Zombie",
+      "description": "Appears in the overworld!",
       "mob_type": "NORMAL",
       "mob_sub_type": "ZOMBIE",
-      "img_path": "path.img",
+      "img_path": "src/main/resources/images/mobs/zombie.png",
       "spawn_chance": "0.3",
       "xp_drop_amount": "1.0",
-      "gold_drop_amount": "1.0"
+      "gold_drop_amount": "1"
     },
     {
       "id": "2",
+      "name": "Baby Zombie",
+      "description": "Appears in the overworld!",
+      "mob_type": "NORMAL",
+      "mob_sub_type": "ZOMBIE",
+      "img_path": "src/main/resources/images/mobs/baby_zombie.png",
+      "spawn_chance": "0.3",
+      "xp_drop_amount": "1.0",
+      "gold_drop_amount": "1"
+    },
+    {
+      "id": "3",
+      "name": "Skeleton",
+      "description": "Appears in the overworld!",
+      "mob_type": "NORMAL",
+      "mob_sub_type": "SKELETON",
+      "img_path": "src/main/resources/images/mobs/skeleton.png",
+      "spawn_chance": "0.3",
+      "xp_drop_amount": "1.0",
+      "gold_drop_amount": "1"
+    },
+    {
+      "id": "4",
+      "name": "Skeleton Horse",
+      "description": "Appears in the overworld!",
+      "mob_type": "NORMAL",
+      "mob_sub_type": "SKELETON",
+      "img_path": "src/main/resources/images/mobs/horse_skeleton.png",
+      "spawn_chance": "0.3",
+      "xp_drop_amount": "1.0",
+      "gold_drop_amount": "1"
+    },
+    {
+      "id": "5",
+      "name": "Creeper",
+      "description": "Appears in the overworld!",
+      "mob_type": "NORMAL",
+      "mob_sub_type": "CREEPER",
+      "img_path": "src/main/resources/images/mobs/creeper.png",
+      "spawn_chance": "0.3",
+      "xp_drop_amount": "1.0",
+      "gold_drop_amount": "1"
+    },
+    {
+      "id": "6",
+      "name": "Charged Creeper",
+      "description": "Appears in the overworld!",
+      "mob_type": "NORMAL",
+      "mob_sub_type": "CREEPER",
+      "img_path": "src/main/resources/images/mobs/charged_creeper.png",
+      "spawn_chance": "0.3",
+      "xp_drop_amount": "1.0",
+      "gold_drop_amount": "1"
+    },
+    {
+      "id": "7",
       "name": "test boss mob",
       "description": "test boss mob description",
       "mob_type": "BOSS",
@@ -20,12 +75,12 @@
       "img_path": "path.img",
       "spawn_chance": "0.1",
       "xp_drop_amount": "1.0",
-      "gold_drop_amount": "1.0",
+      "gold_drop_amount": "1",
       "special_drop": "true",
       "health_amount": "1000"
     },
     {
-      "id": "3",
+      "id": "8",
       "name": "test trader",
       "description": "test trader description",
       "mob_type": "TRADER",

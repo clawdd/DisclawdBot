@@ -104,6 +104,6 @@ public class BiomeParser {
      * @return True of false, depending on the biomes validity
      */
     private boolean isValidBiome(Biome biome) {
-        return !biome.spawnableMobs().isEmpty() && !(biome.biomeHP() <= 0);
+        return !biome.spawnableMobTypes().isEmpty() && !(biome.biomeHP() <= 0);
     }
 }

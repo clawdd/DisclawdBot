@@ -31,7 +31,7 @@ public class HelpCommand implements SlashCommand{
         event.replyEmbeds(embedBuilder.build())
                 .addFiles(FileUpload.fromData(imgFile, "logo.png"))
                 .setEphemeral(true)
-                .queue();
+                .complete();
 
         Main.LOG.info("Executed '"+ Constants.HELP_COMMAND_ID +"' command");
     }

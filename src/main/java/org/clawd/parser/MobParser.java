@@ -103,7 +103,7 @@ public class MobParser {
     private Mob getNormalMobFromJson(JSONObject jsonItem, int mobID, String mobName, String mobDesc, MobType mobType, MobSubType mobSubType, String imgPath, double spawnChance) {
 
         double xpDropAmount = jsonItem.getDouble("xp_drop_amount");
-        double goldDropAmount = jsonItem.getDouble("gold_drop_amount");
+        int goldDropAmount = jsonItem.getInt("gold_drop_amount");
 
         return factory.createNormalMob(
                 mobID,
@@ -126,7 +126,7 @@ public class MobParser {
     private Mob getBossMobFromJson(JSONObject jsonItem, int mobID, String mobName, String mobDesc, MobType mobType, MobSubType mobSubType, String imgPath, double spawnChance) {
 
         double xpDropAmount = jsonItem.getDouble("xp_drop_amount");
-        double goldDropAmount = jsonItem.getDouble("gold_drop_amount");
+        int goldDropAmount = jsonItem.getInt("gold_drop_amount");
         boolean specialDrop = jsonItem.getBoolean("special_drop");
         double health = jsonItem.getDouble("health_amount");
 

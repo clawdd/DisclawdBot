@@ -1,7 +1,7 @@
 package org.clawd.parser;
 
 import org.clawd.data.biomes.Biome;
-import org.clawd.data.enums.BiomeType;
+import org.clawd.data.biomes.BiomeType;
 import org.clawd.data.mobs.enums.MobSubType;
 import org.clawd.main.Main;
 import org.clawd.parser.exceptions.FailedDataParseException;
@@ -104,6 +104,7 @@ public class BiomeParser {
      * @return True of false, depending on the biomes validity
      */
     private boolean isValidBiome(Biome biome) {
-        return !biome.spawnableMobTypes().isEmpty() && !(biome.biomeHP() <= 0);
+        // return !biome.spawnableMobSubTypes().isEmpty() && !(biome.biomeHP() <= 0);
+        return !(biome.biomeHP() <= 0);
     }
 }

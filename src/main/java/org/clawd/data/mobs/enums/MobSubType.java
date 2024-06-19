@@ -1,13 +1,12 @@
 package org.clawd.data.mobs.enums;
 
 public enum MobSubType {
-    // normal mobs
     ZOMBIE,
     SKELETON,
     CREEPER,
-    // boss mobs
+    STRAY,
+    SNOW_GOLEM,
     WITHER,
-    // trader mobs
     COMMON,
     UNCOMMON,
     RARE

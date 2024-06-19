@@ -7,7 +7,7 @@
       "mob_type": "NORMAL",
       "mob_sub_type": "ZOMBIE",
       "img_path": "src/main/resources/images/mobs/zombie.png",
-      "spawn_chance": "0.3",
+      "spawn_chance": "0.2",
       "xp_drop_amount": "1.0",
       "gold_drop_amount": "1"
     },
@@ -18,7 +18,7 @@
       "mob_type": "NORMAL",
       "mob_sub_type": "ZOMBIE",
       "img_path": "src/main/resources/images/mobs/baby_zombie.png",
-      "spawn_chance": "0.3",
+      "spawn_chance": "0.15",
       "xp_drop_amount": "1.0",
       "gold_drop_amount": "1"
     },
@@ -29,7 +29,7 @@
       "mob_type": "NORMAL",
       "mob_sub_type": "SKELETON",
       "img_path": "src/main/resources/images/mobs/skeleton.png",
-      "spawn_chance": "0.3",
+      "spawn_chance": "0.2",
       "xp_drop_amount": "1.0",
       "gold_drop_amount": "1"
     },
@@ -40,7 +40,7 @@
       "mob_type": "NORMAL",
       "mob_sub_type": "SKELETON",
       "img_path": "src/main/resources/images/mobs/horse_skeleton.png",
-      "spawn_chance": "0.3",
+      "spawn_chance": "0.15",
       "xp_drop_amount": "1.0",
       "gold_drop_amount": "1"
     },
@@ -51,7 +51,7 @@
       "mob_type": "NORMAL",
       "mob_sub_type": "CREEPER",
       "img_path": "src/main/resources/images/mobs/creeper.png",
-      "spawn_chance": "0.3",
+      "spawn_chance": "0.2",
       "xp_drop_amount": "1.0",
       "gold_drop_amount": "1"
     },
@@ -62,12 +62,45 @@
       "mob_type": "NORMAL",
       "mob_sub_type": "CREEPER",
       "img_path": "src/main/resources/images/mobs/charged_creeper.png",
-      "spawn_chance": "0.3",
+      "spawn_chance": "0.15",
       "xp_drop_amount": "1.0",
       "gold_drop_amount": "1"
     },
     {
       "id": "7",
+      "name": "Stray",
+      "description": "Appears in snowy places!",
+      "mob_type": "NORMAL",
+      "mob_sub_type": "STRAY",
+      "img_path": "src/main/resources/images/mobs/stray.png",
+      "spawn_chance": "0.15",
+      "xp_drop_amount": "1.0",
+      "gold_drop_amount": "1"
+    },
+    {
+      "id": "8",
+      "name": "Snow golem",
+      "description": "Appears in snowy places!",
+      "mob_type": "NORMAL",
+      "mob_sub_type": "SNOW_GOLEM",
+      "img_path": "src/main/resources/images/mobs/snow_golem.png",
+      "spawn_chance": "0.15",
+      "xp_drop_amount": "1.0",
+      "gold_drop_amount": "1"
+    },
+    {
+      "id": "9",
+      "name": "Snow golem :)",
+      "description": "Appears in snowy places!",
+      "mob_type": "NORMAL",
+      "mob_sub_type": "SNOW_GOLEM",
+      "img_path": "src/main/resources/images/mobs/snow_golem_happy.png",
+      "spawn_chance": "0.05",
+      "xp_drop_amount": "1.0",
+      "gold_drop_amount": "1"
+    },
+    {
+      "id": "10",
       "name": "test boss mob",
       "description": "test boss mob description",
       "mob_type": "BOSS",
@@ -80,7 +113,7 @@
       "health_amount": "1000"
     },
     {
-      "id": "8",
+      "id": "11",
       "name": "test trader",
       "description": "test trader description",
       "mob_type": "TRADER",

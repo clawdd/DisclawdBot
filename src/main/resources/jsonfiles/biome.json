@@ -32,6 +32,43 @@
         "SKELETON",
         "CREEPER"
       ]
+    },
+    {
+      "type" : "SNOW",
+      "hp" : "10.0",
+      "imgPath": "src/main/resources/images/biome/snow.png",
+      "xpEnabled": false,
+      "mobs": [
+        "STRAY",
+        "SNOW_GOLEM"
+      ]
+    },
+    {
+      "type" : "NETHERRACK",
+      "hp" : "10.0",
+      "imgPath": "src/main/resources/images/biome/netherrack.png",
+      "xpEnabled": false,
+      "mobs": [
+
+      ]
+    },
+    {
+      "type" : "NETHER_QUARZ",
+      "hp" : "10.0",
+      "imgPath": "src/main/resources/images/biome/nether_quarz.png",
+      "xpEnabled": true,
+      "mobs": [
+
+      ]
+    },
+    {
+      "type" : "NETHER_GOLD",
+      "hp" : "10.0",
+      "imgPath": "src/main/resources/images/biome/nether_gold.png",
+      "xpEnabled": true,
+      "mobs": [
+
+      ]
     }
   ]
 }

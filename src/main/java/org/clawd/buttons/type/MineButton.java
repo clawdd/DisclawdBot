@@ -47,7 +47,7 @@ public class MineButton implements CustomButton {
             double userUpdatedXP = Main.sqlHandler.sqlStatsHandler.getXPCountFromUser(userID);
 
             Main.sqlHandler.sqlStatsHandler.replyToUserLevelUp(userCurrentXP,userUpdatedXP, event);
-            Main.mobSpawner.spawnMob(event.getHook());
+            Main.mobSpawner.spawnMob(event.getChannel());
             Main.LOG.info("Executed '"+ Constants.MINE_BUTTON_ID  + "' button");
         }
     }

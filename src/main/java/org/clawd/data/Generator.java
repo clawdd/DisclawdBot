@@ -1,7 +1,7 @@
 package org.clawd.data;
 
 import org.clawd.data.biomes.Biome;
-import org.clawd.data.enums.BiomeType;
+import org.clawd.data.biomes.BiomeType;
 import org.clawd.main.Main;
 
 import java.math.BigDecimal;

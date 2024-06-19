@@ -87,7 +87,7 @@ public class Mineworld {
                     .addActionRow(
                             Button.primary(Constants.MINE_BUTTON_ID, Constants.MINE_BUTTON_EMOJI)
                     )
-                    .complete();
+                    .queue();
 
         } catch (NullPointerException ex) {
             Main.LOG.severe("Could not load image file: " + ex.getMessage());
@@ -116,7 +116,7 @@ public class Mineworld {
                     .addFiles(FileUpload.fromData(imgFile, "ore.png"))
                     .addActionRow(
                             Button.primary(Constants.MINE_BUTTON_ID, Constants.MINE_BUTTON_EMOJI)
-                    ).complete();
+                    ).queue();
 
         } catch (NullPointerException ex) {
             Main.LOG.severe("Could not load image file: " + ex.getMessage());
@@ -142,7 +142,7 @@ public class Mineworld {
             event.editMessageEmbeds(embedBuilder.build())
                     .setFiles(FileUpload.fromData(imgFile, "ore.png"))
                     .setActionRow(Button.primary(Constants.MINE_BUTTON_ID, Constants.MINE_BUTTON_EMOJI))
-                    .complete();
+                    .queue();
             Main.LOG.info("Updated biome state.");
         } catch (NullPointerException ex) {
             Main.LOG.severe("Could not load image file: " + ex.getMessage());
@@ -174,7 +174,7 @@ public class Mineworld {
      * @param event Event
      */
     private void updateBiomeOnCompletion(ButtonInteractionEvent event) {
-        event.getMessage().delete().complete();
+        event.getMessage().delete().queue();
         this.currentBiomeFullHP = currentBiome.biomeHP();
         adjustCurrentBiomeHP();
         this.currentBiomeHP = currentBiomeFullHP;

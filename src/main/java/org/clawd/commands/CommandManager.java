@@ -1,5 +1,6 @@
 package org.clawd.commands;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.clawd.commands.type.slashcommand.*;
@@ -7,6 +8,7 @@ import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.util.HashMap;
 
 public class CommandManager extends ListenerAdapter {
@@ -35,6 +37,27 @@ public class CommandManager extends ListenerAdapter {
         Main.LOG.info("Received slash command: " + command);
 
         SlashCommand slashCommand = commands.get(command);
-        slashCommand.executeCommand(event);
+        if (slashCommand != null) {
+            slashCommand.executeCommand(event);
+        } else {
+            Main.LOG.info("Command: " + command + ", does not exist.");
+            replyToNonExistingCommand(event);
+        }
+    }
+
+    /**
+     * This function is called in the case of a non-existing slash command
+     *
+     * @param event Received event
+     */
+    private void replyToNonExistingCommand(SlashCommandInteractionEvent event){
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+
+        embedBuilder.setColor(Color.RED);
+        embedBuilder.setTitle("Command does not exist!");
+        embedBuilder.setDescription("The command you are trying to use doesnt exist or was eaten" +
+                " by the cookie monster :confused:");
+
+        event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
     }
 }

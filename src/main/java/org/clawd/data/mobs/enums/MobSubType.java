@@ -7,7 +7,8 @@ public enum MobSubType {
     STRAY,
     SNOW_GOLEM,
     WITHER,
-    COMMON,
-    UNCOMMON,
-    RARE
+    COMMON_TRADER,
+    UNCOMMON_TRADER,
+    RARE_TRADER,
+    EPIC_TRADER
 }

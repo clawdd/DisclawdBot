@@ -141,8 +141,9 @@ public class Mineworld {
 
             event.editMessageEmbeds(embedBuilder.build())
                     .setFiles(FileUpload.fromData(imgFile, "ore.png"))
-                    .setActionRow(Button.primary(Constants.MINE_BUTTON_ID, Constants.MINE_BUTTON_EMOJI))
-                    .queue();
+                    .setActionRow(
+                            Button.primary(Constants.MINE_BUTTON_ID, Constants.MINE_BUTTON_EMOJI)
+                    ).queue();
             Main.LOG.info("Updated biome state.");
         } catch (NullPointerException ex) {
             Main.LOG.severe("Could not load image file: " + ex.getMessage());
@@ -160,8 +161,14 @@ public class Mineworld {
     public void updateBiome(ButtonInteractionEvent event, Item equippedItem) {
         damageBiome(equippedItem);
         if (this.currentBiomeHP <= 0) {
+
             this.currentBiome = generateBiome();
             updateBiomeOnCompletion(event);
+            /*
+             * We need to update the mob spawner if a biome is completed and only if it is completed
+             * to update the spawnable mob list, avoids unnecessary list filtering calls
+             */
+            Main.mobSpawner.updateSpawner();
             return;
         }
         updateBiomeMsg(event);
@@ -268,16 +275,31 @@ public class Mineworld {
     /**
      * Gets an item from the itemList by an item ID
      *
-     * @param itemID The item ID we search with
+     * @param id The item ID we search with
      * @return The item matching the item ID, if not found null is returned
      */
-    public Item getItemByID(int itemID) {
+    public Item getItemByID(int id) {
         Item returnItem = null;
         for (Item item : itemList) {
-            if (item.getUniqueID() == itemID)
+            if (item.getUniqueID() == id)
                 returnItem = item;
         }
         return returnItem;
+    }
+
+    /**
+     * Gets a mob from the mob List by a mob ID
+     *
+     * @param id The mob ID we search with
+     * @return The mob matching the mob ID, if not found null is returned
+     */
+    public Mob getMobByID(int id) {
+        Mob returnMob = null;
+        for (Mob mob : mobList) {
+            if (mob.getUniqueID() == id)
+                return returnMob = mob;
+        }
+        return returnMob;
     }
 
     public Biome getCurrentBiome() {

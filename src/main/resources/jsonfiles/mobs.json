@@ -117,7 +117,7 @@
       "name": "test trader",
       "description": "test trader description",
       "mob_type": "TRADER",
-      "mob_sub_type": "COMMON",
+      "mob_sub_type": "COMMON_TRADER",
       "img_path": "path.img",
       "spawn_chance": "0.1",
       "trade_type": "XP"

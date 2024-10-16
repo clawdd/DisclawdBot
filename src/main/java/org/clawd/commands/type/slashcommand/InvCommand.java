@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
 
-public class InvCommand implements SlashCommand{
+public class InvCommand implements SlashCommand {
 
     @Override
     public void executeCommand(SlashCommandInteractionEvent event) {
@@ -15,7 +15,7 @@ public class InvCommand implements SlashCommand{
             Main.sqlHandler.sqlEmbeddedHandler.replyToNewRegisteredUser(event);
         } else {
             Main.mineworld.inventoryHandler.replyWithInventoryFirstEmbedded(event);
-            Main.LOG.info("Executed '"+ Constants.INV_COMMAND_ID +"' button");
+            Main.LOG.info("Executed '" + Constants.INV_COMMAND_ID + "' button");
         }
     }
 }

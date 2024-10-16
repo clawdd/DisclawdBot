@@ -19,6 +19,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    TODO: change up parser such that the .json file can be structured by mob types
+          -> json array for normal, boss, trader mobs
+ */
 public class MobParser {
 
     private  final  Factory factory = new Factory();

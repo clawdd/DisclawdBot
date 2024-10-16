@@ -4,7 +4,6 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.clawd.buttons.CustomButton;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.UtilItem;
-import org.clawd.data.items.WeaponItem;
 import org.clawd.data.items.enums.ItemType;
 import org.clawd.main.Main;
 import org.clawd.tokens.Constants;
@@ -41,13 +40,12 @@ public class MineButton implements CustomButton {
             Main.mineworld.updateBiome(event, equippedItem);
 
             double userCurrentXP = Main.sqlHandler.sqlStatsHandler.getXPCountFromUser(userID);
-            Main.sqlHandler.sqlStatsHandler.incrementMineCount(userID);
-            Main.sqlHandler.sqlStatsHandler.incrementXPCount(userID, combinedXP);
-            Main.sqlHandler.sqlStatsHandler.changeGoldCount(userID, combinedGold);
+            Main.sqlHandler.sqlStatsHandler.updateUserStatsAfterMining(userID, combinedXP, combinedGold);
             double userUpdatedXP = Main.sqlHandler.sqlStatsHandler.getXPCountFromUser(userID);
 
             Main.sqlHandler.sqlStatsHandler.replyToUserLevelUp(userCurrentXP,userUpdatedXP, event);
             Main.mobSpawner.spawnMob(event.getChannel());
+
             Main.LOG.info("Executed '"+ Constants.MINE_BUTTON_ID  + "' button");
         }
     }

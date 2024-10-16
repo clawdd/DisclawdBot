@@ -22,7 +22,6 @@ import java.util.*;
 import java.util.List;
 
 public class Mineworld {
-    // TODO - add timestamp to messages
     public final ShopHandler shopHandler;
     public final InventoryHandler inventoryHandler;
     private final List<Item> itemList;
@@ -294,12 +293,11 @@ public class Mineworld {
      * @return The mob matching the mob ID, if not found null is returned
      */
     public Mob getMobByID(int id) {
-        Mob returnMob = null;
         for (Mob mob : mobList) {
             if (mob.getUniqueID() == id)
-                return returnMob = mob;
+                return mob;
         }
-        return returnMob;
+        return null;
     }
 
     public Biome getCurrentBiome() {

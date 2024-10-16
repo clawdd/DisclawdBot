@@ -95,11 +95,12 @@ public class Inventory {
     }
 
     private EmbedBuilder createMainPage(String userID, String userName, String userAvatarURL, int inventoryPagesCount) {
-        int minedCount = Main.sqlHandler.sqlStatsHandler.getMinedCountFromUser(userID);
-        int mobKills = Main.sqlHandler.sqlStatsHandler.getMobKillsFromUser(userID);
-        int bossKills = Main.sqlHandler.sqlStatsHandler.getBossKillsFromUser(userID);
-        double xpCount = Main.sqlHandler.sqlStatsHandler.getXPCountFromUser(userID);
-        int goldCount = Main.sqlHandler.sqlStatsHandler.getGoldCountFromUser(userID);
+        UserStats userStats = Main.sqlHandler.sqlStatsHandler.getUserStats(userID);
+        int minedCount = userStats.getMinedCount();
+        int mobKills = userStats.getMobKills();
+        int bossKills = userStats.getBossKills();
+        double xpCount = userStats.getXpCount();
+        int goldCount = userStats.getGoldCount();
 
         double baseXP = Constants.BASE_XP_MULTIPLIER;
         double baseGold = Constants.BASE_GOLD_MULTIPLIER;

@@ -27,7 +27,7 @@ public class NormalMob extends Mob {
         return xpDrop;
     }
 
-    public double getGoldDrop() {
+    public int getGoldDrop() {
         return goldDrop;
     }
 }

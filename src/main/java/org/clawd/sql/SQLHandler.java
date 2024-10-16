@@ -8,13 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Holds basic methods for SQL actions
- */
 public class SQLHandler {
+
     public final SQLEmbeddedHandler sqlEmbeddedHandler = new SQLEmbeddedHandler();
     public final SQLInventoryHandler sqlInventoryHandler = new SQLInventoryHandler();
     public final SQLStatsHandler sqlStatsHandler = new SQLStatsHandler();
+
     /**
      * This method returns if a user ID can be found inside the table.
      *

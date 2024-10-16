@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.utils.FileUpload;
+import org.clawd.data.inventory.UserStats;
 import org.clawd.data.items.Item;
 import org.clawd.data.items.UtilItem;
 import org.clawd.data.items.WeaponItem;
@@ -43,9 +44,10 @@ public class ItemCommand implements SlashCommand{
             String alternativeTxt;
             double alternativePerk;
 
+            UserStats userStats = Main.sqlHandler.sqlStatsHandler.getUserStats(userID);
 
-            int userLvl = Main.generator.computeLevel(Main.sqlHandler.sqlStatsHandler.getXPCountFromUser(userID));
-            int userGold = Main.sqlHandler.sqlStatsHandler.getGoldCountFromUser(userID);
+            int userLvl = Main.generator.computeLevel(userStats.getXpCount());
+            int userGold = userStats.getGoldCount();
 
             Button buyButton = Button.success(Constants.BUY_BUTTON_ID, "Buy");
             Button equipButton = Button.success(Constants.EQUIP_BUTTON_ID, "Equip");

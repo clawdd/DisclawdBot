@@ -49,7 +49,7 @@
       "imgPath": "src/main/resources/images/biome/netherrack.png",
       "xpEnabled": false,
       "mobs": [
-
+        "PIGLIN"
       ]
     },
     {
@@ -58,7 +58,7 @@
       "imgPath": "src/main/resources/images/biome/nether_quarz.png",
       "xpEnabled": true,
       "mobs": [
-
+        "PIGLIN"
       ]
     },
     {
@@ -67,7 +67,7 @@
       "imgPath": "src/main/resources/images/biome/nether_gold.png",
       "xpEnabled": true,
       "mobs": [
-
+        "PIGLIN"
       ]
     }
   ]

@@ -6,6 +6,7 @@ public enum MobSubType {
     CREEPER,
     STRAY,
     SNOW_GOLEM,
+    PIGLIN,
     WITHER,
     COMMON_TRADER,
     UNCOMMON_TRADER,

@@ -20,11 +20,10 @@ public class HelpCommand implements SlashCommand{
         embedBuilder.setDescription(Constants.HELP_COMMAND_DESC);
         embedBuilder.addBlankField(false);
         embedBuilder.addField("Disclawd", Constants.HELP_WHAT_IS, false);
-        embedBuilder.addField("", Constants.HELP_ABOUT_ME, false);
         embedBuilder.addField("", Constants.HELP_END_TEXT, false);
 
         embedBuilder.setFooter("PS: The title is a link :D");
-        embedBuilder.setUrl("https://clawd.info/");
+        embedBuilder.setUrl("https://krgermax.com/");
 
         File imgFile = new File(Constants.PATH_LOGO_IMG);
 

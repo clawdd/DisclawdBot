@@ -101,6 +101,28 @@
     },
     {
       "id": "10",
+      "name": "Piglin",
+      "description": "Appears in the nether",
+      "mob_type": "NORMAL",
+      "mob_sub_type": "PIGLIN",
+      "img_path": "src/main/resources/images/mobs/piglin.png",
+      "spawn_chance": "0.15",
+      "xp_drop_amount": "1.0",
+      "gold_drop_amount": "1"
+    },
+    {
+      "id": "11",
+      "name": "Piglin & Hoglin",
+      "description": "Appears in the nether",
+      "mob_type": "NORMAL",
+      "mob_sub_type": "PIGLIN",
+      "img_path": "src/main/resources/images/mobs/piglin_rider.png",
+      "spawn_chance": "0.05",
+      "xp_drop_amount": "1.0",
+      "gold_drop_amount": "1"
+    },
+    {
+      "id": "100",
       "name": "test boss mob",
       "description": "test boss mob description",
       "mob_type": "BOSS",
@@ -113,7 +135,7 @@
       "health_amount": "1000"
     },
     {
-      "id": "11",
+      "id": "1000",
       "name": "test trader",
       "description": "test trader description",
       "mob_type": "TRADER",
